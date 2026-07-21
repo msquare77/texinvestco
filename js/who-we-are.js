@@ -5,6 +5,9 @@
 
 initMobileNav();
 
+// Soft particle drift confined to the hero art panel (North Star mark)
+initImageParticles('#heroArtParticlesWho',{count:20});
+
 // Team toggles
 function toggleFounder(btn){
   const ext=document.getElementById('founder-ext');

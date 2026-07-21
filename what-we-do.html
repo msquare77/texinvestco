@@ -36,7 +36,6 @@
     <li><a href="who-we-are.html">Who We Are</a></li>
     <li><a href="what-we-do.html" class="act">What We Do</a></li>
     <li><a href="index.html#model">Our Model</a></li>
-    <li><a href="insights.html">Insights</a></li>
   </ul>
   <a href="index.html#contact" class="ncta">Discuss a Partnership</a>
   <button class="hbg" id="hbg" aria-label="Open menu">
@@ -49,7 +48,6 @@
   <a href="who-we-are.html">Who We Are</a>
   <a href="what-we-do.html">What We Do</a>
   <a href="index.html#model">Our Model</a>
-  <a href="insights.html">Insights</a>
   <a href="index.html#contact" class="mcta">Discuss an Operating Partnership</a>
   <div class="mfoot">
     <div class="mfoot-tag">Execution Over Speculation.</div>
@@ -60,10 +58,73 @@
 <!-- HERO -->
 <section class="wd-hero">
   <div class="wd-hero-glow"></div>
-  <div class="wd-hero-inner">
-    <p class="wd-eyebrow">What We Do</p>
-    <h1 class="wd-title">An Integrated Investment,<br><em>Not a Stack of Services</em></h1>
-    <p class="wd-intro">TexInvestCo is built beyond capital: we invest through operating capacity, execution infrastructure, and aligned participation. We invest in early-stage companies and services businesses across insurance technology, legal technology, and technology-enabled services. Through Murkez Technologies, our operating platform, we deploy teams that scale operations, build products, and provide the infrastructure required for growth.</p>
+  <div class="wd-hero-grid">
+    <div class="wd-hero-text">
+      <p class="wd-eyebrow">What We Do</p>
+      <h1 class="wd-title">An Integrated Investment,<br><em>Not a Stack of Services</em></h1>
+      <p class="wd-intro">TexInvestCo is built beyond capital: we invest through operating capacity, execution infrastructure, and aligned participation. We invest in early-stage companies and services businesses across insurance technology, legal technology, and technology-enabled services. Through Murkez Technologies, our operating platform, we deploy teams that scale operations, build products, and provide the infrastructure required for growth.</p>
+    </div>
+    <div class="wd-hero-visual">
+      <div class="hero-art">
+        <canvas class="hero-art-particles" id="heroArtParticlesWhat" aria-hidden="true"></canvas>
+        <svg class="hero-art-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fdf3d8" stop-opacity="0.7"/>
+              <stop offset="40%" stop-color="#f0d78a" stop-opacity="0.26"/>
+              <stop offset="100%" stop-color="#CAA84B" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- hub glow behind the brightest star, pulsates very slowly and subtly -->
+          <circle class="art-core-pulse-soft" style="transform-origin:190px 150px;" cx="190" cy="150" r="62" fill="url(#hubGlow)"/>
+
+          <!-- sparse constellation lines — a loose connect-the-dots path
+               between the bright stars only, thin and faint so the stars
+               themselves (not the wiring) read as the subject -->
+          <g stroke="rgba(202,168,75,0.16)" stroke-width="0.75">
+            <line x1="190" y1="150" x2="315" y2="130"/>
+            <line x1="190" y1="150" x2="220" y2="235"/>
+            <line x1="220" y1="235" x2="125" y2="255"/>
+            <line x1="125" y1="255" x2="65" y2="270"/>
+            <line x1="220" y1="235" x2="280" y2="215"/>
+            <line x1="315" y1="130" x2="280" y2="215"/>
+            <line x1="125" y1="255" x2="190" y2="300"/>
+            <line x1="220" y1="235" x2="190" y2="300"/>
+          </g>
+
+          <!-- bright glowing stars — each with its own soft bloom + core -->
+          <g>
+            <circle cx="315" cy="130" r="24" fill="url(#hubGlow)"/>
+            <circle cx="220" cy="235" r="24" fill="url(#hubGlow)"/>
+            <circle cx="125" cy="255" r="20" fill="url(#hubGlow)"/>
+            <circle cx="65" cy="270" r="16" fill="url(#hubGlow)"/>
+            <circle cx="280" cy="215" r="16" fill="url(#hubGlow)"/>
+            <circle cx="190" cy="300" r="16" fill="url(#hubGlow)"/>
+          </g>
+          <g fill="#fdf0c8">
+            <circle cx="190" cy="150" r="3.6"/>
+            <circle cx="315" cy="130" r="2.6"/>
+            <circle cx="220" cy="235" r="2.6"/>
+            <circle cx="125" cy="255" r="2.3"/>
+            <circle cx="65" cy="270" r="2"/>
+            <circle cx="280" cy="215" r="2"/>
+            <circle cx="190" cy="300" r="2"/>
+          </g>
+
+          <!-- dim, unconnected background stars — pure texture, no lines -->
+          <g fill="rgba(226,193,120,0.45)">
+            <circle cx="130" cy="70" r="1.3"/><circle cx="230" cy="95" r="1.2"/><circle cx="285" cy="80" r="1.1"/>
+            <circle cx="255" cy="165" r="1.3"/><circle cx="95" cy="190" r="1.2"/><circle cx="155" cy="215" r="1.1"/>
+            <circle cx="305" cy="250" r="1.2"/><circle cx="110" cy="340" r="1.1"/><circle cx="305" cy="320" r="1"/>
+            <circle cx="250" cy="280" r="1.1"/>
+            <circle cx="50" cy="120" r="1"/><circle cx="350" cy="60" r="0.9"/><circle cx="370" cy="180" r="1.1"/>
+            <circle cx="40" cy="330" r="1"/><circle cx="200" cy="50" r="0.9"/><circle cx="350" cy="370" r="1"/>
+            <circle cx="30" cy="220" r="0.9"/><circle cx="370" cy="300" r="1"/><circle cx="160" cy="370" r="0.9"/>
+          </g>
+        </svg>
+      </div>
+    </div>
   </div>
 </section>
 

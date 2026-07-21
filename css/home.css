@@ -152,6 +152,7 @@ nav{
 .kpi-l{font-size:0.58rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);line-height:1.5;}
 
 /* ── OUR MODEL ── */
+#model .si{position:relative;z-index:1;}
 .mgrid{display:grid;grid-template-columns:1fr 40px 1fr;align-items:stretch;margin-bottom:44px;}
 .mbox{display:flex;flex-direction:column;border:1px solid var(--gb);padding:30px 26px;}
 .mbox-icon{width:28px;height:28px;color:var(--gold);margin-bottom:16px;}
@@ -306,7 +307,7 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
   .btng{font-size:0.58rem;padding:12px 20px;}
   .btno{display:none;}
   .sec{padding:44px 5vw;}
-  .rule{padding:16px 5vw;}
+  .rule{padding:0 5vw;}
   .stit{margin-bottom:1.4rem;}
   .who-p{margin-bottom:1.6rem;}
   .mgrid{margin-bottom:24px;}

@@ -5,6 +5,12 @@
 
 initMobileNav();
 
+// Soft particle drift confined to the hero art panel (Constellation mark)
+initImageParticles('#heroArtParticlesWhat',{count:20});
+
+// Tilt + spotlight on the capability tiles
+initCardInteractions('.cap');
+
 function toggleTeam(id,btn){
   const c=document.getElementById(id);
   const open=c.classList.toggle('on');

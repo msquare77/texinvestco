@@ -52,6 +52,25 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
 // Mobile nav (hamburger + panel) — shared.js; homepage panel links can be same-page "#hash"es
 initMobileNav({ navOffset: 68 });
 
+// Cursor-following glow behind the hero content
+initCursorGlow('.hero');
+
+// Tilt + spotlight on the partner cards and edge cards
+initCardInteractions('.pcard, .ecard');
+
+// Slow drifting gradient mesh behind the Our Model section
+initGradientMesh('#model');
+
+// Parallax: the hero's wavy-line texture drifts slightly as the page scrolls
+(function(){
+  const hwaves=document.querySelector('.hwaves');
+  if(!hwaves||window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let ticking=false;
+  function apply(){ hwaves.style.transform=`translateY(${(window.scrollY*0.12).toFixed(1)}px)`; ticking=false; }
+  function onScroll(){ if(!ticking){ requestAnimationFrame(apply); ticking=true; } }
+  window.addEventListener('scroll',onScroll,{passive:true});
+})();
+
 // Engage accordion
 function toggleEC(id){
   const all=document.querySelectorAll('.encard');
