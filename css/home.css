@@ -320,19 +320,15 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
 .fcopy a{color:rgba(248,244,234,0.45);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
 .fcopy a:hover{color:var(--gold);}
 
-/* ── PROOF BAND ── */
-.proof-band{display:flex;align-items:center;flex-wrap:wrap;gap:0.4rem 0;font-size:0.91rem;font-weight:300;color:var(--mid);letter-spacing:0.04em;margin-bottom:1.4rem;line-height:1.9;}
-.proof-item{white-space:nowrap;display:inline-flex;align-items:center;gap:0.5rem;}
-.proof-icon{width:17px;height:17px;color:var(--gold);flex-shrink:0;}
-.proof-sep{color:var(--lo);margin:0 0.6rem;}
-
-/* Compact stacked credential — e.g. Fast Tech 50 with a smaller
-   secondary line underneath, instead of a separate proof-item. */
-.proof-item-stack{align-items:flex-start;}
-.proof-item-stack .proof-icon{margin-top:2px;}
-.proof-stack{display:flex;flex-direction:column;gap:2px;line-height:1.4;}
-.proof-main{font-size:1em;color:var(--mid);}
-.proof-sub{font-size:clamp(0.68rem,0.7em,0.78rem);font-weight:400;letter-spacing:0.03em;color:var(--lo);white-space:normal;}
+/* ── PROOF LIST — clean vertical list, not cards. Each credential is its
+   own row (icon + main line), with one or more smaller sub-lines
+   underneath for supporting detail. ── */
+.proof-list{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:1.6rem;}
+.proof-row{display:flex;align-items:flex-start;gap:0.7rem;}
+.proof-icon{width:17px;height:17px;color:var(--gold);flex-shrink:0;margin-top:3px;}
+.proof-stack{display:flex;flex-direction:column;gap:3px;line-height:1.4;}
+.proof-main{font-size:0.91rem;font-weight:300;color:var(--mid);letter-spacing:0.04em;}
+.proof-sub{font-size:0.74rem;font-weight:400;letter-spacing:0.03em;color:var(--lo);}
 .proof-link{display:inline-block;font-size:0.75rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
 .proof-link:hover{color:var(--hi);}
 
@@ -376,8 +372,7 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
      next to an empty box. Harmless no-op once .pcards drops to 1 column
      below 420px (span:1/-1 on a single-column grid is already full-width). */
   .pcards .pcard:last-child{grid-column:1 / -1;text-align:center;}
-  .proof-band{flex-direction:column;align-items:flex-start;gap:0;font-size:0.78rem;line-height:1.8;}
-  .proof-sep{display:none;}
+  .proof-list{gap:0.9rem;}
   #recognition{padding:53px 5vw 43px;}
   #contact{padding-top:36px;}
   .ecards{grid-template-columns:1fr;gap:1px;}
