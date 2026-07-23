@@ -139,7 +139,7 @@ function initCardInteractions(selector){
 /* Gradient mesh — slow, JS-driven drifting blobs behind a section,
    updated every frame via requestAnimationFrame. Very quiet; adds
    depth without calling attention to itself. */
-function initGradientMesh(containerSelector){
+function initGradientMesh(containerSelector,opts){
   const container=typeof containerSelector==='string'?document.querySelector(containerSelector):containerSelector;
   if(!container) return;
   if(getComputedStyle(container).position==='static') container.style.position='relative';
@@ -147,10 +147,10 @@ function initGradientMesh(containerSelector){
   const wrap=document.createElement('div');
   wrap.className='mesh-bg';
   wrap.setAttribute('aria-hidden','true');
-  const specs=[
-    {size:36,color:'rgba(202,168,75,0.07)',pos:{left:'-6%',top:'-10%'}},
-    {size:30,color:'rgba(90,120,180,0.07)',pos:{right:'-8%',top:'20%'}},
-    {size:26,color:'rgba(202,168,75,0.05)',pos:{left:'30%',bottom:'-14%'}}
+  const specs=(opts&&opts.specs)||[
+    {size:44,color:'rgba(202,168,75,0.16)',pos:{left:'-8%',top:'-12%'}},
+    {size:38,color:'rgba(110,145,210,0.14)',pos:{right:'-10%',top:'14%'}},
+    {size:34,color:'rgba(202,168,75,0.12)',pos:{left:'26%',bottom:'-18%'}}
   ];
   const blobs=specs.map(s=>{
     const b=document.createElement('span');
@@ -167,9 +167,9 @@ function initGradientMesh(containerSelector){
   function loop(now){
     const t=(now-start)/1000;
     blobs.forEach((b,i)=>{
-      const speed=0.05+i*0.015;
-      const rx=Math.sin(t*speed+i*2)*40;
-      const ry=Math.cos(t*speed*0.8+i)*32;
+      const speed=0.07+i*0.02;
+      const rx=Math.sin(t*speed+i*2)*70;
+      const ry=Math.cos(t*speed*0.8+i)*56;
       b.style.transform=`translate(${rx}px,${ry}px)`;
     });
     requestAnimationFrame(loop);

@@ -35,6 +35,14 @@ nav{
   padding:88px 5vw 60px;overflow:hidden;
   background:linear-gradient(150deg,#111d33 0%,#1a2e50 50%,#111d33 100%);
 }
+/* The diagonal gradient's bottom-edge color can land close to the next
+   section's bg1 tone depending on viewport height, erasing the seam.
+   A solid fade to bg0 guarantees clear contrast against whichever
+   section follows, regardless of viewport height. */
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:180px;z-index:0;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0%,var(--bg-0) 100%);
+}
 .hwaves{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 
 .glow{position:absolute;border-radius:50%;pointer-events:none;filter:blur(40px);}
@@ -226,6 +234,23 @@ nav{
 .tmore{font-size:0.66rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:0;}
 .tmore:hover{color:var(--hi);}
 
+/* ── RECOGNITION — sunset/starfield photo; text stays left, dark scrim
+   fades left-to-right so the star cluster is clearly visible on the
+   right side of the section. ── */
+#recognition{position:relative;overflow:hidden;}
+.recognition-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
+.recognition-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% 28%;display:block;}
+.recognition-scrim{
+  position:absolute;inset:0;z-index:0;
+  background:linear-gradient(90deg,
+    rgba(17,29,51,0.94) 0%,
+    rgba(17,29,51,0.85) 34%,
+    rgba(17,29,51,0.55) 58%,
+    rgba(17,29,51,0.22) 78%,
+    rgba(17,29,51,0.08) 100%);
+}
+#recognition .si{position:relative;z-index:1;}
+
 /* ── RECOGNITION ── */
 .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);}
 .ritem{background:var(--bg-1);padding:2.2rem 1.8rem;display:flex;flex-direction:column;transition:background 0.2s;}
@@ -235,14 +260,6 @@ nav{
 .rbody{font-size:0.82rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;margin-bottom:1.1rem;}
 .rcases{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:auto;}
 .rcase{font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:5px 10px;border-radius:2px;}
-
-/* ── CONTACT — sunset/starfield photo, tinted navy so text and the
-   form stay fully legible; a quiet atmosphere layer, not a focal image. ── */
-#contact{position:relative;overflow:hidden;}
-.contact-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
-.contact-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:65% 40%;display:block;}
-.contact-scrim{position:absolute;inset:0;z-index:0;background:rgba(27,43,75,0.86);}
-#contact .si{position:relative;z-index:1;}
 
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
 .chd{font-family:var(--fd);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:1rem;}

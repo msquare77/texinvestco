@@ -151,9 +151,10 @@ nav{
    scrolls. Element is created by initScrollProgress() in shared.js,
    auto-run on every page. ── */
 .scroll-progress{
-  position:fixed;top:0;left:0;height:3px;width:0%;
+  position:fixed;top:0;left:0;height:6px;width:0%;
   background:linear-gradient(90deg,var(--gold),var(--gold-lt));
   z-index:1200;pointer-events:none;
+  box-shadow:0 0 8px rgba(202,168,75,0.55);
 }
 
 /* ── Cursor-following glow — trails the mouse very faintly behind hero
@@ -186,34 +187,6 @@ nav{
    section (see initGradientMesh() in shared.js). ── */
 .mesh-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .mesh-blob{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform;}
-
-/* ── Subpage hero-art motion — slow ring rotation + core glow pulse,
-   reused across the decorative SVG marks in each subpage's two-panel
-   hero (viewBox 0 0 400 400, center 200,200 by convention). ── */
-.art-ring-rotate{transform-origin:200px 200px;animation:artRingRotate 22s ease-in-out infinite alternate;}
-@keyframes artRingRotate{0%{transform:rotate(-6deg);}100%{transform:rotate(6deg);}}
-.art-core-pulse{transform-origin:200px 200px;animation:artCorePulse 5s ease-in-out infinite;}
-@keyframes artCorePulse{0%,100%{opacity:0.65;transform:scale(0.92);}50%{opacity:1;transform:scale(1.12);}}
-/* Softer pulse variant — used on What We Do's constellation (the
-   original .art-core-pulse reads too strong against a busier, multi-
-   star composition); transform-origin is set inline per-use since the
-   glow isn't always centered at 200,200 like the North Star's. */
-.art-core-pulse-soft{animation:artCorePulseSoft 7s ease-in-out infinite;}
-@keyframes artCorePulseSoft{0%,100%{opacity:0.8;transform:scale(0.97);}50%{opacity:1;transform:scale(1.04);}}
-@media(prefers-reduced-motion:reduce){
-  .art-ring-rotate,.art-core-pulse,.art-core-pulse-soft{animation:none !important;}
-}
-
-/* ── Hero art panel — decorative SVG mark with a soft particle drift
-   confined to its own bounding area (not the whole hero). Shared by
-   every subpage's two-panel hero (Who We Are, What We Do). ── */
-.hero-art{position:relative;width:100%;max-width:320px;aspect-ratio:1/1;}
-.hero-art-particles{
-  position:absolute;inset:-16%;width:132%;height:132%;pointer-events:none;z-index:0;
-  -webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);
-  mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);
-}
-.hero-art-svg{position:relative;z-index:1;width:100%;height:100%;display:block;}
 
 @media(hover:none){
   .tilt-card{transform:none !important;}

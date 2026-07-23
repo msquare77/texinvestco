@@ -8,17 +8,14 @@ body{line-height:1.7;}
 /* Subpage nav sits in normal flow (sticky), unlike the homepage's fixed nav */
 nav{position:sticky;top:0;}
 
-/* HERO — two-panel: left-aligned text, right decorative art panel */
+/* HERO — single-column, left-aligned text (decorative art panel removed) */
 .pg-hero{
   padding:60px 5vw 44px;
   background:linear-gradient(150deg,#111d33 0%,#1a2e50 50%,#111d33 100%);
   position:relative;overflow:hidden;
 }
 .pg-hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(202,168,75,0.05) 0%,transparent 65%);}
-.pg-hero-grid{
-  position:relative;z-index:1;max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1.1fr 340px;gap:3.5rem;align-items:center;
-}
+.pg-hero-grid{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
 .pg-hero-text{text-align:left;}
 .pg-eyebrow{
   display:flex;align-items:center;gap:0.8rem;
@@ -27,11 +24,7 @@ nav{position:sticky;top:0;}
 .pg-eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);flex-shrink:0;}
 .pg-title{font-family:var(--fd);font-size:clamp(28px,3.6vw,42px);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:18px;letter-spacing:0.03em;}
 .pg-title em{font-style:normal;color:var(--gold);font-weight:400;}
-.pg-intro{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:520px;margin:0;}
-
-/* Hero art panel wrapper — the .hero-art/.hero-art-particles/.hero-art-svg
-   classes themselves now live in shared.css so What We Do can reuse them. */
-.pg-hero-visual{display:flex;align-items:center;justify-content:center;}
+.pg-intro{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:640px;margin:0;}
 
 /* SECTIONS */
 .sec{padding:80px 5vw;}
@@ -92,11 +85,6 @@ nav{position:sticky;top:0;}
   .founder-grid{grid-template-columns:1fr;}
   .rgrid{grid-template-columns:1fr;}
   .tgrid{grid-template-columns:1fr;}
-  .pg-hero-grid{grid-template-columns:1fr;gap:2.2rem;}
-  .pg-hero-text{text-align:center;}
-  .pg-eyebrow{justify-content:center;}
-  .pg-intro{margin:0 auto;}
-  .hero-art{max-width:220px;margin:0 auto;}
 }
 @media(max-width:720px){
   .sec{padding:44px 5vw;}
