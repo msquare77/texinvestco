@@ -58,7 +58,8 @@ nav{
 .ncta:hover{color:var(--hi);border-color:var(--hi);}
 
 /* Hamburger */
-.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:11px;margin-right:-11px;flex-shrink:0;}
+/* padding sized so the tappable box is at least the 44x44px accessibility minimum */
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:15px 11px;margin-right:-11px;flex-shrink:0;}
 .hbg span{display:block;width:22px;height:1.5px;background:var(--hi);transition:all 0.3s;}
 .hbg.act span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .hbg.act span:nth-child(2){opacity:0;}
@@ -195,4 +196,23 @@ nav{
 }
 @media(prefers-reduced-motion:reduce){
   .mesh-blob{transform:none !important;}
+}
+
+/* ── iPhone-only WebKit compositor relief ──
+   Heavy blur() radii + continuously-animated transforms are
+   disproportionately expensive for WebKit's compositor and are what make
+   the mobile-menu transition feel janky on iPhone specifically. Scoped so
+   Android/iPad/desktop (incl. desktop Safari) see zero change:
+   -webkit-touch-callout is WebKit-only (rules out Android/Firefox/Chrome),
+   and max-width:600px rules out iPad (~744px+) and desktop Safari while
+   still covering every iPhone size (largest iPhone viewport is ~430px). */
+@supports (-webkit-touch-callout: none){
+  @media(max-width:600px){
+    .glow{filter:blur(18px);}
+    .mesh-blob{filter:blur(26px);}
+    nav{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);}
+    .mpanel{will-change:transform;-webkit-backface-visibility:hidden;}
+    .mpanel{transform:translateX(100%) translateZ(0);}
+    .mpanel.on{transform:translateZ(0);}
+  }
 }

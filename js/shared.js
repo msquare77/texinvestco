@@ -14,7 +14,22 @@ function initMobileNav(opts){
   const mp = document.getElementById('mpanel');
   if(!hbg || !mp) return;
 
+  // iPhone WebKit can fire more than one click/touch event per tap; each
+  // extra firing races the previous open/close transition and reads as
+  // the menu "flickering". Debounce ONLY on iPhone (small viewport +
+  // WebKit-only feature check) — Android/desktop get zero behavior change.
+  let isIOSPhone = false;
+  if (window.CSS && CSS.supports && CSS.supports('-webkit-touch-callout: none')) {
+    isIOSPhone = window.innerWidth <= 600; // keep in sync with the CSS gate in shared.css
+  }
+  let toggleLocked = false;
+
   hbg.addEventListener('click', () => {
+    if (isIOSPhone) {
+      if (toggleLocked) return;
+      toggleLocked = true;
+      setTimeout(() => { toggleLocked = false; }, 400);
+    }
     const o = mp.classList.toggle('on');
     hbg.classList.toggle('act', o);
     document.body.style.overflow = o ? 'hidden' : '';
@@ -43,6 +58,21 @@ function initMobileNav(opts){
       document.body.style.overflow = '';
     }
   });
+
+  // If the viewport crosses into desktop width (resize or orientation
+  // change) while the mobile overlay is open, force it closed — otherwise
+  // the CSS-driven desktop nav reappears while the full-screen mobile
+  // panel is still open underneath it.
+  const desktopMQ = window.matchMedia('(min-width: 721px)');
+  const closeOnDesktop = (e) => {
+    if (e.matches && mp.classList.contains('on')) {
+      mp.classList.remove('on');
+      hbg.classList.remove('act');
+      document.body.style.overflow = '';
+    }
+  };
+  if (desktopMQ.addEventListener) desktopMQ.addEventListener('change', closeOnDesktop);
+  else desktopMQ.addListener(closeOnDesktop); // Safari <14 fallback
 }
 
 /* ────────────────────────────────────────────────────────────

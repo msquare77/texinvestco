@@ -21,7 +21,7 @@ nav{
 .nlogo{gap:8px;}
 .nmark{height:30px;}
 .nlogo-text{gap:2px;}
-.hbg{padding:10px;margin-right:0;}
+.hbg{padding:15px 11px;margin-right:0;}
 .mpanel a{color:rgba(248,244,234,0.70);border-bottom-color:rgba(201,168,76,0.08);}
 .ncta{border-bottom-color:rgba(201,168,76,0.4);padding:0.2rem 0 0.2rem;}
 @media(max-width:960px) and (min-width:721px){
@@ -244,7 +244,8 @@ nav{
 .tfoot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--gf);}
 .tlink{font-size:0.69rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
 .tlink:hover{color:var(--hi);}
-.tmore{font-size:0.69rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:0;}
+/* padding+negative margin enlarges the tap target toward 44px without shifting visual position/layout */
+.tmore{font-size:0.69rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:16px 6px;margin:-16px -6px;}
 .tmore:hover{color:var(--hi);}
 
 /* ── RECOGNITION — clean navy background (no photo) for stronger proof
@@ -324,6 +325,14 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
 .proof-item{white-space:nowrap;display:inline-flex;align-items:center;gap:0.5rem;}
 .proof-icon{width:17px;height:17px;color:var(--gold);flex-shrink:0;}
 .proof-sep{color:var(--lo);margin:0 0.6rem;}
+
+/* Compact stacked credential — e.g. Fast Tech 50 with a smaller
+   secondary line underneath, instead of a separate proof-item. */
+.proof-item-stack{align-items:flex-start;}
+.proof-item-stack .proof-icon{margin-top:2px;}
+.proof-stack{display:flex;flex-direction:column;gap:2px;line-height:1.4;}
+.proof-main{font-size:1em;color:var(--mid);}
+.proof-sub{font-size:clamp(0.68rem,0.7em,0.78rem);font-weight:400;letter-spacing:0.03em;color:var(--lo);white-space:normal;}
 .proof-link{display:inline-block;font-size:0.75rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
 .proof-link:hover{color:var(--hi);}
 
@@ -362,6 +371,11 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
   .mgrid{margin-bottom:24px;}
   .mclose{padding-top:18px;}
   .pcards{grid-template-columns:1fr 1fr;}
+  /* 5 cards in a 2-col grid strands the 5th card alone in the last row —
+     span it full-width and center it instead of leaving it stuck left
+     next to an empty box. Harmless no-op once .pcards drops to 1 column
+     below 420px (span:1/-1 on a single-column grid is already full-width). */
+  .pcards .pcard:last-child{grid-column:1 / -1;text-align:center;}
   .proof-band{flex-direction:column;align-items:flex-start;gap:0;font-size:0.78rem;line-height:1.8;}
   .proof-sep{display:none;}
   #recognition{padding:53px 5vw 43px;}
