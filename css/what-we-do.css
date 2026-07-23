@@ -26,7 +26,7 @@ nav{position:sticky;top:0;}
 .wd-eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);flex-shrink:0;}
 .wd-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,40px);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:20px;}
 .wd-title em{font-style:normal;color:var(--gold);font-weight:400;}
-.wd-intro{font-size:0.92rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:680px;margin:0;}
+.wd-intro{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:680px;margin:0;}
 
 /* SECTIONS */
 .sec{padding:72px 5vw;}
@@ -41,7 +41,7 @@ nav{position:sticky;top:0;}
 /* SPLIT: TexInvestCo / Murkez */
 .split{display:grid;grid-template-columns:1fr 44px 1fr;align-items:stretch;margin-top:1rem;}
 .split-box{display:flex;flex-direction:column;border:1px solid var(--gb);padding:32px 28px;}
-.split-name{font-family:var(--fd);font-size:0.68rem;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.split-name{font-family:var(--fd);font-size:0.71rem;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
 .split-line{font-size:1rem;font-weight:300;color:var(--hi);line-height:1.7;}
 .split-join{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.4rem;}
 .split-join .ah{display:inline;}
@@ -52,15 +52,15 @@ nav{position:sticky;top:0;}
 .cap{background:var(--bg-1);padding:1.6rem 1.4rem;border-top:2px solid transparent;transition:border-color 0.2s,background 0.2s;}
 .cap:hover{border-top-color:var(--gold);background:rgba(202,168,75,0.04);}
 .cap-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.8rem;}
-.cap-name{font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--hi);margin-bottom:0.5rem;}
-.cap-line{font-size:0.8rem;font-weight:300;color:var(--mid);line-height:1.6;}
+.cap-name{font-size:0.81rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--hi);margin-bottom:0.5rem;}
+.cap-line{font-size:0.84rem;font-weight:300;color:var(--mid);line-height:1.6;}
 .caps-foot{margin-top:1.6rem;}
-.caps-link{font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
+.caps-link{font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
 .caps-link:hover{color:var(--hi);}
 
 /* CAPITAL STRUCTURE */
 .cap-struct{background:var(--bg-1);border:1px solid var(--gb);border-top:2px solid var(--gold);padding:2.4rem 2.2rem;margin-top:1rem;}
-.cap-struct p{font-size:0.92rem;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:1.2rem;}
+.cap-struct p{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:1.2rem;}
 .cap-struct p:last-child{margin-bottom:0;}
 .cap-struct strong{color:var(--hi);font-weight:500;}
 .cap-struct-risk{border-top:1px solid var(--gf);padding-top:1.4rem;margin-top:1.6rem;font-style:italic;}
@@ -73,11 +73,11 @@ nav{position:sticky;top:0;}
   background-size:cover;background-position:center;background-repeat:no-repeat;
 }
 .beyond-sec .si{position:relative;z-index:1;}
-.beyond-intro{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:680px;margin-bottom:2.4rem;}
+.beyond-intro{font-size:0.98rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:680px;margin-bottom:2.4rem;}
 .ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gb);}
 .ba-card{background:var(--bg-0);padding:2.2rem 2rem;}
-.ba-card-t{font-size:0.72rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
-.ba-card-b{font-size:0.9rem;font-weight:300;color:var(--mid);line-height:1.8;}
+.ba-card-t{font-size:0.75rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.ba-card-b{font-size:0.93rem;font-weight:300;color:var(--mid);line-height:1.8;}
 .beyond-close{text-align:center;font-family:var(--fd);font-size:1.15rem;font-weight:400;color:var(--hi);letter-spacing:0.04em;margin-top:2.4rem;}
 
 /* TEAM (3-column layout on this page) */
@@ -85,14 +85,14 @@ nav{position:sticky;top:0;}
 .titem{background:var(--bg-1);padding:2rem 1.8rem;display:flex;flex-direction:column;transition:background 0.2s;}
 .titem:hover{background:rgba(202,168,75,0.04);}
 .tname{font-family:var(--fd);font-size:1rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
-.trole{font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
-.tbio{font-size:0.82rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
-.tbio-ext{max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s ease;font-size:0.8rem;font-weight:300;line-height:1.75;color:var(--mid);}
+.trole{font-size:0.66rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+.tbio{font-size:0.86rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.tbio-ext{max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s ease;font-size:0.84rem;font-weight:300;line-height:1.75;color:var(--mid);}
 .titem.on .tbio-ext{max-height:420px;margin-top:0.8rem;}
 .tfoot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--gf);}
-.tlink{font-size:0.66rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
+.tlink{font-size:0.69rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
 .tlink:hover{color:var(--hi);}
-.tmore{font-size:0.66rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:0;}
+.tmore{font-size:0.69rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:0;}
 .tmore:hover{color:var(--hi);}
 
 /* RESPONSIVE */
