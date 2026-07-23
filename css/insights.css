@@ -3,10 +3,14 @@
    Loaded after css/shared.css.
    ──────────────────────────────────────────────────────────── */
 
-body{line-height:1.7;}
+body{line-height:1.7;padding-top:68px;}
 
-/* Subpage nav sits in normal flow (sticky), unlike the homepage's fixed nav */
-nav{position:sticky;top:0;}
+/* Fixed nav, matching the homepage — position:sticky was silently broken
+   here because shared.css sets overflow-x:hidden on html/body, and per the
+   CSS overflow spec that forces the other axis to compute as overflow-y:auto,
+   which makes body/html into position:sticky's nearest scrolling ancestor
+   instead of the viewport. Fixed positioning sidesteps that bug entirely. */
+nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 
 /* HERO */
 .pg-hero{
