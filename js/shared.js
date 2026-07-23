@@ -136,47 +136,6 @@ function initCardInteractions(selector){
   });
 }
 
-/* Gradient mesh — slow, JS-driven drifting blobs behind a section,
-   updated every frame via requestAnimationFrame. Very quiet; adds
-   depth without calling attention to itself. */
-function initGradientMesh(containerSelector,opts){
-  const container=typeof containerSelector==='string'?document.querySelector(containerSelector):containerSelector;
-  if(!container) return;
-  if(getComputedStyle(container).position==='static') container.style.position='relative';
-  container.style.overflow='hidden';
-  const wrap=document.createElement('div');
-  wrap.className='mesh-bg';
-  wrap.setAttribute('aria-hidden','true');
-  const specs=(opts&&opts.specs)||[
-    {size:44,color:'rgba(202,168,75,0.16)',pos:{left:'-8%',top:'-12%'}},
-    {size:38,color:'rgba(110,145,210,0.14)',pos:{right:'-10%',top:'14%'}},
-    {size:34,color:'rgba(202,168,75,0.12)',pos:{left:'26%',bottom:'-18%'}}
-  ];
-  const blobs=specs.map(s=>{
-    const b=document.createElement('span');
-    b.className='mesh-blob';
-    b.style.width=s.size+'vw'; b.style.height=s.size+'vw';
-    Object.assign(b.style,s.pos);
-    b.style.background=`radial-gradient(circle, ${s.color} 0%, transparent 70%)`;
-    wrap.appendChild(b);
-    return b;
-  });
-  container.insertBefore(wrap,container.firstChild);
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const start=performance.now();
-  function loop(now){
-    const t=(now-start)/1000;
-    blobs.forEach((b,i)=>{
-      const speed=0.07+i*0.02;
-      const rx=Math.sin(t*speed+i*2)*70;
-      const ry=Math.cos(t*speed*0.8+i)*56;
-      b.style.transform=`translate(${rx}px,${ry}px)`;
-    });
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-}
-
 /* Scroll-linked parallax for background-image elements (the CTA
    strip's and "Beyond the Build"'s wavy-line texture) — the texture
    drifts slightly slower than the foreground content as the page

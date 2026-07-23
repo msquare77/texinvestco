@@ -58,25 +58,21 @@ initCursorGlow('.hero');
 // Tilt + spotlight on the partner cards and edge cards
 initCardInteractions('.pcard, .ecard');
 
-// Slow drifting gradient mesh behind the Our Model section
-initGradientMesh('#model');
-
-// Slow drifting gradient mesh behind the hero — larger, gold/blue blobs
-// tuned for the hero's full-viewport size and dark gradient background
-initGradientMesh('.hero', {specs:[
-  {size:60,color:'rgba(202,168,75,0.20)',pos:{left:'-12%',top:'-8%'}},
-  {size:52,color:'rgba(110,145,210,0.16)',pos:{right:'-14%',top:'22%'}},
-  {size:46,color:'rgba(202,168,75,0.14)',pos:{left:'20%',bottom:'-20%'}}
-]});
-
-// Parallax: the hero's wavy-line texture drifts as the page scrolls
+// Parallax: the hero's wavy-line texture drifts as the page scrolls, plus
+// a slight continuous undulation so the lines feel alive even at rest.
 (function(){
   const hwaves=document.querySelector('.hwaves');
   if(!hwaves||window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let ticking=false;
-  function apply(){ hwaves.style.transform=`translateY(${(window.scrollY*0.35).toFixed(1)}px)`; ticking=false; }
-  function onScroll(){ if(!ticking){ requestAnimationFrame(apply); ticking=true; } }
-  window.addEventListener('scroll',onScroll,{passive:true});
+  let scrollY=0;
+  const start=performance.now();
+  function loop(now){
+    const t=(now-start)/1000;
+    const undulate=Math.sin(t*0.35)*10;
+    hwaves.style.transform=`translateY(${(scrollY*0.35+undulate).toFixed(1)}px)`;
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('scroll',()=>{ scrollY=window.scrollY; },{passive:true});
+  requestAnimationFrame(loop);
 })();
 
 // Engage accordion
