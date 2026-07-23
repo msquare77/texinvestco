@@ -58,6 +58,9 @@ initCursorGlow('.hero');
 // Tilt + spotlight on the partner cards and edge cards
 initCardInteractions('.pcard, .ecard');
 
+// Slow drifting gradient mesh behind the Our Model section (hero-only removal — this one stays)
+initGradientMesh('#model');
+
 // Parallax: the hero's wavy-line texture drifts as the page scrolls, plus
 // a slight continuous undulation so the lines feel alive even at rest.
 (function(){

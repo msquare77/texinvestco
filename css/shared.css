@@ -183,8 +183,16 @@ nav{
   background:radial-gradient(circle 180px at var(--mx,50%) var(--my,50%),rgba(202,168,75,0.14),transparent 70%);
 }
 
+/* ── Gradient-mesh background — slow, JS-driven drifting blobs behind a
+   section (see initGradientMesh() in shared.js). ── */
+.mesh-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform;}
+
 @media(hover:none){
   .tilt-card{transform:none !important;}
   .card-spot{display:none;}
   .cursor-glow{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .mesh-blob{transform:none !important;}
 }
