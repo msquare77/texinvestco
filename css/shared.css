@@ -18,6 +18,17 @@
 html{scroll-behavior:smooth;font-size:16px;max-width:100%;overflow-x:hidden;}
 body{font-family:var(--fb);color:var(--hi);background:var(--bg-0);overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;}
 
+/* Anchor targets — keep section headings clear of the sticky/fixed nav
+   (68px tall) when jumping via nav links or #hash scrolling. */
+section[id]{scroll-margin-top:92px;}
+
+/* Body-copy readability on mobile: --mid/--lo are used everywhere for
+   secondary text (Founder Story, Recognition, Philosophy, Contact, etc.) —
+   bump both slightly on small screens where the same opacity reads fainter. */
+@media(max-width:720px){
+  :root{--mid:rgba(248,244,234,0.74); --lo:rgba(248,244,234,0.56);}
+}
+
 /* ── NAV — base look shared by every page. Each page's own css file
    adds just the positioning: the homepage nav floats FIXED over the
    hero (see css/home.css), while subpages use a STICKY nav that sits
