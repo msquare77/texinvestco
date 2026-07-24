@@ -31,6 +31,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .wd-title{font-family:var(--fd);font-size:clamp(26px,3.4vw,40px);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:20px;}
 .wd-title em{font-style:normal;color:var(--gold);font-weight:400;}
 .wd-intro{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:680px;margin:0;}
+.wd-intro+.wd-intro{margin-top:1rem;}
 
 /* SECTIONS */
 .sec{padding:72px 5vw;}

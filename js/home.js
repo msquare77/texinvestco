@@ -125,12 +125,35 @@ document.querySelectorAll('a[href="#contact"]').forEach(a=>{
 // Contact form
 const ct=document.getElementById('fthanks');
 const cf=document.getElementById('cform');
+const cerr=document.getElementById('ferror');
+const csubmit=cf.querySelector('button[type="submit"]');
+function showError(msg){
+  cerr.textContent=msg;
+  cerr.style.display='block';
+  // keep focus in the form and announce the error without a blocking dialog
+  cerr.setAttribute('tabindex','-1');
+  cerr.focus();
+}
 cf.addEventListener('submit',async e=>{
   e.preventDefault();
+  cerr.style.display='none';
+  csubmit.disabled=true;
+  const originalLabel=csubmit.textContent;
+  csubmit.textContent='Sending…';
   const data=new FormData(cf);
   try{
     const res=await fetch(cf.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
-    if(res.ok){cf.style.display='none';ct.style.display='block';}
-    else{alert('Something went wrong sending your message. Please email hello@texinvestco.com directly.');}
-  }catch(err){alert('Something went wrong sending your message. Please email hello@texinvestco.com directly.');}
+    if(res.ok){
+      cf.style.display='none';
+      ct.style.display='block';
+      ct.focus();
+    }else{
+      showError('Something went wrong sending your message. Please email hello@texinvestco.com directly.');
+    }
+  }catch(err){
+    showError('Something went wrong sending your message. Please email hello@texinvestco.com directly.');
+  }finally{
+    csubmit.disabled=false;
+    csubmit.textContent=originalLabel;
+  }
 });

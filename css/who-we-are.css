@@ -84,6 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .rbody{font-size:0.86rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
 .rcases{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.1rem;}
 .rcase{font-size:0.6rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:4px 8px;border-radius:2px;}
+.rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
 
 /* PHILOSOPHY */
 .phil-intro{font-size:0.98rem;font-weight:300;color:var(--mid);line-height:1.9;max-width:680px;margin-bottom:2.4rem;}
@@ -94,7 +95,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .founder-grid{grid-template-columns:1fr;}
+  .founder-grid{grid-template-columns:1fr;gap:1.4rem;}
   .rgrid{grid-template-columns:1fr;}
   .tgrid{grid-template-columns:1fr;}
 }

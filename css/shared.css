@@ -18,9 +18,13 @@
 html{scroll-behavior:smooth;font-size:16px;max-width:100%;overflow-x:hidden;}
 body{font-family:var(--fb);color:var(--hi);background:var(--bg-0);overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;}
 
-/* Anchor targets — keep section headings clear of the sticky/fixed nav
-   (68px tall) when jumping via nav links or #hash scrolling. */
-section[id]{scroll-margin-top:92px;}
+/* Anchor targets — keep section headings clear of the fixed nav when
+   jumping via nav links or #hash scrolling. The fixed nav measures 68px
+   tall on every page at every breakpoint (verified via Playwright), so
+   the offset is set to that actual height rather than a padded guess —
+   this was previously 92px on subpages (24px more than the real header),
+   which left an oversized gap above the heading on anchor-jump. */
+section[id]{scroll-margin-top:68px;}
 
 /* Body-copy readability on mobile: --mid/--lo are used everywhere for
    secondary text (Founder Story, Recognition, Philosophy, Contact, etc.) —
@@ -135,7 +139,7 @@ nav{
 
 /* ── Simple one-line footer — used by who-we-are.html, what-we-do.html, privacy.html
    (the homepage has its own larger multi-column footer, defined in css/home.css) ── */
-.simple-footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);padding:32px 5vw;text-align:center;}
+.simple-footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);padding:32px 5vw calc(32px + env(safe-area-inset-bottom));text-align:center;}
 .fcopy{font-size:0.71rem;color:rgba(248,244,234,0.45);}
 .fcopy a{color:rgba(248,244,234,0.45);text-decoration:underline;text-underline-offset:2px;}
 .fcopy a:hover{color:var(--gold);}

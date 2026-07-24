@@ -30,11 +30,18 @@ nav{
 
 /* ── HERO (reverted to centered v4 design) ── */
 .hero{
-  position:relative;min-height:100vh;display:flex;flex-direction:column;
+  position:relative;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  padding:88px 5vw 60px;overflow:hidden;
+  padding:88px 5vw calc(60px + env(safe-area-inset-bottom));overflow:hidden;
   background:linear-gradient(150deg,#111d33 0%,#1a2e50 50%,#111d33 100%);
 }
+/* min-height:100vh first as a fallback for browsers without svh support;
+   100svh (the "small" viewport height — excludes space the browser UI
+   can reclaim) is applied after so Safari/WhatsApp's collapsible toolbar
+   never leaves the hero taller than the visible viewport, which was
+   pushing the CTA row / logo below the fold behind the browser chrome. */
+.hero{min-height:100vh;}
+@supports (height:100svh){.hero{min-height:100svh;}}
 /* The diagonal gradient's bottom-edge color can land close to the next
    section's bg1 tone depending on viewport height, erasing the seam.
    A solid fade to bg0 guarantees clear contrast against whichever
@@ -254,20 +261,22 @@ nav{
 #recognition{position:relative;overflow:hidden;padding:114px 5vw;}
 
 /* ── RECOGNITION ── */
-.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);margin:2rem 0 1.8rem;}
 .ritem{background:var(--bg-1);padding:2.2rem 1.8rem;display:flex;flex-direction:column;transition:background 0.2s;}
 .ritem:hover{background:rgba(201,168,76,0.05);}
+.ritem-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
 .rorg{font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
 .raward{font-family:var(--fd);font-size:0.95rem;font-weight:600;color:var(--hi);margin-bottom:0.9rem;line-height:1.25;}
 .rbody{font-size:0.86rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;margin-bottom:1.1rem;}
 .rcases{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:auto;}
 .rcase{font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:5px 10px;border-radius:2px;}
+.rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
 
 /* ── CONTACT — mountain/night visual test behind the closing CTA/intro.
    Two-column layout (text left, form right) needs legibility on both
    sides, so a uniform tint is used rather than a directional scrim.
    Placement and imagery are pending Sarah's final input. ── */
-#contact{position:relative;overflow:hidden;}
+#contact{position:relative;overflow:hidden;padding-bottom:calc(80px + env(safe-area-inset-bottom));}
 .contact-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
 .contact-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 30%;display:block;}
 .contact-scrim{position:absolute;inset:0;z-index:0;background:rgba(27,43,75,0.86);}
@@ -281,15 +290,19 @@ nav{
 .cnote{font-size:0.71rem;font-weight:300;color:var(--lo);margin-top:0.9rem;font-style:italic;}
 .cform{display:flex;flex-direction:column;gap:16px;}
 .fg{display:flex;flex-direction:column;gap:6px;}
-.fl{font-size:0.67rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:rgba(248,244,234,0.75);}
+.fl{font-size:0.67rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:rgba(248,244,234,0.88);}
 .fi,.ft{
-  background:rgba(201,168,76,0.04);border:1px solid rgba(202,168,75,0.45);color:var(--hi);
+  background:rgba(201,168,76,0.06);border:1px solid rgba(202,168,75,0.6);color:var(--hi);
   font-family:var(--fb);font-size:0.88rem;font-weight:300;padding:12px 14px;
-  outline:none;width:100%;border-radius:0;-webkit-appearance:none;transition:border-color 0.2s;
+  outline:none;width:100%;border-radius:0;-webkit-appearance:none;transition:border-color 0.2s,box-shadow 0.2s;
 }
-.fi:focus,.ft:focus{border-color:var(--gold);}
-.fi::placeholder,.ft::placeholder{color:rgba(248,244,234,0.4);}
+/* Visible keyboard-focus ring in addition to the border-color change, so
+   focus is unambiguous for keyboard users (not relying on border alone). */
+.fi:focus,.ft:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(202,168,75,0.22);}
+.fi::placeholder,.ft::placeholder{color:rgba(248,244,234,0.52);}
 .ft{resize:vertical;min-height:100px;}
+.fg.field-error .fi,.fg.field-error .ft{border-color:#e08a6b;}
+.ferror{display:none;padding:14px 16px;border:1px solid #e08a6b;color:#f2c4b0;font-size:0.8rem;font-weight:300;line-height:1.6;margin-top:4px;}
 .fthanks{display:none;padding:18px 20px;border:1px solid var(--gold);font-size:0.85rem;font-weight:300;color:var(--gold);letter-spacing:0.04em;}
 .fnote{font-size:0.68rem;font-weight:300;color:var(--lo);line-height:1.6;margin-top:0.6rem;font-style:italic;}
 
@@ -312,7 +325,7 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
 }
 .fcol a:hover{color:var(--gold);}
 .fbottom{
-  max-width:1100px;margin:0 auto;padding:1.4rem 5vw;
+  max-width:1100px;margin:0 auto;padding:1.4rem 5vw calc(1.4rem + env(safe-area-inset-bottom));
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;
   border-top:1px solid rgba(202,168,75,0.07);
 }
@@ -374,7 +387,7 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
   .pcards .pcard:last-child{grid-column:1 / -1;text-align:center;}
   .proof-list{gap:0.9rem;}
   #recognition{padding:53px 5vw 43px;}
-  #contact{padding-top:36px;}
+  #contact{padding-top:36px;padding-bottom:calc(43px + env(safe-area-inset-bottom));}
   .ecards{grid-template-columns:1fr;gap:1px;}
   .ecard{padding:2rem 1.6rem;}
   .rgrid{grid-template-columns:1fr;}
