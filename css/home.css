@@ -279,14 +279,14 @@ nav{
 
 /* ── RECOGNITION ── */
 .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);margin:2rem 0 1.8rem;}
-.ritem{background:var(--bg-1);padding:2.2rem 1.8rem;display:flex;flex-direction:column;transition:background 0.2s;}
+.ritem{background:var(--bg-1);padding:2.2rem 1.6rem;display:flex;flex-direction:column;transition:background 0.2s;}
 .ritem:hover{background:rgba(201,168,76,0.05);}
 .ritem-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
 .rorg{font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
 .raward{font-family:var(--fd);font-size:0.95rem;font-weight:600;color:var(--hi);margin-bottom:0.9rem;line-height:1.25;}
-.rbody{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;margin-bottom:1.1rem;}
-.rcases{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:auto;}
-.rcase{font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:5px 10px;border-radius:5px;}
+.rbody{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.rcases{display:flex;flex-wrap:wrap;gap:0.28rem;margin-top:1.1rem;}
+.rcase{font-size:0.53rem;font-weight:600;letter-spacing:0.01em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:4px 6px;border-radius:5px;line-height:1.3;white-space:nowrap;}
 .rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
 
 /* .ritem-link — same card, but reachable as a link (currently just the
@@ -295,10 +295,16 @@ nav{
    as clickable without disrupting the card grid's shared visual rhythm. */
 .ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
 .ritem-link:hover{background:rgba(202,168,75,0.06);}
+/* Positioned absolutely (not left in normal flex flow) so this hidden
+   affordance text never occupies flex-layout height — previously, even
+   at opacity:0, it counted as a real flex item and stole vertical space
+   from .rbody{flex:1}, which is why the Microsoft card's pill row sat
+   noticeably higher than its siblings' (the only card using this class). */
 .ritem-link::after{
   content:'View case study →';
-  display:block;margin-top:0.9rem;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
-  color:var(--gold);opacity:0;transform:translateY(-4px);transition:opacity 0.2s,transform 0.2s;
+  position:absolute;left:1.8rem;bottom:1.4rem;pointer-events:none;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transform:translateY(4px);transition:opacity 0.2s,transform 0.2s;
 }
 .ritem-link:hover::after{opacity:1;transform:none;}
 
@@ -445,18 +451,18 @@ nav{
   .mbox{padding:27px 26px;} /* ~10% less vertical padding; side margins unchanged */
   .mclose{padding-top:18px;text-wrap:balance;}
   #partners{padding-top:56px;} /* match the breathing room other section transitions get */
-  .pcards{grid-template-columns:1fr 1fr;}
+  /* Single column at every phone width, iPhone and Samsung alike — a 2-col
+     grid here used to kick in only above 420px (so iPhones ~430px+ got a
+     2-up grid while narrower Samsung phones fell through to 1-column),
+     which read as an inconsistency between devices. Stacked single-column
+     cards are the preferred mobile treatment across all phone widths. */
+  .pcards{grid-template-columns:1fr;}
   /* Undo the 3-col breakpoint's 6-column/span-2 trick — back to a plain
-     2-col grid where each card is a normal single track again. */
+     1-col grid where each card is a normal single track again. */
   .pcard{grid-column:auto;}
   .pcards .pcard:nth-child(4){grid-column:auto;}
-  /* 5 cards in a 2-col grid strands the 5th card alone in the last row —
-     span it full-width instead of leaving it stuck left next to an empty
-     box. Left-aligned like every other card (no text-align:center) so
-     icon/text placement stays consistent across all five cards. */
-  .pcards .pcard:last-child{grid-column:1 / -1;}
-  /* Remainder here is exactly 1 (5 in 2 cols = 2,2,1), fully resolved by
-     the span above — no leftover cell, so turn the 3-col breakpoint's
+  .pcards .pcard:last-child{grid-column:auto;}
+  /* Single column has no leftover cell — turn the 3-col breakpoint's
      filler back off rather than let it cascade down and add a phantom box. */
   .pcards::before{content:none;}
   .pcards::after{content:none;}
@@ -474,7 +480,6 @@ nav{
      tighten the line-height slightly. */
   .enc-body{font-size:1rem;line-height:1.7;}
 }
-@media(max-width:420px){.pcards{grid-template-columns:1fr;}}
 @media(prefers-reduced-motion:reduce){.hphrase,.rv{transition:none;}}
 
 /* Touch input can trigger a :hover state on tap and then leave it "stuck"
@@ -488,7 +493,7 @@ nav{
   .ecard:hover{background:var(--bg-1);}
   .ritem:hover{background:var(--bg-1);}
   .ritem-link:hover{background:var(--bg-1);}
-  .ritem-link:hover::after{opacity:0;transform:translateY(-4px);}
+  .ritem-link:hover::after{opacity:0;transform:translateY(4px);}
   .enchd:hover{background:none;}
   .titem:hover{background:var(--bg-1);}
 }

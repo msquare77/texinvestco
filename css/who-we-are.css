@@ -103,10 +103,16 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
    Microsoft/SQL Server case study card, which now opens its own page). */
 .ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
 .ritem-link:hover{background:rgba(202,168,75,0.06);}
+/* Positioned absolutely (not left in normal flex flow) so this hidden
+   affordance text never occupies flex-layout height — previously, even
+   at opacity:0, it counted as a real flex item and stole vertical space
+   from .rbody{flex:1}, which is why the Microsoft card's pill row sat
+   noticeably higher than its siblings' (the only card using this class). */
 .ritem-link::after{
   content:'View case study →';
-  display:block;margin-top:0.9rem;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
-  color:var(--gold);opacity:0;transform:translateY(-4px);transition:opacity 0.2s,transform 0.2s;
+  position:absolute;left:1.6rem;bottom:1.3rem;pointer-events:none;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transform:translateY(4px);transition:opacity 0.2s,transform 0.2s;
 }
 .ritem-link:hover::after{opacity:1;transform:none;}
 
@@ -142,6 +148,6 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
   .titem:hover{background:var(--bg-0);border-color:var(--gb);}
   .ritem:hover{background:var(--bg-1);}
   .ritem-link:hover{background:var(--bg-1);}
-  .ritem-link:hover::after{opacity:0;transform:translateY(-4px);}
+  .ritem-link:hover::after{opacity:0;transform:translateY(4px);}
   .pillar:hover{background:var(--bg-0);border-top-color:transparent;}
 }
