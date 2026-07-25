@@ -110,19 +110,23 @@ nav{
 .hstatic{
   display:block;font-family:var(--fb);font-weight:400;letter-spacing:0.03em;text-transform:uppercase;
   color:rgba(248,244,234,0.65);margin-bottom:10px;
-  font-size:clamp(15px,1.35vw,20px);white-space:nowrap;
+  font-size:clamp(17px,1.45vw,22px);white-space:nowrap;
 }
 .hphrase{
-  display:inline-block;font-family:var(--fb);font-size:clamp(15px,1.35vw,20px);
+  display:inline-block;font-family:var(--fb);font-size:clamp(17px,1.45vw,22px);
   font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#f0d060;white-space:nowrap;
   transition:opacity 0.38s ease,transform 0.38s ease;min-height:1.3em;
 }
 
 .hbelow{position:relative;z-index:1;width:100%;text-align:center;margin-top:32px;}
 .hbelow p{
-  display:inline-block;font-size:clamp(15px,1.35vw,20px);font-weight:300;
+  display:inline-block;font-size:clamp(17px,1.45vw,22px);font-weight:300;
   color:var(--lohi);letter-spacing:0.02em;line-height:1.7;white-space:nowrap;
 }
+/* Hidden by default (desktop/tablet let the line run naturally); shown as a
+   real line break on mobile for a clean, intentional two-line wrap instead
+   of leaving the browser to break wherever it runs out of width. */
+.hbr-mobile{display:none;}
 
 .hctas{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:32px;}
 
@@ -165,7 +169,7 @@ nav{
 .stit em{font-style:normal;color:var(--gold);font-weight:400;}
 
 /* ── WHO WE ARE ── */
-.who-p{font-size:0.98rem;font-weight:300;line-height:1.85;color:var(--mid);max-width:680px;margin-bottom:3rem;}
+.who-p{font-size:1.125rem;font-weight:300;line-height:1.85;color:var(--mid);max-width:680px;margin-bottom:3rem;}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gb);}
 .kpi{background:var(--bg-1);padding:1.8rem 1.1rem;text-align:center;}
 .kpi-icon{width:26px;height:26px;color:var(--gold);margin:0 auto 0.7rem;display:block;}
@@ -178,7 +182,7 @@ nav{
 .mbox{display:flex;flex-direction:column;border:1px solid rgba(202,168,75,0.32);padding:30px 26px;}
 .mbox-icon{width:28px;height:28px;color:var(--gold);margin-bottom:16px;}
 .mname{display:block;font-family:var(--fd);font-size:0.66rem;font-weight:600;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
-.mrole{font-size:0.91rem;font-weight:300;color:var(--mid);line-height:1.8;}
+.mrole{font-size:1rem;font-weight:300;color:var(--mid);line-height:1.8;}
 .mjoin{position:relative;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:2.1rem;line-height:1;}
 .mjoin::before{
   content:'';position:absolute;left:50%;top:50%;width:56px;height:56px;
@@ -196,7 +200,7 @@ nav{
 @media(prefers-reduced-motion:reduce){
   .mjoin::before{animation:none;}
 }
-.mclose{border-top:1px solid var(--gb);padding-top:28px;font-size:0.98rem;font-weight:300;font-style:italic;color:var(--mid);line-height:1.85;}
+.mclose{border-top:1px solid var(--gb);padding-top:28px;font-size:1.125rem;font-weight:300;font-style:italic;color:var(--mid);line-height:1.85;}
 .mclose strong{color:var(--hi);font-weight:500;font-style:normal;}
 
 /* ── WHO WE PARTNER WITH (compact cards) ── */
@@ -205,22 +209,35 @@ nav{
 .pcard:hover{border-color:var(--gold);background:rgba(201,168,76,0.04);}
 .pcard-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
 .pcard-t{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--hi);margin-bottom:0.6rem;}
-.pcard-b{font-size:0.86rem;font-weight:300;color:var(--mid);line-height:1.65;}
+.pcard-b{font-size:1rem;font-weight:300;color:var(--mid);line-height:1.65;}
+/* ::before/::after are invisible by default. When a breakpoint centers an
+   incomplete last row (leaving empty flanking cells rather than an auto-
+   placed trailing one), these get explicit grid-row/grid-column positions
+   targeting exactly those flanking cells and are painted to match the
+   section background — so the empty space blends in instead of showing
+   the grid's gap-line color at full size. */
+.pcards::before{content:none;}
+.pcards::after{content:none;}
 
 /* ── OUR EDGE ── */
 .ecards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);}
 .ecard{background:var(--bg-1);padding:2.2rem 1.8rem;transition:background 0.2s;}
 .ecard:hover{background:rgba(201,168,76,0.04);}
 .ecard-icon{width:26px;height:26px;color:var(--gold);margin-bottom:1rem;}
-.ea{font-size:0.91rem;font-weight:300;color:var(--lo);line-height:1.6;margin-bottom:1.1rem;}
+.ea{font-size:1rem;font-weight:300;color:var(--lo);line-height:1.6;margin-bottom:1.1rem;}
 .er{width:22px;height:1px;background:var(--gold);margin-bottom:1.1rem;}
 .eb{font-family:var(--fd);font-size:1.05rem;font-weight:600;color:var(--hi);line-height:1.3;}
 
 /* ── HOW WE ENGAGE ── */
-.eng-p{font-size:0.98rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:640px;margin-bottom:0.75rem;}
+.eng-p{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:640px;margin-bottom:0.75rem;}
 .encards{display:flex;flex-direction:column;gap:1px;background:var(--gb);}
 .encard{background:var(--bg-0);border-top:2px solid transparent;overflow:hidden;transition:border-color 0.2s,background 0.2s;}
-.encard.on{border-top-color:var(--gold);background:rgba(202,168,75,0.035);}
+/* Layered background (translucent gold tint painted over an opaque navy
+   base), not a single semi-transparent color — otherwise this card's
+   background lets the .encards container's own 20%-alpha divider color
+   (var(--gb)) bleed through underneath, compounding into a much lighter,
+   washed-out grey/olive tone instead of the intended subtle tint. */
+.encard.on{border-top-color:var(--gold);background:linear-gradient(rgba(202,168,75,0.035),rgba(202,168,75,0.035)),var(--bg-0);}
 .enchd{
   display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
   padding:1.4rem 1.8rem;cursor:pointer;transition:background 0.15s;user-select:none;
@@ -229,12 +246,12 @@ nav{
 }
 .enchd:hover{background:rgba(201,168,76,0.04);}
 .enc-title{font-size:0.81rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--hi);margin-bottom:0.25rem;}
-.enc-sum{font-size:0.86rem;font-weight:300;color:var(--mid);}
+.enc-sum{font-size:1rem;font-weight:300;color:var(--mid);}
 .enc-icon{font-size:1.3rem;color:var(--gold);flex-shrink:0;transition:transform 0.25s;line-height:1;}
 .encard.on .enc-icon{transform:rotate(45deg);}
 .enc-body{
   max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;
-  font-size:0.91rem;font-weight:300;line-height:1.85;color:var(--mid);
+  font-size:1.125rem;font-weight:300;line-height:1.85;color:var(--mid);
   padding:0 1.8rem;background:rgba(201,168,76,0.03);border-top:0 solid var(--gb);
 }
 .encard.on .enc-body{max-height:260px;padding:1.4rem 1.8rem;border-top-width:1px;}
@@ -245,8 +262,8 @@ nav{
 .titem:hover{background:rgba(202,168,75,0.04);}
 .tname{font-family:var(--fd);font-size:1rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
 .trole{font-size:0.66rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
-.tbio{font-size:0.86rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
-.tbio-ext{max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s ease;font-size:0.84rem;font-weight:300;line-height:1.75;color:var(--mid);}
+.tbio{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.tbio-ext{max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s ease;font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);}
 .titem.on .tbio-ext{max-height:420px;margin-top:0.8rem;}
 .tfoot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--gf);}
 .tlink{font-size:0.69rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
@@ -267,10 +284,23 @@ nav{
 .ritem-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
 .rorg{font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
 .raward{font-family:var(--fd);font-size:0.95rem;font-weight:600;color:var(--hi);margin-bottom:0.9rem;line-height:1.25;}
-.rbody{font-size:0.86rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;margin-bottom:1.1rem;}
+.rbody{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;margin-bottom:1.1rem;}
 .rcases{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:auto;}
-.rcase{font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:5px 10px;border-radius:2px;}
+.rcase{font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:5px 10px;border-radius:5px;}
 .rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
+
+/* .ritem-link — same card, but reachable as a link (currently just the
+   Microsoft/SQL Server case study card, which now opens its own page).
+   Resets anchor defaults and adds a small affordance so it still reads
+   as clickable without disrupting the card grid's shared visual rhythm. */
+.ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
+.ritem-link:hover{background:rgba(202,168,75,0.06);}
+.ritem-link::after{
+  content:'View case study →';
+  display:block;margin-top:0.9rem;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transform:translateY(-4px);transition:opacity 0.2s,transform 0.2s;
+}
+.ritem-link:hover::after{opacity:1;transform:none;}
 
 /* ── CONTACT — mountain/night visual test behind the closing CTA/intro.
    Two-column layout (text left, form right) needs legibility on both
@@ -283,11 +313,23 @@ nav{
 #contact .si{position:relative;z-index:1;}
 
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+/* Card container around the form so it reads as a distinct "fill this out"
+   block instead of floating directly on the busy mountain photo, and
+   doesn't visually blend into the text column above it. */
+.cform-wrap{
+  background:rgba(10,18,32,0.55);border:1px solid rgba(202,168,75,0.22);
+  padding:2rem;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+}
 .chd{font-family:var(--fd);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:1rem;}
 .chd em{font-style:normal;color:var(--gold);font-weight:400;}
-.csub{font-size:0.91rem;font-weight:300;line-height:1.8;color:var(--mid);margin-bottom:1.4rem;}
+.csub{font-size:1.125rem;font-weight:300;line-height:1.8;color:var(--mid);margin-bottom:1.4rem;}
 .cdet{font-size:0.75rem;color:var(--lo);margin-bottom:0.25rem;letter-spacing:0.04em;}
-.cnote{font-size:0.71rem;font-weight:300;color:var(--lo);margin-top:0.9rem;font-style:italic;}
+.cdet a{color:var(--lo);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
+.cdet a:hover{color:var(--gold);}
+/* Email address specifically called out in gold, wherever it appears. */
+.cdet a[href^="mailto:"]{color:var(--gold);}
+.cdet a[href^="mailto:"]:hover{color:var(--hi);}
+.cnote{font-size:0.85rem;font-weight:300;color:var(--mid);line-height:1.7;margin-top:0.9rem;}
 .cform{display:flex;flex-direction:column;gap:16px;}
 .fg{display:flex;flex-direction:column;gap:6px;}
 .fl{font-size:0.67rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:rgba(248,244,234,0.88);}
@@ -304,34 +346,10 @@ nav{
 .fg.field-error .fi,.fg.field-error .ft{border-color:#e08a6b;}
 .ferror{display:none;padding:14px 16px;border:1px solid #e08a6b;color:#f2c4b0;font-size:0.8rem;font-weight:300;line-height:1.6;margin-top:4px;}
 .fthanks{display:none;padding:18px 20px;border:1px solid var(--gold);font-size:0.85rem;font-weight:300;color:var(--gold);letter-spacing:0.04em;}
-.fnote{font-size:0.68rem;font-weight:300;color:var(--lo);line-height:1.6;margin-top:0.6rem;font-style:italic;}
+.fnote{font-size:0.85rem;font-weight:300;color:var(--mid);line-height:1.7;margin-top:0.9rem;}
 
-/* ── FOOTER (homepage has its own larger multi-column footer) ── */
-footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
-.ftop{
-  max-width:1100px;margin:0 auto;padding:56px 5vw 40px;
-  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;
-}
-.fbrand-logo{font-family:var(--fd);font-size:1.05rem;font-weight:600;letter-spacing:0.05em;color:var(--hi);margin-bottom:6px;}
-.fbrand-logo span{color:var(--gold);}
-.fbrand-tag{font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(248,244,234,0.5);margin-bottom:18px;}
-.fbrand-line{font-size:0.81rem;color:rgba(248,244,234,0.58);line-height:1.9;}
-.fbrand-line a{color:var(--gold);text-decoration:none;}
-.fbrand-line a:hover{color:var(--hi);}
-.fcol-title{font-size:0.64rem;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:rgba(248,244,234,0.45);margin-bottom:1rem;}
-.fcol a{
-  display:block;font-size:0.81rem;color:rgba(248,244,234,0.62);text-decoration:none;
-  padding:0.35rem 0;transition:color 0.2s;
-}
-.fcol a:hover{color:var(--gold);}
-.fbottom{
-  max-width:1100px;margin:0 auto;padding:1.4rem 5vw calc(1.4rem + env(safe-area-inset-bottom));
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;
-  border-top:1px solid rgba(202,168,75,0.07);
-}
-.fcopy{font-size:0.71rem;color:rgba(248,244,234,0.45);letter-spacing:0.03em;}
-.fcopy a{color:rgba(248,244,234,0.45);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
-.fcopy a:hover{color:var(--gold);}
+/* Full multi-column footer CSS lives in shared.css now — it's used on
+   every page, not just the homepage. */
 
 /* ── PROOF LIST — clean vertical list, not cards. Each credential is its
    own row (icon + main line), with one or more smaller sub-lines
@@ -342,15 +360,34 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
 .proof-stack{display:flex;flex-direction:column;gap:3px;line-height:1.4;}
 .proof-main{font-size:0.91rem;font-weight:300;color:var(--mid);letter-spacing:0.04em;}
 .proof-sub{font-size:0.74rem;font-weight:400;letter-spacing:0.03em;color:var(--lo);}
-.proof-link{display:inline-block;font-size:0.75rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
-.proof-link:hover{color:var(--hi);}
+.proof-link{
+  display:inline-block;font-size:0.88rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(202,168,75,0.4);
+  padding-bottom:4px;transition:color 0.2s,border-color 0.2s;
+}
+.proof-link:hover{color:var(--hi);border-color:var(--hi);}
 
 /* ── RESPONSIVE ── */
 /* Who We Partner With — 5 columns only where there's room to breathe;
    below that, 3+2 (a 3-col grid auto-wraps 5 items into 3 then 2) so
    copy never has to shrink to fit. */
 @media(max-width:1439px){
-  .pcards{grid-template-columns:repeat(3,1fr);}
+  /* 5 cards in a plain 3-col grid leaves the last row with 2 cards flush
+     left and 1 empty cell trailing. Doubling the resolution to 6 columns
+     (each card spans 2) gives enough granularity to explicitly center
+     that leftover pair instead of just hiding the empty cell: row 1 fills
+     all 6 columns (3 cards × span 2); row 2's 2 cards are pinned to
+     columns 2–5, leaving 1 empty column on each side — a true centered
+     pair rather than left-aligned with dead space to the right. */
+  .pcards{grid-template-columns:repeat(6,1fr);}
+  .pcard{grid-column:span 2;}
+  .pcards .pcard:nth-child(4){grid-column:2 / span 2;}
+  .pcards .pcard:nth-child(5){grid-column:4 / span 2;}
+  /* Centering row 2 leaves column 1 and column 6 of that row empty on
+     either side. Paint exactly those two cells to match the section
+     background instead of leaving them to show the grid's raw gap color. */
+  .pcards::before{content:'';grid-column:1 / span 1;grid-row:2;background:var(--bg-1);}
+  .pcards::after{content:'';grid-column:6 / span 1;grid-row:2;background:var(--bg-1);}
 }
 @media(max-width:1100px){
   .mgrid{grid-template-columns:1fr;}
@@ -364,37 +401,94 @@ footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
   .btext{font-size:11vw;}
   .hphrase{white-space:normal;}
   .hbelow p{white-space:normal;max-width:90vw;}
+  /* Two-line audience line: "For founders and operators" / "at a critical
+     inflection point." — an explicit break instead of leaving the browser
+     to wrap wherever it runs out of width. */
+  .hbr-mobile{display:inline;}
 }
 @media(max-width:720px){
+  .cform-wrap{padding:1.4rem 1.2rem;}
   .hero{padding:88px 5vw 40px;}
   .hlogo{margin-bottom:26px;}
-  .hlogo svg{height:48px;}
+  /* ~5% smaller than the 48px tablet size so the mark supports the
+     headline rather than competing with it. */
+  .hlogo svg{height:46px;}
   .btext{font-size:15vw;}
-  .hstatic{white-space:normal;}
+  .hstatic{
+    white-space:normal;
+    /* ~6% smaller + slightly tighter tracking so the eyebrow line above
+       the rotating phrase doesn't feel too wide next to it. */
+    font-size:16px;letter-spacing:0.02em;
+  }
   .btng{font-size:0.58rem;padding:12px 20px;}
   .btno{display:none;}
+  /* Hero CTAs: tighten letter-spacing/padding (not font-size) so both
+     labels reliably stay on one line on narrower phones. */
+  .btn-label{padding:14px 22px;letter-spacing:0.07em;}
+  .hero-btn-ghost{padding:14px 22px;letter-spacing:0.08em;}
   .sec{padding:44px 5vw;}
   .rule{padding:0 5vw;}
-  .stit{margin-bottom:1.4rem;}
-  .who-p{margin-bottom:1.6rem;}
+  .stit{
+    margin-bottom:1.4rem;
+    /* ~4% smaller + a touch of right padding so headings like "An
+       Operator-Investor" get breathing room from the viewport edge
+       instead of running flush to it. */
+    font-size:1.44rem;padding-right:0.3rem;
+  }
+  .who-p{
+    margin-bottom:1.6rem;
+    /* Slightly smaller and tighter so the paragraph doesn't feel
+       oversized/loose under the (unchanged-size) heading. */
+    font-size:1.05rem;line-height:1.65;
+  }
   .mgrid{margin-bottom:24px;}
-  .mclose{padding-top:18px;}
+  .mbox{padding:27px 26px;} /* ~10% less vertical padding; side margins unchanged */
+  .mclose{padding-top:18px;text-wrap:balance;}
+  #partners{padding-top:56px;} /* match the breathing room other section transitions get */
   .pcards{grid-template-columns:1fr 1fr;}
+  /* Undo the 3-col breakpoint's 6-column/span-2 trick — back to a plain
+     2-col grid where each card is a normal single track again. */
+  .pcard{grid-column:auto;}
+  .pcards .pcard:nth-child(4){grid-column:auto;}
   /* 5 cards in a 2-col grid strands the 5th card alone in the last row —
-     span it full-width and center it instead of leaving it stuck left
-     next to an empty box. Harmless no-op once .pcards drops to 1 column
-     below 420px (span:1/-1 on a single-column grid is already full-width). */
-  .pcards .pcard:last-child{grid-column:1 / -1;text-align:center;}
+     span it full-width instead of leaving it stuck left next to an empty
+     box. Left-aligned like every other card (no text-align:center) so
+     icon/text placement stays consistent across all five cards. */
+  .pcards .pcard:last-child{grid-column:1 / -1;}
+  /* Remainder here is exactly 1 (5 in 2 cols = 2,2,1), fully resolved by
+     the span above — no leftover cell, so turn the 3-col breakpoint's
+     filler back off rather than let it cascade down and add a phantom box. */
+  .pcards::before{content:none;}
+  .pcards::after{content:none;}
   .proof-list{gap:0.9rem;}
   #recognition{padding:53px 5vw 43px;}
   #contact{padding-top:36px;padding-bottom:calc(43px + env(safe-area-inset-bottom));}
   .ecards{grid-template-columns:1fr;gap:1px;}
   .ecard{padding:2rem 1.6rem;}
   .rgrid{grid-template-columns:1fr;}
+  .ritem{padding:1.9rem 1.8rem;} /* ~14% less top/bottom padding; sides unchanged */
   .tgrid{grid-template-columns:1fr;}
   .cgrid{grid-template-columns:1fr;gap:2.5rem;}
-  .ftop{grid-template-columns:1fr;gap:2rem;padding:44px 5vw 32px;}
-  .fbottom{flex-direction:column;align-items:flex-start;}
+  /* Expanded accordion copy: soften down from the primary 18px reading
+     size (feels oversized inside the narrower accordion padding) and
+     tighten the line-height slightly. */
+  .enc-body{font-size:1rem;line-height:1.7;}
 }
 @media(max-width:420px){.pcards{grid-template-columns:1fr;}}
 @media(prefers-reduced-motion:reduce){.hphrase,.rv{transition:none;}}
+
+/* Touch input can trigger a :hover state on tap and then leave it "stuck"
+   until something else is tapped (a well-documented Android/Samsung
+   Internet quirk) — without this guard, whichever card/accordion row was
+   last tapped stays visibly tinted/highlighted next to its untouched
+   siblings. Devices that report no true hover capability get these
+   hover-only backgrounds reset back to their resting values instead. */
+@media(hover:none){
+  .pcard:hover{background:var(--bg-0);border-color:transparent;}
+  .ecard:hover{background:var(--bg-1);}
+  .ritem:hover{background:var(--bg-1);}
+  .ritem-link:hover{background:var(--bg-1);}
+  .ritem-link:hover::after{opacity:0;transform:translateY(-4px);}
+  .enchd:hover{background:none;}
+  .titem:hover{background:var(--bg-1);}
+}

@@ -25,16 +25,16 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .eyebrow{font-size:0.62rem;font-weight:500;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
 h1{font-family:var(--fd);font-size:clamp(28px,4vw,42px);font-weight:600;color:var(--hi);margin-bottom:10px;line-height:1.2;}
 .updated{font-size:0.81rem;color:var(--lo);margin-bottom:48px;}
-.intro{font-size:0.98rem;color:var(--mid);font-weight:300;margin-bottom:44px;max-width:600px;}
+.intro{font-size:1.125rem;color:var(--mid);font-weight:300;margin-bottom:44px;max-width:600px;}
 
 h2{
   font-family:var(--fd);font-size:1.15rem;font-weight:600;color:var(--gold);
   margin:44px 0 14px;padding-top:28px;border-top:1px solid var(--gb);
 }
 h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
-p{font-size:0.93rem;color:var(--mid);font-weight:300;margin-bottom:14px;}
+p{font-size:1.125rem;color:var(--mid);font-weight:300;margin-bottom:14px;}
 ul{margin:0 0 14px 1.2rem;}
-li{font-size:0.93rem;color:var(--mid);font-weight:300;margin-bottom:6px;}
+li{font-size:1.125rem;color:var(--mid);font-weight:300;margin-bottom:6px;}
 a{color:var(--gold);text-decoration:none;}
 a:hover{color:var(--hi);}
 strong{color:var(--hi);font-weight:500;}

@@ -15,7 +15,7 @@
   --fd:'Cinzel',Georgia,serif; --fb:'Inter',-apple-system,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;max-width:100%;overflow-x:hidden;}
+html{scroll-behavior:smooth;font-size:16px;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 body{font-family:var(--fb);color:var(--hi);background:var(--bg-0);overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;}
 
 /* Anchor targets — keep section headings clear of the fixed nav when
@@ -85,8 +85,8 @@ nav{
 .mpanel a:hover,.mpanel a.mcta{color:var(--gold);}
 .mpanel a.mcta{margin-top:1.5rem;border:1px solid var(--gold);padding:0.7rem 1.2rem;text-align:center;font-size:0.85rem;}
 .mfoot{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(202,168,75,0.08);}
-.mfoot-tag{font-family:var(--fd);font-size:0.8rem;color:rgba(248,244,234,0.20);letter-spacing:0.1em;}
-.mfoot-sub{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(248,244,234,0.15);margin-top:4px;}
+.mfoot-tag{font-family:var(--fd);font-size:0.8rem;color:rgba(248,244,234,0.55);letter-spacing:0.1em;}
+.mfoot-sub{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(248,244,234,0.5);margin-top:4px;}
 
 @media(max-width:960px) and (min-width:721px){
   .nlinks{gap:1.2rem;}
@@ -137,12 +137,43 @@ nav{
 .cta-strip-t{font-family:var(--fd);font-size:clamp(1.3rem,2.6vw,2rem);font-weight:600;color:var(--hi);margin-bottom:1.4rem;line-height:1.2;}
 .cta-strip-t em{font-style:normal;color:var(--gold);font-weight:400;}
 
-/* ── Simple one-line footer — used by who-we-are.html, what-we-do.html, privacy.html
-   (the homepage has its own larger multi-column footer, defined in css/home.css) ── */
-.simple-footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);padding:32px 5vw calc(32px + env(safe-area-inset-bottom));text-align:center;}
-.fcopy{font-size:0.71rem;color:rgba(248,244,234,0.45);}
-.fcopy a{color:rgba(248,244,234,0.45);text-decoration:underline;text-underline-offset:2px;}
+/* ── FOOTER — same full multi-column footer on every page (brand blurb,
+   Explore links, Connect links, copyright bar). Previously the homepage
+   had this rich footer while every subpage only got a one-line copyright
+   strip; moved here so it's shared site-wide instead of duplicated/
+   inconsistent per page. ── */
+footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
+.ftop{
+  max-width:1100px;margin:0 auto;padding:56px 5vw 40px;
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;
+}
+.fbrand-logo{font-family:var(--fd);font-size:1.05rem;font-weight:600;letter-spacing:0.05em;color:var(--hi);margin-bottom:6px;}
+.fbrand-logo span{color:var(--gold);}
+.fbrand-tag{font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(248,244,234,0.5);margin-bottom:18px;}
+.fbrand-line{font-size:0.81rem;color:rgba(248,244,234,0.58);line-height:1.9;}
+.fbrand-line a{color:var(--gold);text-decoration:none;}
+.fbrand-line a:hover{color:var(--hi);}
+.fcol-title{font-size:0.64rem;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:rgba(248,244,234,0.55);margin-bottom:1rem;}
+.fcol a{
+  display:block;font-size:0.81rem;color:rgba(248,244,234,0.62);text-decoration:none;
+  padding:0.35rem 0;transition:color 0.2s;
+}
+.fcol a:hover{color:var(--gold);}
+/* Email address specifically called out in gold, wherever it appears. */
+.fcol a[href^="mailto:"]{color:var(--gold);}
+.fcol a[href^="mailto:"]:hover{color:var(--hi);}
+.fbottom{
+  max-width:1100px;margin:0 auto;padding:1.4rem 5vw calc(1.4rem + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;
+  border-top:1px solid rgba(202,168,75,0.07);
+}
+.fcopy{font-size:0.71rem;color:rgba(248,244,234,0.55);letter-spacing:0.03em;}
+.fcopy a{color:rgba(248,244,234,0.55);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
 .fcopy a:hover{color:var(--gold);}
+@media(max-width:720px){
+  .ftop{grid-template-columns:1fr;gap:2rem;padding:44px 5vw 32px;}
+  .fbottom{flex-direction:column;align-items:flex-start;}
+}
 
 @media(max-width:720px){
   nav{display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 5vw;}
