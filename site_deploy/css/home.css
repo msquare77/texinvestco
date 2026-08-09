@@ -1,0 +1,628 @@
+/* ────────────────────────────────────────────────────────────
+   TexInvestCo — HOMEPAGE (index.html) styles
+   Loaded after css/shared.css.
+   ──────────────────────────────────────────────────────────── */
+
+section[id]{scroll-margin-top:68px;}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.rv.on{opacity:1;transform:none;}
+/* Fallback: if JS fails, reveal all content */
+@media print{.rv{opacity:1;transform:none;}}
+
+/* Homepage nav floats fixed over the hero */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  width:100%;box-sizing:border-box;
+}
+/* The homepage's nav mark/logo runs slightly smaller and tighter than
+   the subpages' — a pre-existing design difference, preserved here. */
+.nlogo{gap:8px;}
+.nmark{height:30px;}
+.nlogo-text{gap:2px;}
+.hbg{padding:15px 11px;margin-right:0;}
+.mpanel a{color:rgba(248,244,234,0.70);border-bottom-color:rgba(201,168,76,0.08);}
+.ncta{border-bottom-color:rgba(201,168,76,0.4);padding:0.2rem 0 0.2rem;}
+@media(max-width:960px) and (min-width:721px){
+  .ncta{padding-bottom:0.08rem;}
+}
+
+/* ── HERO (reverted to centered v4 design) ── */
+.hero{
+  position:relative;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:88px 5vw calc(60px + env(safe-area-inset-bottom));overflow:hidden;
+  background:linear-gradient(150deg,#111d33 0%,#1a2e50 50%,#111d33 100%);
+}
+/* min-height:100vh first as a fallback for browsers without svh support;
+   100svh (the "small" viewport height — excludes space the browser UI
+   can reclaim) is applied after so Safari/WhatsApp's collapsible toolbar
+   never leaves the hero taller than the visible viewport, which was
+   pushing the CTA row / logo below the fold behind the browser chrome. */
+.hero{min-height:100vh;}
+@supports (height:100svh){.hero{min-height:100svh;}}
+/* The diagonal gradient's bottom-edge color can land close to the next
+   section's bg1 tone depending on viewport height, erasing the seam.
+   A solid fade to bg0 guarantees clear contrast against whichever
+   section follows, regardless of viewport height. */
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:180px;z-index:0;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0%,var(--bg-0) 100%);
+}
+.hwaves{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+
+.glow{position:absolute;border-radius:50%;pointer-events:none;filter:blur(40px);}
+.glow.g1{
+  width:42vw;height:42vw;left:6%;top:8%;
+  background:radial-gradient(circle,rgba(202,168,75,0.07) 0%,rgba(202,168,75,0.03) 45%,transparent 72%);
+  animation:glow1 58s ease-in-out infinite;
+}
+.glow.g2{
+  width:34vw;height:34vw;left:60%;top:48%;
+  background:radial-gradient(circle,rgba(223,192,120,0.06) 0%,rgba(223,192,120,0.025) 45%,transparent 72%);
+  animation:glow2 66s ease-in-out infinite;
+}
+.glow.g3{
+  width:30vw;height:30vw;left:32%;top:62%;
+  background:radial-gradient(circle,rgba(202,168,75,0.055) 0%,transparent 72%);
+  animation:glow3 62s ease-in-out infinite;
+}
+@keyframes glow1{
+  0%{transform:translate(0,0);}
+  22%{transform:translate(7vw,9vw);}
+  48%{transform:translate(-6vw,13vw);}
+  70%{transform:translate(-9vw,-4vw);}
+  100%{transform:translate(0,0);}
+}
+@keyframes glow2{
+  0%{transform:translate(0,0);}
+  30%{transform:translate(-8vw,-8vw);}
+  55%{transform:translate(6vw,-12vw);}
+  80%{transform:translate(9vw,5vw);}
+  100%{transform:translate(0,0);}
+}
+@keyframes glow3{
+  0%{transform:translate(0,0);}
+  26%{transform:translate(-7vw,-10vw);}
+  52%{transform:translate(8vw,-5vw);}
+  78%{transform:translate(4vw,9vw);}
+  100%{transform:translate(0,0);}
+}
+@media(prefers-reduced-motion:reduce){.glow{animation:none !important;}}
+
+/* Logo sized down from the original 88px so it doesn't compete with the headline */
+.hlogo{position:relative;z-index:1;display:flex;justify-content:center;margin-bottom:32px;}
+.hlogo svg{height:60px;width:auto;}
+
+.bwrap{position:relative;z-index:1;display:flex;flex-direction:row;flex-wrap:nowrap;align-items:baseline;justify-content:center;gap:1.1vw;line-height:0.92;}
+.btext{
+  font-family:var(--fd);font-weight:700;text-transform:uppercase;
+  font-size:3.9vw;line-height:0.92;letter-spacing:0.01em;
+  white-space:nowrap;margin:0;
+  color:var(--hi);-webkit-text-stroke:1px var(--gold);paint-order:stroke fill;
+}
+
+/* Order in the hero is now: logo, headline, .hrot (operating partnerships +
+   rotating phrase), .hbelow (audience line), CTAs — all spaced with the
+   same 32px gap. */
+.hrot{position:relative;z-index:1;line-height:1.35;margin-top:32px;margin-bottom:0;text-align:center;}
+.hstatic{
+  display:block;font-family:var(--fb);font-weight:400;letter-spacing:0.03em;text-transform:uppercase;
+  color:rgba(248,244,234,0.65);margin-bottom:10px;
+  font-size:clamp(17px,1.45vw,22px);white-space:nowrap;
+}
+.hphrase{
+  display:inline-block;font-family:var(--fb);font-size:clamp(17px,1.45vw,22px);
+  font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#f0d060;white-space:nowrap;
+  transition:opacity 0.38s ease,transform 0.38s ease;min-height:1.3em;
+}
+
+.hbelow{position:relative;z-index:1;width:100%;text-align:center;margin-top:32px;}
+.hbelow p{
+  display:inline-block;font-size:clamp(17px,1.45vw,22px);font-weight:300;
+  color:var(--lohi);letter-spacing:0.02em;line-height:1.7;white-space:nowrap;
+}
+/* Hidden by default (desktop/tablet let the line run naturally); shown as a
+   real line break on mobile for a clean, intentional two-line wrap instead
+   of leaving the browser to break wherever it runs out of width. */
+.hbr-mobile{display:none;}
+
+.hctas{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:32px;}
+
+/* Hero CTA — solid-gold elliptical pill (distinct from contact form's shared .btng) */
+.hero-btn{
+  display:inline-flex;align-items:center;
+  background:var(--gold);border:1px solid var(--gold);border-radius:999px;
+  color:var(--hi);font-family:var(--fb);text-decoration:none;
+  cursor:pointer;-webkit-appearance:none;
+  transition:background 0.2s,border-color 0.2s;
+}
+.hero-btn:hover{background:var(--gold-lt);border-color:var(--gold-lt);}
+.btn-label{
+  padding:14px 28px;font-size:0.72rem;font-weight:600;
+  letter-spacing:0.09em;text-transform:uppercase;white-space:nowrap;color:var(--hi);
+}
+.hero-btn-ghost{
+  display:inline-flex;align-items:center;padding:14px 28px;border-radius:999px;
+  background:transparent;border:1px solid rgba(248,244,234,0.5);color:var(--hi);
+  font-family:var(--fb);font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  text-decoration:none;transition:border-color 0.2s,background 0.2s;
+}
+.hero-btn-ghost:hover{border-color:var(--hi);background:rgba(248,244,234,0.08);}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 5vw;}
+.bg0{background:var(--bg-0);}
+.bg1{background:var(--bg-1);}
+.si{max-width:1100px;margin:0 auto;}
+.seye{
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.6rem;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+}
+.seye::before{content:'';width:22px;height:1px;background:var(--gold);}
+.stit{
+  font-family:var(--fd);font-size:clamp(1.5rem,3.2vw,2.6rem);
+  font-weight:600;letter-spacing:0.03em;color:var(--hi);line-height:1.2;margin-bottom:2.2rem;
+}
+.stit em{font-style:normal;color:var(--gold);font-weight:400;}
+
+/* ── WHO WE ARE ── */
+.who-p{font-size:1.125rem;font-weight:300;line-height:1.85;color:var(--mid);max-width:680px;margin-bottom:3rem;}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gb);}
+.kpi{background:var(--bg-1);padding:2.4rem 1.1rem;text-align:center;}
+.kpi-n{font-family:var(--fd);font-size:1.9rem;font-weight:400;color:var(--gold);line-height:1;margin-bottom:0.9rem;}
+.kpi-l{font-size:0.62rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);line-height:1.5;}
+
+/* ── Enhancement: animated line icons, sitewide ──
+   Every drawable shape in every icon on the page carries pathLength="100"
+   in the markup, so one fixed 0→100 stroke-dashoffset range (below) works
+   regardless of a shape's real geometry — no per-icon JS measurement
+   needed. The 4 Core Metrics get the richer treatment (bigger, more
+   spacing, a signature secondary motion each); every other icon on the
+   page (.ic-anim — Our Model, Who We Partner With, Our Edge, Recognition)
+   gets the same repeating draw/erase loop at a deliberately thin stroke
+   (client feedback: keep the line weight light, not heavy). */
+.kpi-icon-anim{width:44px;height:44px;color:var(--gold);margin:0 auto 1.4rem;display:block;overflow:visible;stroke-width:1.1;}
+.ic-anim{overflow:visible;stroke-width:1;}
+.kpi-icon-anim path,.kpi-icon-anim line,.kpi-icon-anim circle,.kpi-icon-anim ellipse,.kpi-icon-anim polyline,
+.ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{
+  stroke-dasharray:100;stroke-dashoffset:100;
+}
+.kpi-icon-anim.kpi-icon-drawn path,.kpi-icon-anim.kpi-icon-drawn line,.kpi-icon-anim.kpi-icon-drawn circle,.kpi-icon-anim.kpi-icon-drawn ellipse,.kpi-icon-anim.kpi-icon-drawn polyline,
+.ic-anim.ic-drawn path,.ic-anim.ic-drawn line,.ic-anim.ic-drawn circle,.ic-anim.ic-drawn ellipse,.ic-anim.ic-drawn polyline,.ic-anim.ic-drawn polygon,.ic-anim.ic-drawn rect{
+  animation-name:kpiRedraw;animation-duration:6.5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+}
+.kpi-icon-anim .msg-ping{opacity:0;}
+.kpi-icon-anim.kpi-icon-drawn .msg-ping{opacity:1;}
+@keyframes kpiRedraw{
+  0%{stroke-dashoffset:100;}
+  30%{stroke-dashoffset:0;}
+  78%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:100;}
+}
+
+/* Founder · Operator · Investor — nodes pulse gently in sequence, echoing
+   the three roles passing between one another. */
+.kpi-icon-anim[data-anim="network"].kpi-icon-drawn circle{
+  transform-box:fill-box;transform-origin:center;
+  animation-name:kpiRedraw,kpiNetPulse;animation-duration:6.5s,4.4s;animation-timing-function:ease-in-out,ease-in-out;animation-iteration-count:infinite,infinite;
+}
+.kpi-icon-anim[data-anim="network"].kpi-icon-drawn circle:nth-of-type(2){animation-delay:0s,0.5s;}
+.kpi-icon-anim[data-anim="network"].kpi-icon-drawn circle:nth-of-type(3){animation-delay:0s,1s;}
+@keyframes kpiNetPulse{0%,100%{opacity:0.55;transform:scale(0.88);}50%{opacity:1;transform:scale(1.12);}}
+
+/* Global Delivery Locations — the globe rocks gently on its axis like a
+   slowly spinning model, rather than a static line drawing. */
+.kpi-icon-anim[data-anim="globe"].kpi-icon-drawn{
+  transform-box:fill-box;transform-origin:center;
+  animation:kpiGlobeRock 11s ease-in-out infinite;
+}
+@keyframes kpiGlobeRock{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
+
+/* Annual Customer Interactions — a small notification dot pings at the
+   corner of the message bubble, suggesting a steady stream of contact. */
+.kpi-icon-anim[data-anim="message"].kpi-icon-drawn .msg-ping{
+  transform-box:fill-box;transform-origin:center;
+  animation:kpiPing 3.2s ease-in-out infinite;
+}
+@keyframes kpiPing{0%,100%{opacity:0.4;transform:scale(0.8);}50%{opacity:1;transform:scale(1.3);}}
+
+/* Financial Operations Managed — the coin stack drifts in a slow, gentle
+   float, suggesting accumulating value rather than a static object. */
+.kpi-icon-anim[data-anim="coins"].kpi-icon-drawn{
+  animation:kpiCoinsFloat 5.2s ease-in-out infinite;
+}
+@keyframes kpiCoinsFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+
+@media(prefers-reduced-motion:reduce){
+  .kpi-icon-anim path,.kpi-icon-anim line,.kpi-icon-anim circle,.kpi-icon-anim ellipse,.kpi-icon-anim polyline,
+  .ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{stroke-dashoffset:0 !important;}
+  .kpi-icon-anim,.kpi-icon-anim *,.ic-anim,.ic-anim *{animation:none !important;}
+  .kpi-icon-anim .msg-ping{opacity:1;}
+}
+
+/* ── OUR MODEL ── */
+#model .si{position:relative;z-index:1;}
+.mgrid{display:grid;grid-template-columns:1fr 40px 1fr;align-items:stretch;margin-bottom:44px;}
+.mbox{display:flex;flex-direction:column;border:1px solid rgba(202,168,75,0.32);padding:30px 26px;}
+.mbox-icon{width:28px;height:28px;color:var(--gold);margin-bottom:16px;}
+.mname{display:block;font-family:var(--fd);font-size:0.66rem;font-weight:600;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.mrole{font-size:1rem;font-weight:300;color:var(--mid);line-height:1.8;}
+.mjoin{position:relative;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:2.1rem;line-height:1;}
+.mjoin::before{
+  content:'';position:absolute;left:50%;top:50%;width:56px;height:56px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(202,168,75,0.30) 0%,rgba(202,168,75,0.10) 45%,transparent 72%);
+  animation:mjoinPulse 3.2s ease-in-out infinite;
+}
+.mjoin span{position:relative;z-index:1;}
+.mjoin .mjarrow-h{display:inline;}
+.mjoin .mjarrow-v{display:none;}
+@keyframes mjoinPulse{
+  0%,100%{opacity:0.55;transform:translate(-50%,-50%) scale(0.9);}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}
+}
+@media(prefers-reduced-motion:reduce){
+  .mjoin::before{animation:none;}
+}
+.mclose{border-top:1px solid var(--gb);padding-top:28px;font-size:1.125rem;font-weight:300;font-style:italic;color:var(--mid);line-height:1.85;}
+.mclose strong{color:var(--hi);font-weight:500;font-style:normal;}
+
+/* ── WHO WE PARTNER WITH (compact cards) ── */
+.pcards{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--gb);margin-top:0.5rem;}
+.pcard{background:var(--bg-0);padding:1.8rem 1.4rem;border-top:2px solid transparent;transition:border-color 0.2s,background 0.2s;}
+.pcard:hover{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+.pcard-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
+.pcard-t{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--hi);margin-bottom:0.6rem;}
+.pcard-b{font-size:1rem;font-weight:300;color:var(--mid);line-height:1.65;}
+/* ::before/::after are invisible by default. When a breakpoint centers an
+   incomplete last row (leaving empty flanking cells rather than an auto-
+   placed trailing one), these get explicit grid-row/grid-column positions
+   targeting exactly those flanking cells and are painted to match the
+   section background — so the empty space blends in instead of showing
+   the grid's gap-line color at full size. */
+.pcards::before{content:none;}
+.pcards::after{content:none;}
+
+/* ── OUR EDGE ── */
+.ecards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);}
+.ecard{background:var(--bg-1);padding:2.2rem 1.8rem;transition:background 0.2s;}
+.ecard:hover{background:rgba(201,168,76,0.04);}
+.ecard-icon{width:26px;height:26px;color:var(--gold);margin-bottom:1rem;}
+.ea{font-size:1rem;font-weight:300;color:var(--lo);line-height:1.6;margin-bottom:1.1rem;}
+.er{width:22px;height:1px;background:var(--gold);margin-bottom:1.1rem;}
+.eb{font-family:var(--fd);font-size:1.05rem;font-weight:600;color:var(--hi);line-height:1.3;}
+
+/* ── HOW WE ENGAGE ── */
+.eng-p{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:640px;margin-bottom:0.75rem;}
+.encards{display:flex;flex-direction:column;gap:1px;background:var(--gb);}
+.encard{background:var(--bg-0);border-top:2px solid transparent;overflow:hidden;transition:border-color 0.2s,background 0.2s;}
+/* Layered background (translucent gold tint painted over an opaque navy
+   base), not a single semi-transparent color — otherwise this card's
+   background lets the .encards container's own 20%-alpha divider color
+   (var(--gb)) bleed through underneath, compounding into a much lighter,
+   washed-out grey/olive tone instead of the intended subtle tint. */
+.encard.on{border-top-color:var(--gold);background:linear-gradient(rgba(202,168,75,0.035),rgba(202,168,75,0.035)),var(--bg-0);}
+.enchd{
+  display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+  padding:1.4rem 1.8rem;cursor:pointer;transition:background 0.15s;user-select:none;
+  width:100%;background:none;border:none;font:inherit;color:inherit;text-align:left;
+  -webkit-appearance:none;
+}
+.enchd:hover{background:rgba(201,168,76,0.04);}
+.enc-title{font-size:0.81rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--hi);margin-bottom:0.25rem;}
+.enc-sum{font-size:1rem;font-weight:300;color:var(--mid);}
+.enc-icon{font-size:1.3rem;color:var(--gold);flex-shrink:0;transition:transform 0.25s;line-height:1;}
+.encard.on .enc-icon{transform:rotate(45deg);}
+.enc-body{
+  max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;
+  font-size:1.125rem;font-weight:300;line-height:1.85;color:var(--mid);
+  padding:0 1.8rem;background:rgba(201,168,76,0.03);border-top:0 solid var(--gb);
+}
+.encard.on .enc-body{max-height:260px;padding:1.4rem 1.8rem;border-top-width:1px;}
+
+/* ── TEAM (not currently used on the homepage, kept for parity with other pages) ── */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);}
+.titem{background:var(--bg-1);padding:2rem 1.8rem;display:flex;flex-direction:column;transition:background 0.2s;}
+.titem:hover{background:rgba(202,168,75,0.04);}
+.tname{font-family:var(--fd);font-size:1rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
+.trole{font-size:0.66rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+.tbio{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.tbio-ext{max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s ease;font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);}
+.titem.on .tbio-ext{max-height:420px;margin-top:0.8rem;}
+.tfoot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--gf);}
+.tlink{font-size:0.69rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
+.tlink:hover{color:var(--hi);}
+/* padding+negative margin enlarges the tap target toward 44px without shifting visual position/layout */
+.tmore{font-size:0.69rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:16px 6px;margin:-16px -6px;}
+.tmore:hover{color:var(--hi);}
+
+/* ── RECOGNITION — clean navy background (no photo) for stronger proof
+   readability; section stays 20% taller than a standard .sec via extra
+   vertical padding. ── */
+#recognition{position:relative;overflow:hidden;padding:114px 5vw;}
+
+/* ── Enhancement: case-study/overpass photo background behind the whole
+   Recognition section (both the heading and the three case-study cards),
+   same layered pattern as the Contact section's photo background —
+   full-bleed image + a dark navy scrim for legibility, with the real
+   content raised above both via z-index. The .ritem cards keep their own
+   solid --bg-1 fill so the photo never shows through the card boxes. */
+.recognition-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
+.recognition-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 68%;display:block;}
+.recognition-scrim{position:absolute;inset:0;z-index:0;background:rgba(17,29,51,0.88);}
+#recognition .si{position:relative;z-index:1;}
+
+/* ── RECOGNITION ── */
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);margin:2rem 0 1.8rem;}
+.ritem{background:var(--bg-1);padding:2.2rem 1.6rem;display:flex;flex-direction:column;transition:background 0.2s;}
+.ritem:hover{background:rgba(201,168,76,0.05);}
+.ritem-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
+.rorg{font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
+.raward{font-family:var(--fd);font-size:0.95rem;font-weight:600;color:var(--hi);margin-bottom:0.9rem;line-height:1.25;}
+.rbody{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.rcases{display:flex;flex-wrap:wrap;gap:0.28rem;margin-top:1.1rem;}
+.rcase{font-size:0.53rem;font-weight:600;letter-spacing:0.01em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:4px 6px;border-radius:5px;line-height:1.3;white-space:nowrap;}
+.rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
+
+/* .ritem-link — same card, but reachable as a link (currently just the
+   Microsoft/SQL Server case study card, which now opens its own page).
+   Resets anchor defaults and adds a small affordance so it still reads
+   as clickable without disrupting the card grid's shared visual rhythm. */
+.ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
+.ritem-link:hover{background:rgba(202,168,75,0.06);}
+/* Positioned absolutely (not left in normal flex flow) so this hidden
+   affordance text never occupies flex-layout height — previously, even
+   at opacity:0, it counted as a real flex item and stole vertical space
+   from .rbody{flex:1}, which is why the Microsoft card's pill row sat
+   noticeably higher than its siblings' (the only card using this class). */
+.ritem-link::after{
+  content:'View case study →';
+  position:absolute;left:1.8rem;bottom:1.4rem;pointer-events:none;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transform:translateY(4px);transition:opacity 0.2s,transform 0.2s;
+}
+.ritem-link:hover::after{opacity:1;transform:none;}
+
+/* ── FEATURED CASE STUDY — highlight banner that leads into the full
+   Microsoft SQL Server case study page. Two-column: story + pull-quote +
+   CTA on the left, a video placeholder + audio button on the right. ── */
+.fc-grid{
+  display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:auto auto;
+  column-gap:4rem;row-gap:0;align-items:start;
+}
+/* Heading (eyebrow + title) spans both columns as its own row, so the
+   video/audio column below starts level with the body copy, not the
+   heading — a structural grid placement instead of a guessed offset. */
+.fc-heading{grid-column:1 / -1;grid-row:1;}
+.fc-heading .seye{margin-bottom:1.2rem;}
+.fc-heading .stit{margin-bottom:2.6rem;}
+.fc-text{grid-column:1;grid-row:2;}
+.fc-p{font-size:1.05rem;font-weight:300;line-height:1.85;color:var(--mid);margin-bottom:1.8rem;}
+.fc-quote{
+  border-left:2px solid var(--gold);padding:0.2rem 0 0.2rem 1.4rem;margin-bottom:1.8rem;
+  font-size:1rem;font-weight:300;font-style:italic;line-height:1.75;color:var(--lohi);
+}
+.fc-quote cite{display:block;margin-top:0.7rem;font-size:0.68rem;font-weight:600;font-style:normal;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);}
+.fc-cta{display:inline-flex;}
+
+/* Video/audio column: same grid row as .fc-text, so its top edge lines up
+   with the body paragraph automatically — no margin-top guessing. */
+.fc-media{grid-column:2;grid-row:2;display:flex;flex-direction:column;gap:1rem;}
+.fc-video{
+  position:relative;border-radius:6px;overflow:hidden;
+  border:1px solid rgba(202,168,75,0.32);background:#000;
+}
+.fc-video video{width:100%;height:100%;display:block;}
+
+/* Audio button — plays the real narration MP3 on click (js/home-v2.js).
+   Both icons are always in the markup; only one shows at a time via the
+   "playing" class, which is toggled off the <audio> element's own events
+   rather than the click itself. */
+.fc-audio-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.7rem;width:100%;
+  padding:14px 20px;border-radius:999px;border:1px solid rgba(248,244,234,0.5);
+  background:transparent;color:var(--hi);font-family:var(--fb);cursor:pointer;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;
+  transition:border-color 0.2s,background 0.2s;
+}
+.fc-audio-btn svg{width:18px;height:18px;color:var(--gold);flex-shrink:0;}
+.fc-audio-btn:hover{border-color:var(--hi);background:rgba(248,244,234,0.08);}
+.fc-audio-icon-pause{display:none;}
+.fc-audio-btn.playing{border-color:var(--gold);background:rgba(202,168,75,0.08);}
+.fc-audio-btn.playing .fc-audio-icon-play{display:none;}
+.fc-audio-btn.playing .fc-audio-icon-pause{display:block;}
+
+@media(max-width:900px){
+  .fc-grid{grid-template-columns:1fr;row-gap:2.6rem;}
+  .fc-heading{grid-column:1;grid-row:1;}
+  .fc-text{grid-column:1;grid-row:2;}
+  .fc-media{grid-column:1;grid-row:3;}
+}
+
+/* ── CONTACT — photo background + scrim removed per client request;
+   solid .bg0 fill now, same as every other section. ── */
+#contact{position:relative;overflow:hidden;padding-bottom:calc(80px + env(safe-area-inset-bottom));}
+#contact .si{position:relative;z-index:1;}
+
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+/* Card container around the form so it reads as a distinct "fill this out"
+   block instead of floating directly on the busy mountain photo, and
+   doesn't visually blend into the text column above it. */
+.cform-wrap{
+  background:rgba(10,18,32,0.55);border:1px solid rgba(202,168,75,0.22);
+  padding:2rem;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+}
+.chd{font-family:var(--fd);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:1rem;}
+.chd em{font-style:normal;color:var(--gold);font-weight:400;}
+.csub{font-size:1.125rem;font-weight:300;line-height:1.8;color:var(--mid);margin-bottom:1.4rem;}
+.cdet{font-size:0.75rem;color:var(--lo);margin-bottom:0.25rem;letter-spacing:0.04em;}
+.cdet a{color:var(--lo);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
+.cdet a:hover{color:var(--gold);}
+/* Email address specifically called out in gold, wherever it appears. */
+.cdet a[href^="mailto:"]{color:var(--gold);}
+.cdet a[href^="mailto:"]:hover{color:var(--hi);}
+.cnote{font-size:0.85rem;font-weight:300;color:var(--mid);line-height:1.7;margin-top:0.9rem;}
+.cform{display:flex;flex-direction:column;gap:16px;}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fl{font-size:0.67rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:rgba(248,244,234,0.88);}
+.fi,.ft{
+  background:rgba(201,168,76,0.06);border:1px solid rgba(202,168,75,0.6);color:var(--hi);
+  font-family:var(--fb);font-size:0.88rem;font-weight:300;padding:12px 14px;
+  outline:none;width:100%;border-radius:0;-webkit-appearance:none;transition:border-color 0.2s,box-shadow 0.2s;
+}
+/* Visible keyboard-focus ring in addition to the border-color change, so
+   focus is unambiguous for keyboard users (not relying on border alone). */
+.fi:focus,.ft:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(202,168,75,0.22);}
+.fi::placeholder,.ft::placeholder{color:rgba(248,244,234,0.52);}
+.ft{resize:vertical;min-height:100px;}
+.fg.field-error .fi,.fg.field-error .ft{border-color:#e08a6b;}
+.ferror{display:none;padding:14px 16px;border:1px solid #e08a6b;color:#f2c4b0;font-size:0.8rem;font-weight:300;line-height:1.6;margin-top:4px;}
+.fthanks{display:none;padding:18px 20px;border:1px solid var(--gold);font-size:0.85rem;font-weight:300;color:var(--gold);letter-spacing:0.04em;}
+.fnote{font-size:0.85rem;font-weight:300;color:var(--mid);line-height:1.7;margin-top:0.9rem;}
+
+/* Full multi-column footer CSS lives in shared.css now — it's used on
+   every page, not just the homepage. */
+
+/* ── PROOF LIST — clean vertical list, not cards. Each credential is its
+   own row (icon + main line), with one or more smaller sub-lines
+   underneath for supporting detail. ── */
+.proof-list{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:1.6rem;}
+.proof-row{display:flex;align-items:flex-start;gap:0.7rem;}
+.proof-icon{width:17px;height:17px;color:var(--gold);flex-shrink:0;margin-top:3px;}
+.proof-stack{display:flex;flex-direction:column;gap:3px;line-height:1.4;}
+.proof-main{font-size:0.91rem;font-weight:300;color:var(--mid);letter-spacing:0.04em;}
+.proof-sub{font-size:0.74rem;font-weight:400;letter-spacing:0.03em;color:var(--lo);}
+.proof-link{
+  display:inline-block;font-size:0.88rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(202,168,75,0.4);
+  padding-bottom:4px;transition:color 0.2s,border-color 0.2s;
+}
+.proof-link:hover{color:var(--hi);border-color:var(--hi);}
+
+/* ── RESPONSIVE ── */
+/* Who We Partner With — 5 columns only where there's room to breathe;
+   below that, 3+2 (a 3-col grid auto-wraps 5 items into 3 then 2) so
+   copy never has to shrink to fit. */
+@media(max-width:1439px){
+  /* 5 cards in a plain 3-col grid leaves the last row with 2 cards flush
+     left and 1 empty cell trailing. Doubling the resolution to 6 columns
+     (each card spans 2) gives enough granularity to explicitly center
+     that leftover pair instead of just hiding the empty cell: row 1 fills
+     all 6 columns (3 cards × span 2); row 2's 2 cards are pinned to
+     columns 2–5, leaving 1 empty column on each side — a true centered
+     pair rather than left-aligned with dead space to the right. */
+  .pcards{grid-template-columns:repeat(6,1fr);}
+  .pcard{grid-column:span 2;}
+  .pcards .pcard:nth-child(4){grid-column:2 / span 2;}
+  .pcards .pcard:nth-child(5){grid-column:4 / span 2;}
+  /* Centering row 2 leaves column 1 and column 6 of that row empty on
+     either side. Paint exactly those two cells to match the section
+     background instead of leaving them to show the grid's raw gap color. */
+  .pcards::before{content:'';grid-column:1 / span 1;grid-row:2;background:var(--bg-1);}
+  .pcards::after{content:'';grid-column:6 / span 1;grid-row:2;background:var(--bg-1);}
+}
+@media(max-width:1100px){
+  .mgrid{grid-template-columns:1fr;}
+  .mjoin .mjarrow-h{display:none;}
+  .mjoin .mjarrow-v{display:inline;}
+  .mjoin{padding:8px 0;}
+  .kpis{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:900px){
+  .bwrap{flex-wrap:wrap;justify-content:center;gap:0 0.28em;}
+  .btext{font-size:11vw;}
+  .hphrase{white-space:normal;}
+  .hbelow p{white-space:normal;max-width:90vw;}
+  /* Two-line audience line: "For founders and operators" / "at a critical
+     inflection point." — an explicit break instead of leaving the browser
+     to wrap wherever it runs out of width. */
+  .hbr-mobile{display:inline;}
+}
+@media(max-width:720px){
+  .cform-wrap{padding:1.4rem 1.2rem;}
+  .hero{padding:88px 5vw 40px;}
+  .hlogo{margin-bottom:26px;}
+  /* ~5% smaller than the 48px tablet size so the mark supports the
+     headline rather than competing with it. */
+  .hlogo svg{height:46px;}
+  .btext{font-size:15vw;}
+  .hstatic{
+    white-space:normal;
+    /* ~6% smaller + slightly tighter tracking so the eyebrow line above
+       the rotating phrase doesn't feel too wide next to it. */
+    font-size:16px;letter-spacing:0.02em;
+  }
+  .btng{font-size:0.58rem;padding:12px 20px;}
+  .btno{display:none;}
+  /* Hero CTAs: tighten letter-spacing/padding (not font-size) so both
+     labels reliably stay on one line on narrower phones. */
+  .btn-label{padding:14px 22px;letter-spacing:0.07em;}
+  .hero-btn-ghost{padding:14px 22px;letter-spacing:0.08em;}
+  .sec{padding:44px 5vw;}
+  .rule{padding:0 5vw;}
+  .stit{
+    margin-bottom:1.4rem;
+    /* ~4% smaller + a touch of right padding so headings like "An
+       Operator-Investor" get breathing room from the viewport edge
+       instead of running flush to it. */
+    font-size:1.44rem;padding-right:0.3rem;
+  }
+  .who-p{
+    margin-bottom:1.6rem;
+    /* Slightly smaller and tighter so the paragraph doesn't feel
+       oversized/loose under the (unchanged-size) heading. */
+    font-size:1.05rem;line-height:1.65;
+  }
+  .mgrid{margin-bottom:24px;}
+  .mbox{padding:27px 26px;} /* ~10% less vertical padding; side margins unchanged */
+  .mclose{padding-top:18px;text-wrap:balance;}
+  #partners{padding-top:56px;} /* match the breathing room other section transitions get */
+  /* Single column at every phone width, iPhone and Samsung alike — a 2-col
+     grid here used to kick in only above 420px (so iPhones ~430px+ got a
+     2-up grid while narrower Samsung phones fell through to 1-column),
+     which read as an inconsistency between devices. Stacked single-column
+     cards are the preferred mobile treatment across all phone widths. */
+  .pcards{grid-template-columns:1fr;}
+  /* Undo the 3-col breakpoint's 6-column/span-2 trick — back to a plain
+     1-col grid where each card is a normal single track again. */
+  .pcard{grid-column:auto;}
+  .pcards .pcard:nth-child(4){grid-column:auto;}
+  .pcards .pcard:last-child{grid-column:auto;}
+  /* Single column has no leftover cell — turn the 3-col breakpoint's
+     filler back off rather than let it cascade down and add a phantom box. */
+  .pcards::before{content:none;}
+  .pcards::after{content:none;}
+  .proof-list{gap:0.9rem;}
+  #recognition{padding:53px 5vw 43px;}
+  #contact{padding-top:36px;padding-bottom:calc(43px + env(safe-area-inset-bottom));}
+  .ecards{grid-template-columns:1fr;gap:1px;}
+  .ecard{padding:2rem 1.6rem;}
+  .rgrid{grid-template-columns:1fr;}
+  .ritem{padding:1.9rem 1.8rem;} /* ~14% less top/bottom padding; sides unchanged */
+  .tgrid{grid-template-columns:1fr;}
+  .cgrid{grid-template-columns:1fr;gap:2.5rem;}
+  /* Expanded accordion copy: soften down from the primary 18px reading
+     size (feels oversized inside the narrower accordion padding) and
+     tighten the line-height slightly. */
+  .enc-body{font-size:1rem;line-height:1.7;}
+}
+@media(prefers-reduced-motion:reduce){.hphrase,.rv{transition:none;}}
+
+/* Touch input can trigger a :hover state on tap and then leave it "stuck"
+   until something else is tapped (a well-documented Android/Samsung
+   Internet quirk) — without this guard, whichever card/accordion row was
+   last tapped stays visibly tinted/highlighted next to its untouched
+   siblings. Devices that report no true hover capability get these
+   hover-only backgrounds reset back to their resting values instead. */
+@media(hover:none){
+  .pcard:hover{background:var(--bg-0);border-color:transparent;}
+  .ecard:hover{background:var(--bg-1);}
+  .ritem:hover{background:var(--bg-1);}
+  .ritem-link:hover{background:var(--bg-1);}
+  .ritem-link:hover::after{opacity:0;transform:translateY(4px);}
+  .enchd:hover{background:none;}
+  .titem:hover{background:var(--bg-1);}
+}

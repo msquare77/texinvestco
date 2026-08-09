@@ -1,0 +1,253 @@
+/* ────────────────────────────────────────────────────────────
+   TexInvestCo — SHARED STYLES
+   Used by every page (index.html, who-we-are.html, what-we-do.html,
+   privacy.html). Page-specific styles (hero, section layouts, page
+   footers) live in that page's own css/<page>.css file, loaded
+   AFTER this file so it can add to / override where needed.
+   ──────────────────────────────────────────────────────────── */
+
+:root{
+  --bg-0:#111d33; --bg-1:#1b2b4b; --bg-2:#162440;
+  --gold:#CAA84B; --gold-lt:#dfc078;
+  --gb:rgba(202,168,75,0.20); --gf:rgba(202,168,75,0.08);
+  --hi:#f8f4ea; --mid:rgba(248,244,234,0.68);
+  --lo:rgba(248,244,234,0.52); --lohi:rgba(248,244,234,0.72);
+  --fd:'Cinzel',Georgia,serif; --fb:'Inter',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{font-family:var(--fb);color:var(--hi);background:var(--bg-0);overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased;}
+
+/* Anchor targets — keep section headings clear of the fixed nav when
+   jumping via nav links or #hash scrolling. The fixed nav measures 68px
+   tall on every page at every breakpoint (verified via Playwright), so
+   the offset is set to that actual height rather than a padded guess —
+   this was previously 92px on subpages (24px more than the real header),
+   which left an oversized gap above the heading on anchor-jump. */
+section[id]{scroll-margin-top:68px;}
+
+/* Body-copy readability on mobile: --mid/--lo are used everywhere for
+   secondary text (Founder Story, Recognition, Philosophy, Contact, etc.) —
+   bump both slightly on small screens where the same opacity reads fainter. */
+@media(max-width:720px){
+  :root{--mid:rgba(248,244,234,0.78); --lo:rgba(248,244,234,0.60);}
+}
+
+/* ── NAV — base look shared by every page. Each page's own css file
+   adds just the positioning: the homepage nav floats FIXED over the
+   hero (see css/home.css), while subpages use a STICKY nav that sits
+   in normal document flow (see e.g. css/who-we-are.css). ── */
+nav{
+  z-index:1001;height:68px;padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(17,29,51,0.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+}
+.nlogo{text-decoration:none;display:flex;align-items:center;gap:10px;}
+.nmark{height:36px;width:auto;flex-shrink:0;}
+.nlogo-text{display:flex;flex-direction:column;gap:3px;line-height:1;}
+.nword{font-family:var(--fd);font-size:1rem;font-weight:600;letter-spacing:0.05em;color:var(--hi);}
+.nsub{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(248,244,234,0.55);}
+.nlinks{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nlinks a{
+  font-size:0.7rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(248,244,234,0.60);text-decoration:none;transition:color 0.2s;white-space:nowrap;
+}
+.nlinks a:hover,.nlinks a.act{color:var(--gold);}
+.ncta{
+  font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(202,168,75,0.4);
+  padding-bottom:0.1rem;transition:color 0.2s,border-color 0.2s;white-space:nowrap;
+}
+.ncta:hover{color:var(--hi);border-color:var(--hi);}
+
+/* Hamburger */
+/* padding sized so the tappable box is at least the 44x44px accessibility minimum */
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:15px 11px;margin-right:-11px;flex-shrink:0;}
+.hbg span{display:block;width:22px;height:1.5px;background:var(--hi);transition:all 0.3s;}
+.hbg.act span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hbg.act span:nth-child(2){opacity:0;}
+.hbg.act span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* Mobile panel */
+.mpanel{
+  position:fixed;inset:0;z-index:900;background:#0a1220;
+  display:flex;flex-direction:column;padding:88px 8vw 3rem;
+  transform:translateX(100%);transition:transform 0.3s ease, visibility 0.3s ease;
+  overflow-y:auto;visibility:hidden;
+}
+.mpanel.on{transform:none;visibility:visible;}
+.mpanel a{
+  font-family:var(--fd);font-size:1rem;font-weight:400;letter-spacing:0.06em;
+  color:rgba(248,244,234,0.82);text-decoration:none;
+  padding:0.9rem 0;border-bottom:1px solid rgba(202,168,75,0.10);transition:color 0.2s;
+}
+.mpanel a:hover,.mpanel a.mcta{color:var(--gold);}
+.mpanel a.mcta{margin-top:1.5rem;border:1px solid var(--gold);padding:0.7rem 1.2rem;text-align:center;font-size:0.85rem;}
+.mfoot{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(202,168,75,0.08);}
+.mfoot-tag{font-family:var(--fd);font-size:0.8rem;color:rgba(248,244,234,0.55);letter-spacing:0.1em;}
+.mfoot-sub{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(248,244,234,0.5);margin-top:4px;}
+
+@media(max-width:960px) and (min-width:721px){
+  .nlinks{gap:1.2rem;}
+  .ncta{font-size:0.6rem;}
+}
+
+/* ── Diamond rule — the sitewide section divider.
+   Sits exactly ON the seam between two adjacent sections rather than
+   occupying its own band of space: the element's flow height is just
+   1px (matching the connecting line), so the sections above and below
+   butt up directly against each other. The diamond dot is taller than
+   that 1px box and deliberately overflows a few px above/below —
+   position:relative + z-index lifts it above both neighboring
+   sections' backgrounds so it isn't clipped by whichever one paints
+   later in DOM order. ── */
+.rule{
+  display:flex;align-items:center;gap:14px;
+  max-width:1100px;margin:0 auto;padding:0 5vw;
+  height:1px;position:relative;z-index:5;
+}
+.rl{flex:1;height:1px;background:var(--gb);}
+.rd{width:7px;height:7px;border:1px solid var(--gold);transform:rotate(45deg);flex-shrink:0;}
+
+/* ── Shared buttons ── */
+.btng{
+  display:inline-block;padding:14px 36px;background:var(--gold);border:1px solid var(--gold);
+  color:#111d33;font-family:var(--fb);font-size:0.67rem;font-weight:600;
+  letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;
+  cursor:pointer;border-radius:0;-webkit-appearance:none;transition:background 0.2s,border-color 0.2s;
+}
+.btng:hover{background:var(--gold-lt);border-color:var(--gold-lt);}
+.btno{
+  display:inline-block;padding:11px 26px;background:none;border:1px solid rgba(248,244,234,0.35);
+  color:rgba(248,244,234,0.72);font-family:var(--fb);font-size:0.65rem;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;
+  cursor:pointer;border-radius:0;transition:color 0.2s,border-color 0.2s;
+}
+.btno:hover{color:var(--gold);border-color:var(--gold);}
+
+/* ── CTA strip — used by who-we-are.html and what-we-do.html ── */
+.cta-strip{
+  text-align:center;padding:64px 5vw;background:var(--bg-2);
+  position:relative;overflow:hidden;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 400' preserveAspectRatio='none'%3E%3Cpath d='M-80,240 C180,140 420,300 680,200 C940,100 1160,260 1420,180' fill='none' stroke='rgba(201,168,76,0.10)' stroke-width='1.5'/%3E%3Cpath d='M-80,300 C160,220 360,340 620,260 C880,180 1080,320 1340,240' fill='none' stroke='rgba(201,168,76,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+.cta-strip>*{position:relative;z-index:1;}
+.cta-strip-t{font-family:var(--fd);font-size:clamp(1.3rem,2.6vw,2rem);font-weight:600;color:var(--hi);margin-bottom:1.4rem;line-height:1.2;}
+.cta-strip-t em{font-style:normal;color:var(--gold);font-weight:400;}
+
+/* ── FOOTER — same full multi-column footer on every page (brand blurb,
+   Explore links, Connect links, copyright bar). Previously the homepage
+   had this rich footer while every subpage only got a one-line copyright
+   strip; moved here so it's shared site-wide instead of duplicated/
+   inconsistent per page. ── */
+footer{background:#0a1220;border-top:1px solid rgba(202,168,75,0.10);}
+.ftop{
+  max-width:1100px;margin:0 auto;padding:56px 5vw 40px;
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;
+}
+.fbrand-logo{font-family:var(--fd);font-size:1.05rem;font-weight:600;letter-spacing:0.05em;color:var(--hi);margin-bottom:6px;}
+.fbrand-logo span{color:var(--gold);}
+.fbrand-tag{font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(248,244,234,0.5);margin-bottom:18px;}
+.fbrand-line{font-size:0.81rem;color:rgba(248,244,234,0.58);line-height:1.9;}
+.fbrand-line a{color:var(--gold);text-decoration:none;}
+.fbrand-line a:hover{color:var(--hi);}
+.fcol-title{font-size:0.64rem;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:rgba(248,244,234,0.55);margin-bottom:1rem;}
+.fcol a{
+  display:block;font-size:0.81rem;color:rgba(248,244,234,0.62);text-decoration:none;
+  padding:0.35rem 0;transition:color 0.2s;
+}
+.fcol a:hover{color:var(--gold);}
+/* Email address specifically called out in gold, wherever it appears. */
+.fcol a[href^="mailto:"]{color:var(--gold);}
+.fcol a[href^="mailto:"]:hover{color:var(--hi);}
+.fbottom{
+  max-width:1100px;margin:0 auto;padding:1.4rem 5vw calc(1.4rem + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;
+  border-top:1px solid rgba(202,168,75,0.07);
+}
+.fcopy{font-size:0.71rem;color:rgba(248,244,234,0.55);letter-spacing:0.03em;}
+.fcopy a{color:rgba(248,244,234,0.55);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
+.fcopy a:hover{color:var(--gold);}
+@media(max-width:720px){
+  .ftop{grid-template-columns:1fr;gap:2rem;padding:44px 5vw 32px;}
+  .fbottom{flex-direction:column;align-items:flex-start;}
+}
+
+@media(max-width:720px){
+  nav{display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 5vw;}
+  .nlinks{display:none;}
+  .ncta{display:none;}
+  .hbg{display:flex !important;grid-column:2;}
+  .nlogo{grid-column:1;}
+}
+
+/* ── Scroll-progress indicator — thin gold line, fills as the page
+   scrolls. Element is created by initScrollProgress() in shared.js,
+   auto-run on every page. ── */
+.scroll-progress{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--gold),var(--gold-lt));
+  z-index:1200;pointer-events:none;
+  box-shadow:0 0 6px rgba(202,168,75,0.5);
+}
+
+/* ── Cursor-following glow — trails the mouse very faintly behind hero
+   content (see initCursorGlow() in shared.js). Reuses the same soft
+   radial-gradient language as the hero's existing drifting .glow
+   ellipses, just tied to the cursor instead of a fixed animation. ── */
+.cursor-glow{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+.cursor-glow-dot{
+  position:absolute;left:0;top:0;width:380px;height:380px;margin:-190px 0 0 -190px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(202,168,75,0.09) 0%,rgba(202,168,75,0.035) 45%,transparent 72%);
+  opacity:0;transition:opacity 0.5s ease;will-change:transform;
+}
+.cursor-glow-dot.on{opacity:1;}
+
+/* ── Tilt + spotlight card interaction — used on card-grid tiles
+   (partner cards, edge cards, capability tiles) via
+   initCardInteractions() in shared.js. A subtle 3D tilt plus a soft
+   gold spotlight that tracks the cursor — the practical, opaque-
+   background equivalent of a cursor-glow for tile grids, where a true
+   glow-behind-content would be hidden by the tiles' solid fills. ── */
+.tilt-card{position:relative;overflow:hidden;will-change:transform;}
+.card-spot{
+  position:absolute;inset:0;pointer-events:none;opacity:0;z-index:2;
+  transition:opacity 0.3s ease;
+  background:radial-gradient(circle 180px at var(--mx,50%) var(--my,50%),rgba(202,168,75,0.14),transparent 70%);
+}
+
+/* ── Gradient-mesh background — slow, JS-driven drifting blobs behind a
+   section (see initGradientMesh() in shared.js). ── */
+.mesh-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform;}
+
+@media(hover:none){
+  .tilt-card{transform:none !important;}
+  .card-spot{display:none;}
+  .cursor-glow{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  .mesh-blob{transform:none !important;}
+}
+
+/* ── iPhone-only WebKit compositor relief ──
+   Heavy blur() radii + continuously-animated transforms are
+   disproportionately expensive for WebKit's compositor and are what make
+   the mobile-menu transition feel janky on iPhone specifically. Scoped so
+   Android/iPad/desktop (incl. desktop Safari) see zero change:
+   -webkit-touch-callout is WebKit-only (rules out Android/Firefox/Chrome),
+   and max-width:600px rules out iPad (~744px+) and desktop Safari while
+   still covering every iPhone size (largest iPhone viewport is ~430px). */
+@supports (-webkit-touch-callout: none){
+  @media(max-width:600px){
+    .glow{filter:blur(18px);}
+    .mesh-blob{filter:blur(26px);}
+    nav{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);}
+    .mpanel{will-change:transform;-webkit-backface-visibility:hidden;}
+    .mpanel{transform:translateX(100%) translateZ(0);}
+    .mpanel.on{transform:translateZ(0);}
+  }
+}
