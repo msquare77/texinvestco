@@ -58,6 +58,10 @@
 
 <!-- HERO -->
 <section class="pg-hero">
+  <div class="pg-hero-bg" aria-hidden="true">
+    <img src="assets/who-hero-rocks.webp" alt="">
+  </div>
+  <div class="pg-hero-scrim" aria-hidden="true"></div>
   <div class="pg-hero-glow"></div>
   <div class="pg-hero-grid">
     <div class="pg-hero-text">
@@ -144,8 +148,8 @@
     <h2 class="stit">Built on<br><em>Proven Execution</em></h2>
     <div class="rgrid">
       <div class="ritem">
-        <svg class="ritem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="8" r="5"/><path d="M9 12.5L7 21l5-3 5 3-2-8.5"/>
+        <svg class="ritem-icon ic-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle pathLength="100" cx="12" cy="8" r="5"/><path pathLength="100" d="M9 12.5L7 21l5-3 5 3-2-8.5"/>
         </svg>
         <div class="rorg">Houston Business Journal</div>
         <div class="raward">Fast Tech 50</div>
@@ -153,8 +157,8 @@
         <div class="rcases"><span class="rcase">4× Consecutive Honoree</span><span class="rcase">Enterprise Champion Finalist</span></div>
       </div>
       <a href="case-study-sql-server.html" class="ritem ritem-link">
-        <svg class="ritem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <ellipse cx="12" cy="5.5" rx="7" ry="2.3"/><path d="M5 5.5v6c0 1.3 3.1 2.3 7 2.3s7-1 7-2.3v-6"/><path d="M5 11.5v6c0 1.3 3.1 2.3 7 2.3s7-1 7-2.3v-6"/>
+        <svg class="ritem-icon ic-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <ellipse pathLength="100" cx="12" cy="5.5" rx="7" ry="2.3"/><path pathLength="100" d="M5 5.5v6c0 1.3 3.1 2.3 7 2.3s7-1 7-2.3v-6"/><path pathLength="100" d="M5 11.5v6c0 1.3 3.1 2.3 7 2.3s7-1 7-2.3v-6"/>
         </svg>
         <div class="rorg">Microsoft</div>
         <div class="raward">Featured SQL Server Case Study</div>
@@ -162,9 +166,9 @@
         <div class="rcases"><span class="rcase">3,000+ Users</span><span class="rcase">10 Countries</span><span class="rcase">2B+ Rows</span></div>
       </a>
       <div class="ritem">
-        <svg class="ritem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="12" y1="3" x2="12" y2="19"/><line x1="5" y1="7" x2="19" y2="7"/>
-          <path d="M5 7l-3 6a3.2 3.2 0 0 0 6 0z"/><path d="M19 7l-3 6a3.2 3.2 0 0 0 6 0z"/><line x1="8" y1="21" x2="16" y2="21"/>
+        <svg class="ritem-icon ic-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line pathLength="100" x1="12" y1="3" x2="12" y2="19"/><line pathLength="100" x1="5" y1="7" x2="19" y2="7"/>
+          <path pathLength="100" d="M5 7l-3 6a3.2 3.2 0 0 0 6 0z"/><path pathLength="100" d="M19 7l-3 6a3.2 3.2 0 0 0 6 0z"/><line pathLength="100" x1="8" y1="21" x2="16" y2="21"/>
         </svg>
         <div class="rorg">Landmark Litigation</div>
         <div class="raward">E-Discovery at Scale</div>
@@ -181,17 +185,53 @@
 <!-- PHILOSOPHY -->
 <section class="sec bg1" id="philosophy">
   <div class="si">
-    <p class="seye">Our Philosophy</p>
-    <h2 class="stit">Our Philosophy</h2>
-    <div class="phil-intro">
-      <p>Risk is not managed through theory, committees, or financial engineering alone. It is managed through disciplined judgment, operating depth, aligned ownership, and execution capacity.</p>
-      <p>This is not a philosophy we arrived at in a deck. It was built through operating experience and the discipline of having real skin in the game.</p>
-    </div>
-    <div class="pillars">
-      <div class="pillar">Discipline over hype.</div>
-      <div class="pillar">Execution over advice.</div>
-      <div class="pillar">Alignment over transaction.</div>
-      <div class="pillar">Lasting value over immediate returns.</div>
+    <div class="phil-grid">
+      <div class="phil-col-text">
+        <p class="seye">How We Operate</p>
+        <h2 class="stit">Our Philosophy</h2>
+        <div class="phil-intro">
+          <p>Risk is not managed through theory, committees, or financial engineering alone. It is managed through disciplined judgment, operating depth, aligned ownership, and execution capacity.</p>
+          <p>This is not a philosophy we arrived at in a deck. It was built through operating experience and the discipline of having real skin in the game.</p>
+        </div>
+      </div>
+      <div class="phil-col-aperture">
+        <!-- Four horizontal bars, each misaligned at rest. Hovering/
+             focusing/tapping any bar brings all four into alignment; the
+             selected bar also scales up slightly (comes toward the
+             viewer). Its primary word and contrast phrase live in one
+             centered flex group, so as the contrast phrase's width
+             animates in, the pair re-centers and the primary word reads
+             as sliding left to make room — no separate label layer or
+             connector lines needed. -->
+        <div class="band-frame" id="bandFrame" role="group" aria-label="Our four operating principles">
+          <div class="band-stage" id="bandStage">
+            <button type="button" class="pband" data-band="1" aria-label="Discipline over hype.">
+              <span class="pband-inner">
+                <span class="band-primary">Discipline</span>
+                <span class="band-contrast">over hype.</span>
+              </span>
+            </button>
+            <button type="button" class="pband" data-band="2" aria-label="Execution over advice.">
+              <span class="pband-inner">
+                <span class="band-primary">Execution</span>
+                <span class="band-contrast">over advice.</span>
+              </span>
+            </button>
+            <button type="button" class="pband" data-band="3" aria-label="Alignment over transaction.">
+              <span class="pband-inner">
+                <span class="band-primary">Alignment</span>
+                <span class="band-contrast">over transaction.</span>
+              </span>
+            </button>
+            <button type="button" class="pband" data-band="4" aria-label="Lasting value over immediate returns.">
+              <span class="pband-inner">
+                <span class="band-primary">Lasting value</span>
+                <span class="band-contrast">over immediate returns.</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

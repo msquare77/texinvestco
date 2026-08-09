@@ -28,6 +28,40 @@ const ro=new IntersectionObserver((entries)=>{
 },{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
 rvs.forEach(e=>ro.observe(e));
 
+// Enhancement: animated line icons, sitewide. Every drawable shape in every
+// icon on the page carries pathLength="100" in the markup (see index.html),
+// so a single fixed 0→100 stroke-dashoffset range works regardless of a
+// shape's real geometry — no per-icon length measurement needed. The first
+// time an icon scrolls into view this flips on a "drawn" class, which starts
+// the CSS `kpiRedraw` animation: draw in, hold, erase, redraw — looping
+// continuously. The 4 Core Metrics (.kpi-icon-anim) additionally layer their
+// own signature secondary motion (see css/home-v2.css); every other icon on
+// the page (.ic-anim — Our Model, Who We Partner With, Our Edge, Recognition)
+// just gets the repeating draw/erase loop at a thinner stroke.
+(function(){
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function wire(selector, drawnClass){
+    const icons=document.querySelectorAll(selector);
+    if(!icons.length) return;
+    if(reduced){
+      icons.forEach(svg=>svg.classList.add(drawnClass));
+      return;
+    }
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+        entry.target.classList.add(drawnClass);
+        io.unobserve(entry.target);
+      });
+    },{threshold:0.35,rootMargin:'0px 0px -20px 0px'});
+    icons.forEach(svg=>io.observe(svg));
+  }
+
+  wire('.kpi-icon-anim','kpi-icon-drawn');
+  wire('.ic-anim','ic-drawn');
+})();
+
 // Nav active
 const sects=document.querySelectorAll('section[id]');
 const nls=document.querySelectorAll('.nlinks a');
@@ -157,3 +191,30 @@ cf.addEventListener('submit',async e=>{
     csubmit.textContent=originalLabel;
   }
 });
+
+// Featured-story audio — plays the real narration MP3 on click. Button
+// state (label + which icon shows) is driven by the <audio> element's own
+// play/pause/ended events, not assumed from the click, so a blocked or
+// failed play() (autoplay policies, etc.) can't leave the button showing
+// "playing" when nothing is actually playing.
+(function(){
+  const audio=document.getElementById('fcAudio');
+  const btn=document.getElementById('fcAudioBtn');
+  if(!audio||!btn) return;
+  const label=btn.querySelector('.fc-audio-label');
+  function setPlaying(isPlaying){
+    btn.classList.toggle('playing', isPlaying);
+    btn.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+    if(label) label.textContent = isPlaying ? 'Pause the Story' : 'Listen to the Story →';
+  }
+  btn.addEventListener('click', ()=>{
+    if(audio.paused){
+      audio.play().catch(()=>{});
+    }else{
+      audio.pause();
+    }
+  });
+  audio.addEventListener('play', ()=>setPlaying(true));
+  audio.addEventListener('pause', ()=>setPlaying(false));
+  audio.addEventListener('ended', ()=>setPlaying(false));
+})();

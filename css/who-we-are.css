@@ -12,13 +12,18 @@ body{line-height:1.7;padding-top:68px;}
    instead of the viewport. Fixed positioning sidesteps that bug entirely. */
 nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 
-/* HERO — single-column, left-aligned text (decorative art panel removed) */
+/* HERO — single-column, left-aligned text, full-bleed photo behind a dark
+   scrim (same layered treatment as the homepage Recognition section:
+   position:absolute image layer + solid-tint scrim, both under the text). */
 .pg-hero{
-  padding:60px 5vw 44px;
+  padding:96px 5vw 80px;
   background:linear-gradient(150deg,#111d33 0%,#1a2e50 50%,#111d33 100%);
   position:relative;overflow:hidden;
 }
-.pg-hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(202,168,75,0.05) 0%,transparent 65%);}
+.pg-hero-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
+.pg-hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 78%;display:block;}
+.pg-hero-scrim{position:absolute;inset:0;z-index:0;background:rgba(17,29,51,0.86);}
+.pg-hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(202,168,75,0.05) 0%,transparent 65%);z-index:0;}
 .pg-hero-grid{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
 .pg-hero-text{text-align:left;}
 .pg-eyebrow{
@@ -120,24 +125,105 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .inline-link{color:var(--gold);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
 .inline-link:hover{color:var(--hi);}
 
-/* PHILOSOPHY */
-.phil-intro{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.9;max-width:680px;margin-bottom:2.4rem;}
+/* PHILOSOPHY — two-column: editorial text left, interactive aperture right */
+.phil-grid{display:grid;grid-template-columns:minmax(0,48%) minmax(0,52%);gap:5vw;align-items:center;}
+.phil-col-text{max-width:640px;}
+.phil-intro{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.9;max-width:680px;margin-top:0;}
 .phil-intro p+p{margin-top:0.9rem;}
-.pillars{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gb);margin-top:2rem;}
-.pillar{background:var(--bg-0);padding:1.8rem 1.8rem;font-family:var(--fd);font-size:1rem;font-weight:600;color:var(--hi);letter-spacing:0.02em;border-top:2px solid transparent;transition:border-color 0.2s,background 0.2s;}
-.pillar:hover{border-top-color:var(--gold);background:rgba(202,168,75,0.03);}
+.phil-col-aperture{display:flex;justify-content:center;align-items:center;}
+
+/* ── HORIZONTAL BAR DIAGRAM ────────────────────────────────────────────
+   Four horizontal bars, stacked, each misaligned (translateX) at rest.
+   Hovering/focusing/tapping any bar brings ALL bars into alignment
+   (translateX:0); the selected bar additionally scales up slightly, as
+   if stepping toward the viewer. Text lives centered inside each bar in
+   the body sans-serif — no separate label layer, no connector lines,
+   nothing to go visually "messy": the only moving parts are the bars
+   themselves and the text they contain. ── */
+.band-frame{position:relative;width:100%;max-width:480px;margin:0 auto;}
+.band-stage{display:flex;flex-direction:column;gap:18px;}
+
+.pband{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:100%;height:clamp(56px,7vw,72px);
+  padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  border:1px solid rgba(202,168,75,0.26);border-radius:2px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.12)),
+    var(--band-bg,#101c33);
+  box-shadow:0 8px 20px -16px rgba(0,0,0,0.55);
+  transform:translateX(var(--rest-x,0)) scale(1);
+  transition:transform 1s cubic-bezier(.22,.61,.36,1),border-color 0.8s ease,
+    box-shadow 0.8s ease,opacity 0.8s ease,filter 0.8s ease;
+}
+/* Each bar a hair tonally distinct + its own resting horizontal offset —
+   misaligned but balanced (offsets roughly cancel out). */
+.pband[data-band="1"]{--band-bg:#0f1c33;--rest-x:-22px;}
+.pband[data-band="2"]{--band-bg:#101d35;--rest-x:16px;}
+.pband[data-band="3"]{--band-bg:#0e1a30;--rest-x:-14px;}
+.pband[data-band="4"]{--band-bg:#111f39;--rest-x:24px;}
+
+.pband:focus-visible{outline:none;border-color:rgba(202,168,75,0.6);}
+
+/* Any bar active → every bar snaps into alignment (translateX:0); the
+   active one additionally scales up and lifts above its neighbors.
+   :not(.active) here is load-bearing — without it this rule's higher
+   specificity (three classes vs. two) would win over .pband.active below
+   and silently reset the active bar's scale back to 1. */
+.band-stage.has-active .pband:not(.active){transform:translateX(0) scale(1);}
+.pband.active{
+  transform:translateX(0) scale(1.09);
+  border-color:rgba(202,168,75,0.85);
+  box-shadow:0 20px 40px -16px rgba(0,0,0,0.65),0 0 0 1px rgba(202,168,75,0.12) inset;
+  z-index:2;
+}
+.band-stage.has-active .pband:not(.active){opacity:0.6;filter:saturate(0.85);}
+
+/* Primary word + contrast phrase sit in one centered flex group. The
+   contrast phrase starts at max-width:0 (invisible, no space taken), so
+   the group is exactly as wide as the primary word alone — dead center.
+   On activation the contrast phrase's max-width animates open; because
+   the group stays centered, the primary word visibly slides left to make
+   room while the phrase reveals left-to-right (a typing-in read) without
+   any per-character JS. */
+.pband-inner{display:flex;align-items:baseline;justify-content:center;gap:0;padding:0 8%;max-width:100%;}
+.band-primary{
+  font-family:var(--fb);font-size:clamp(0.92rem,1.5vw,1.05rem);font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--hi);white-space:nowrap;
+  transition:color 0.8s ease;
+}
+.pband.active .band-primary{color:var(--gold);}
+
+.band-contrast{
+  font-family:var(--fb);font-size:clamp(0.92rem,1.5vw,1.05rem);font-weight:300;
+  letter-spacing:0.02em;color:var(--gold-lt);white-space:nowrap;overflow:hidden;
+  max-width:0;opacity:0;margin-left:0;
+  transition:max-width 0.9s ease,opacity 0.6s ease 0.25s,margin-left 0.9s ease;
+}
+.pband.active .band-contrast{max-width:240px;opacity:1;margin-left:0.4em;}
 
 /* RESPONSIVE */
 @media(max-width:900px){
   .founder-grid{grid-template-columns:1fr;gap:1.4rem;}
   .rgrid{grid-template-columns:1fr;}
   .tgrid{grid-template-columns:1fr;}
+  /* Tablet: keep the two-column philosophy layout but tighten the split
+     and shrink the bar diagram proportionally so nothing feels cramped. */
+  .phil-grid{grid-template-columns:minmax(0,46%) minmax(0,54%);gap:4vw;}
+  .band-frame{max-width:340px;}
 }
 @media(max-width:720px){
   .sec{padding:44px 5vw;}
-  .pillars{grid-template-columns:1fr;}
   .pg-hero{padding:44px 5vw 36px;}
   .founder-grid{grid-template-columns:1fr;}
+  /* Mobile: stack — text first, bar diagram second. */
+  .phil-grid{grid-template-columns:1fr;gap:2.6rem;}
+  .phil-col-text{max-width:none;}
+  .band-frame{max-width:100%;margin:0 auto;}
+  .pband{height:56px;}
+  .pband-inner{padding:0 6%;}
+  .band-primary,.band-contrast{font-size:0.82rem;}
+  .pband.active .band-contrast{max-width:220px;}
 }
 
 /* Touch input can trigger a :hover state on tap and leave it "stuck" until
@@ -149,5 +235,40 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
   .ritem:hover{background:var(--bg-1);}
   .ritem-link:hover{background:var(--bg-1);}
   .ritem-link:hover::after{opacity:0;transform:translateY(4px);}
-  .pillar:hover{background:var(--bg-0);border-top-color:transparent;}
+  /* Band and label visuals are driven entirely by JS-toggled classes
+     (see js/who-we-are-v2.js), not :hover, specifically so touch's
+     "stuck hover" quirk can't affect them — nothing to override here. */
+}
+
+/* ── ANIMATED LINE ICONS — standard sitewide treatment (same system as the
+   homepage). Every drawable shape in an .ic-anim icon carries pathLength="100"
+   in the markup, so one fixed 0→100 stroke-dashoffset range works regardless
+   of the shape's real geometry. First scroll into view flips on "ic-drawn",
+   which starts the repeating draw/erase loop at a thin, deliberately light
+   stroke. Currently applied to the three Recognition icons on this page. ── */
+.ic-anim{overflow:visible;stroke-width:1;}
+.ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{
+  stroke-dasharray:100;stroke-dashoffset:100;
+}
+.ic-anim.ic-drawn path,.ic-anim.ic-drawn line,.ic-anim.ic-drawn circle,.ic-anim.ic-drawn ellipse,.ic-anim.ic-drawn polyline,.ic-anim.ic-drawn polygon,.ic-anim.ic-drawn rect{
+  animation-name:kpiRedraw;animation-duration:6.5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+}
+@keyframes kpiRedraw{
+  0%{stroke-dashoffset:100;}
+  30%{stroke-dashoffset:0;}
+  78%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:100;}
+}
+@media(prefers-reduced-motion:reduce){
+  .ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{stroke-dashoffset:0 !important;}
+  .ic-anim,.ic-anim *{animation:none !important;}
+}
+
+/* Bar diagram — no sliding/scaling; the reveal still works, it just
+   fades/dims and the contrast phrase fades in rather than typing open. */
+@media(prefers-reduced-motion:reduce){
+  .pband{transition:border-color 0.25s ease,box-shadow 0.25s ease,opacity 0.25s ease,filter 0.25s ease !important;transform:none !important;}
+  .band-stage.has-active .pband{transform:none !important;}
+  .band-primary{transition:color 0.25s ease !important;}
+  .band-contrast{transition:opacity 0.25s ease !important;}
 }
