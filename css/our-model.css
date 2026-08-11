@@ -1,0 +1,267 @@
+/* ────────────────────────────────────────────────────────────
+   TexInvestCo — OUR MODEL (our-model.html) styles
+   Loaded after css/shared.css.
+   ──────────────────────────────────────────────────────────── */
+
+body{line-height:1.7;padding-top:68px;}
+nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
+
+/* Reveal-on-scroll — same pattern used sitewide (home.css/who-we-are.css/
+   what-we-do.css each define their own copy; this page follows suit). */
+.rv{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.rv.on{opacity:1;transform:none;}
+@media print{.rv{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.rv{transition:none;}}
+
+/* ── SECTION SHELL — identical convention to the other pages: .sec + one
+   of the two approved background tokens, alternated for rhythm. ── */
+.sec{padding:80px 5vw;}
+.bg0{background:var(--bg-0);}
+.bg1{background:var(--bg-1);}
+.si{max-width:1100px;margin:0 auto;}
+.seye{
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.6rem;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;
+}
+.seye::before{content:'';width:22px;height:1px;background:var(--gold);}
+.stit{
+  font-family:var(--fd);font-size:clamp(1.5rem,3.2vw,2.6rem);
+  font-weight:600;letter-spacing:0.03em;color:var(--hi);line-height:1.2;margin-bottom:1.6rem;
+}
+.stit em{font-style:normal;color:var(--gold);font-weight:400;}
+
+/* ── HERO — same full-bleed photo + dark scrim treatment used on Who We
+   Are and What We Do: single-column, left-aligned text over a full-width
+   background image with a scrim and ambient glow layered on top. Kept
+   identical to those pages rather than the split composition the design
+   guide sketched, so all three subpages read as one consistent system. ── */
+.om-hero{position:relative;padding:72px 5vw 52px;overflow:hidden;}
+.om-hero-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
+.om-hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;}
+.om-hero-scrim{position:absolute;inset:0;z-index:0;background:rgba(17,29,51,0.86);}
+.om-hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 55% at 50% 40%,rgba(202,168,75,0.05) 0%,transparent 65%);z-index:0;}
+.om-hero-grid{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.om-hero-text{text-align:left;}
+.om-hero-title{
+  font-family:var(--fd);font-size:clamp(26px,3.4vw,40px);font-weight:600;
+  color:var(--hi);line-height:1.2;margin-bottom:20px;
+}
+.om-hero-title em{font-style:normal;color:var(--gold);font-weight:400;}
+.om-hero-copy{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:680px;margin:0;}
+.om-hero-copy+.om-hero-copy{margin-top:1rem;}
+.om-hero-line{
+  font-size:1rem;font-weight:300;font-style:italic;color:var(--gold-lt);
+  border-top:1px solid var(--gb);padding-top:1.4rem;margin-top:1.8rem;max-width:480px;
+}
+@media(max-width:720px){
+  .om-hero{padding:44px 5vw 36px;}
+}
+
+/* ── SECTION 2 — THE CORE IDEA ── */
+.om-core-grid{display:grid;grid-template-columns:0.85fr 1fr;gap:4.5rem;align-items:start;position:relative;}
+.om-core-title{
+  font-family:var(--fd);font-size:clamp(1.7rem,3.6vw,2.7rem);font-weight:600;
+  color:var(--hi);line-height:1.28;
+}
+.om-core-right{padding-top:0.4rem;}
+.om-core-body{font-size:1.06rem;font-weight:300;line-height:1.85;color:var(--mid);margin-bottom:1.1rem;}
+.om-core-body:last-of-type{margin-bottom:1.8rem;}
+.om-pullquote{
+  border-left:2px solid var(--gold);margin:0;padding:0.2rem 0 0.2rem 1.4rem;
+  font-family:var(--fd);font-size:1.2rem;font-weight:600;font-style:normal;
+  color:var(--hi);line-height:1.5;
+}
+@media(max-width:900px){
+  .om-core-grid{grid-template-columns:1fr;gap:2rem;}
+}
+
+/* ── SECTION 3 — THE TEXINVESTCO MODEL (four forces) ── */
+.om-forces-intro{font-size:1.06rem;font-weight:300;line-height:1.8;color:var(--mid);max-width:680px;margin-bottom:2.6rem;}
+.om-force-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;
+  border-top:1px solid var(--gb);padding-top:2.2rem;
+}
+.om-force{display:flex;flex-direction:column;background:var(--bg-1);border:1px solid var(--gb);overflow:hidden;}
+.om-force-img{width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg-0);}
+.om-force-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}
+.om-force:hover .om-force-img img{transform:scale(1.045);}
+.om-force-body{padding:1.5rem 1.4rem 1.7rem;display:flex;flex-direction:column;flex:1;}
+.om-force-n{font-family:var(--fd);font-size:0.85rem;font-weight:600;color:var(--gold);letter-spacing:0.08em;margin-bottom:0.6rem;}
+.om-force-t{font-family:var(--fd);font-size:1.15rem;font-weight:600;color:var(--hi);margin-bottom:0.7rem;}
+.om-force-d{font-size:0.92rem;font-weight:300;line-height:1.7;color:var(--mid);}
+.om-forces-close{
+  margin-top:2.4rem;padding-top:1.8rem;border-top:1px solid var(--gb);
+  font-size:1.15rem;font-weight:300;color:var(--mid);text-align:center;
+}
+.om-forces-close em{font-style:normal;color:var(--gold);font-weight:500;}
+@media(max-width:1000px){
+  .om-force-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .om-force-grid{grid-template-columns:1fr;}
+}
+
+/* ── SECTION 4 — HOW THE MODEL WORKS (static timeline) ── */
+.om-timeline-intro{font-size:1.06rem;font-weight:300;line-height:1.8;color:var(--mid);max-width:680px;margin-bottom:2.8rem;}
+.om-timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:2.4rem;padding-top:8px;}
+.om-timeline::before{content:'';position:absolute;top:23px;left:0;right:0;height:1px;background:var(--gb);}
+.om-tstage{position:relative;}
+.om-tn{
+  position:relative;z-index:1;width:30px;height:30px;border-radius:50%;
+  border:1px solid var(--gold);background:var(--bg-1);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-size:0.8rem;color:var(--gold);margin-bottom:1.3rem;
+}
+.om-tt{font-family:var(--fd);font-size:1.1rem;font-weight:600;color:var(--hi);margin-bottom:0.4rem;}
+.om-tsub{font-size:0.88rem;font-weight:500;color:var(--gold-lt);margin-bottom:0.8rem;line-height:1.4;}
+.om-tbody{font-size:0.92rem;font-weight:300;line-height:1.75;color:var(--mid);}
+.om-timeline-foot{
+  margin-top:2.6rem;text-align:center;font-size:0.68rem;font-weight:600;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--lo);
+}
+.om-timeline-foot span{color:var(--gold);margin:0 0.5em;}
+@media(max-width:900px){
+  .om-timeline{grid-template-columns:1fr;gap:0;padding-top:0;padding-left:36px;}
+  .om-timeline::before{top:0;bottom:0;left:14px;right:auto;width:1px;height:auto;}
+  .om-tstage{padding-bottom:2.2rem;}
+  .om-tstage:last-child{padding-bottom:0;}
+  .om-tn{position:absolute;left:-36px;top:0;}
+}
+
+/* ── SECTION 5 — THE OPERATING ENGINE ── */
+.om-engine-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:start;}
+.om-engine-p{font-size:1.06rem;font-weight:300;line-height:1.85;color:var(--mid);margin-bottom:1.1rem;}
+.om-engine-close{
+  margin-top:1.6rem;font-family:var(--fd);font-size:1.25rem;font-weight:600;color:var(--hi);line-height:1.4;
+}
+.om-engine-close em{font-style:normal;color:var(--gold);font-weight:400;}
+.om-engine-caps{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gb);}
+.om-cap-tile{
+  background:var(--bg-1);padding:1.3rem 1.2rem;display:flex;align-items:center;gap:0.85rem;
+}
+.om-cap-icon{width:20px;height:20px;color:var(--gold);flex-shrink:0;overflow:visible;stroke-width:1.5;}
+.om-cap-tile span{font-size:0.82rem;font-weight:500;letter-spacing:0.02em;color:var(--hi);line-height:1.3;}
+@media(max-width:1000px){
+  .om-engine-grid{grid-template-columns:1fr;gap:2.4rem;}
+}
+@media(max-width:520px){
+  .om-engine-caps{grid-template-columns:1fr;}
+}
+
+/* ── SECTION 6 — WHAT GUIDES THE MODEL (principles) ──
+   Asymmetrical editorial grid: one larger anchor card (Discipline) plus
+   three supporting cards stacked beside it. */
+.om-principles-intro{font-size:1.06rem;font-weight:300;line-height:1.8;color:var(--mid);max-width:680px;margin-bottom:2.6rem;}
+.om-principles-grid{
+  display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:repeat(3,1fr);gap:1px;background:var(--gb);
+}
+.om-pcard{background:var(--bg-0);padding:2rem 2rem;display:flex;flex-direction:column;justify-content:center;position:relative;}
+.om-pcard-anchor{grid-row:1 / span 3;padding:2.6rem 2.4rem;}
+.om-pcard-num{
+  position:absolute;top:1.4rem;right:1.6rem;font-family:var(--fd);font-size:2.4rem;font-weight:600;
+  color:rgba(202,168,75,0.14);line-height:1;
+}
+.om-pcard-anchor .om-pcard-num{font-size:4.2rem;}
+.om-pcard-t{font-family:var(--fd);font-size:1.3rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
+.om-pcard-anchor .om-pcard-t{font-size:1.9rem;}
+.om-pcard-over{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+.om-pcard-d{font-size:0.94rem;font-weight:300;line-height:1.75;color:var(--mid);max-width:420px;}
+@media(max-width:900px){
+  .om-principles-grid{grid-template-columns:1fr;grid-template-rows:none;}
+  .om-pcard-anchor{grid-row:auto;padding:2rem 1.8rem;}
+}
+
+/* ── SECTION 7 — WHERE THE MODEL CREATES VALUE (stacked bands) ── */
+.om-value-intro{font-size:1.06rem;font-weight:300;line-height:1.8;color:var(--mid);max-width:680px;margin-bottom:2rem;}
+.om-value-list{border-top:1px solid var(--gb);}
+.om-vband{
+  display:grid;grid-template-columns:64px 1fr;gap:2rem;align-items:center;
+  padding:2.1rem 0;border-bottom:1px solid var(--gb);
+}
+.om-vband-img{grid-template-columns:64px 1fr 150px;}
+.om-vband-n{font-family:var(--fd);font-size:1.3rem;font-weight:600;color:var(--gold);}
+.om-vband-t{font-family:var(--fd);font-size:1.1rem;font-weight:600;color:var(--hi);margin-bottom:0.5rem;line-height:1.35;}
+.om-vband-d{font-size:0.95rem;font-weight:300;line-height:1.7;color:var(--mid);max-width:640px;}
+.om-vband-img-wrap{width:150px;height:104px;overflow:hidden;border:1px solid var(--gb);}
+.om-vband-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+@media(max-width:720px){
+  .om-vband,.om-vband-img{grid-template-columns:1fr;gap:0.8rem;}
+  .om-vband-n{margin-bottom:0.2rem;}
+  .om-vband-img-wrap{width:100%;height:150px;order:3;}
+}
+
+/* ── SECTION 8 — THE DIFFERENCE ── */
+.om-diff-row{display:flex;border-top:1px solid var(--gb);border-bottom:1px solid var(--gb);margin:2rem 0 2.4rem;}
+.om-diff-item{flex:1;padding:1.6rem 1.5rem;border-left:1px solid var(--gb);display:flex;flex-direction:column;gap:0.4rem;}
+.om-diff-item:first-child{border-left:none;}
+.om-diff-label{font-family:var(--fd);font-size:1.1rem;font-weight:600;color:var(--lohi);}
+.om-diff-stop{font-size:0.86rem;font-weight:300;color:var(--lo);line-height:1.5;}
+.om-diff-pivot{font-family:var(--fd);font-size:1.5rem;font-weight:600;color:var(--gold);margin-bottom:1.6rem;}
+.om-diff-copy{font-size:1.06rem;font-weight:300;line-height:1.85;color:var(--mid);max-width:680px;margin-bottom:2.2rem;}
+.om-diff-close{font-family:var(--fd);font-size:1.7rem;font-weight:600;color:var(--hi);}
+.om-diff-close em{font-style:normal;color:var(--gold);font-weight:400;}
+@media(max-width:720px){
+  .om-diff-row{flex-direction:column;}
+  .om-diff-item{border-left:none;border-top:1px solid var(--gb);padding:1.3rem 0;}
+  .om-diff-item:first-child{border-top:none;}
+}
+
+/* ── SECTION 9 — CLOSING CTA ── */
+.om-close{position:relative;background:var(--bg-0);overflow:hidden;}
+.om-close-grid{
+  max-width:1360px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 0.9fr;align-items:center;
+}
+.om-close-text{padding:88px 5vw 88px 5vw;position:relative;z-index:2;}
+.om-close-title{
+  font-family:var(--fd);font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:600;color:var(--hi);
+  line-height:1.25;margin:0.4rem 0 1.4rem;
+}
+.om-close-title em{font-style:normal;color:var(--gold);font-weight:400;}
+.om-close-copy{font-size:1.06rem;font-weight:300;line-height:1.8;color:var(--mid);max-width:520px;margin-bottom:1.6rem;}
+.om-close-contact{font-size:0.92rem;font-weight:400;color:var(--lohi);line-height:1.7;margin-bottom:2.2rem;}
+.om-close-contact a{color:var(--gold);text-decoration:none;}
+.om-close-contact a:hover{color:var(--hi);}
+.om-close-ctas{display:flex;align-items:center;gap:1.8rem;flex-wrap:wrap;}
+.om-close-visual{position:relative;height:100%;min-height:420px;align-self:stretch;}
+.om-close-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.om-close-visual::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(-90deg,var(--bg-0) 0%,rgba(17,29,51,0.55) 14%,rgba(17,29,51,0) 42%);
+}
+@media(max-width:1000px){
+  .om-close-grid{grid-template-columns:1fr;}
+  .om-close-text{padding:64px 5vw 40px;}
+  .om-close-visual{min-height:320px;}
+  .om-close-visual::before{background:linear-gradient(0deg,var(--bg-0) 0%,rgba(17,29,51,0.5) 16%,rgba(17,29,51,0) 40%);}
+}
+@media(max-width:720px){
+  .om-close-ctas{gap:1.2rem;}
+}
+
+/* ── ANIMATED LINE ICONS — standard sitewide treatment, reused verbatim
+   from the other pages so the capability icons match What We Do exactly. ── */
+.ic-anim{overflow:visible;stroke-width:1.5;}
+.ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{
+  stroke-dasharray:100;stroke-dashoffset:100;
+}
+.ic-anim.ic-drawn path,.ic-anim.ic-drawn line,.ic-anim.ic-drawn circle,.ic-anim.ic-drawn ellipse,.ic-anim.ic-drawn polyline,.ic-anim.ic-drawn polygon,.ic-anim.ic-drawn rect{
+  animation-name:kpiRedraw;animation-duration:6.5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+}
+@keyframes kpiRedraw{
+  0%{stroke-dashoffset:100;}
+  30%{stroke-dashoffset:0;}
+  78%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:100;}
+}
+@media(prefers-reduced-motion:reduce){
+  .ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{stroke-dashoffset:0 !important;}
+  .ic-anim,.ic-anim *{animation:none !important;}
+}
+
+/* ── RESPONSIVE — page-wide narrower-viewport adjustments ── */
+@media(max-width:720px){
+  .sec{padding:44px 5vw;}
+  .stit{font-size:1.44rem;margin-bottom:1.2rem;}
+}

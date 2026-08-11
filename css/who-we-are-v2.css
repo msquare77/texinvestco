@@ -1,0 +1,274 @@
+/* ────────────────────────────────────────────────────────────
+   TexInvestCo — WHO WE ARE (who-we-are.html) styles
+   Loaded after css/shared.css.
+   ──────────────────────────────────────────────────────────── */
+
+body{line-height:1.7;padding-top:68px;}
+
+/* Fixed nav, matching the homepage — position:sticky was silently broken
+   here because shared.css sets overflow-x:hidden on html/body, and per the
+   CSS overflow spec that forces the other axis to compute as overflow-y:auto,
+   which makes body/html into position:sticky's nearest scrolling ancestor
+   instead of the viewport. Fixed positioning sidesteps that bug entirely. */
+nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
+
+/* HERO — single-column, left-aligned text, full-bleed photo behind a dark
+   scrim (same layered treatment as the homepage Recognition section:
+   position:absolute image layer + solid-tint scrim, both under the text). */
+.pg-hero{
+  padding:96px 5vw 80px;
+  background:linear-gradient(150deg,#111d33 0%,#1a2e50 50%,#111d33 100%);
+  position:relative;overflow:hidden;
+}
+.pg-hero-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;}
+.pg-hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 78%;display:block;}
+.pg-hero-scrim{position:absolute;inset:0;z-index:0;background:rgba(17,29,51,0.86);}
+.pg-hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(202,168,75,0.05) 0%,transparent 65%);z-index:0;}
+.pg-hero-grid{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.pg-hero-text{text-align:left;}
+.pg-eyebrow{
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.62rem;font-weight:500;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+}
+.pg-eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);flex-shrink:0;}
+.pg-title{font-family:var(--fd);font-size:clamp(28px,3.6vw,42px);font-weight:600;color:var(--hi);line-height:1.2;margin-bottom:18px;letter-spacing:0.03em;}
+.pg-title em{font-style:normal;color:var(--gold);font-weight:400;}
+.pg-intro{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:640px;margin:0;}
+
+/* SECTIONS */
+.sec{padding:80px 5vw;}
+.bg0{background:var(--bg-0);}
+.bg1{background:var(--bg-1);}
+.si{max-width:1080px;margin:0 auto;}
+.seye{display:flex;align-items:center;gap:0.8rem;font-size:0.6rem;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.seye::before{content:'';width:22px;height:1px;background:var(--gold);}
+.stit{font-family:var(--fd);font-size:clamp(1.4rem,2.8vw,2.4rem);font-weight:600;letter-spacing:0.03em;color:var(--hi);line-height:1.2;margin-bottom:2rem;}
+.stit em{font-style:normal;color:var(--gold);font-weight:400;}
+
+/* FOUNDER */
+.founder-grid{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;}
+.founder-aside{}
+.founder-name{font-family:var(--fd);font-size:1.2rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
+.founder-role{font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.founder-link{font-size:0.71rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;display:inline-block;border-bottom:1px solid rgba(202,168,75,0.3);padding-bottom:2px;}
+.founder-link:hover{color:var(--hi);border-color:var(--hi);}
+.founder-body p{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.9;margin-bottom:1.1rem;}
+.founder-body p:last-child{margin-bottom:0;}
+.founder-rule{width:36px;height:1px;background:var(--gold);margin:1.6rem 0;}
+
+/* TEAM (2-column layout on this page) */
+/* Each team member is its own fully-bordered, independently-boxed card with
+   a real gap between them (not a shared row split by a hairline divider).
+   A shared-row-plus-hairline treatment reads as "one section" once the two
+   cards' heights diverge on expand — a real gap + border on all sides makes
+   each card unambiguously its own block, both closed and open.
+   align-items:start (not the grid default of stretch) so a closed card
+   never gets visually stretched tall to match an expanded neighbor.
+   A fixed min-height (sized to the longer bio, Rasheed's) keeps both
+   cards' footers/dividers lined up in their closed state regardless of
+   bio length — .tbio's flex:1 absorbs the leftover space in the shorter
+   card, pushing its .tfoot down to match. Once a card is expanded past
+   that min-height it simply grows on its own, still without affecting
+   the sibling (align-items:start). */
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;}
+.titem{background:var(--bg-0);border:1px solid var(--gb);border-radius:6px;padding:2rem 1.8rem;display:flex;flex-direction:column;min-height:17rem;transition:background 0.2s,border-color 0.2s;}
+.titem:hover{background:rgba(202,168,75,0.03);border-color:rgba(202,168,75,0.28);}
+.tname{font-family:var(--fd);font-size:1rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
+.trole{font-size:0.66rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+.tbio{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.tbio-ext{max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s ease;font-size:1rem;font-weight:300;line-height:1.8;color:var(--mid);}
+.titem.on .tbio-ext{max-height:300px;margin-top:0.8rem;}
+.tfoot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--gf);}
+.tlink{display:inline-flex;align-items:center;gap:6px;font-size:0.69rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;}
+.tlink:hover{color:var(--hi);}
+/* LinkedIn badge — solid gold square with the logotype knocked out in the
+   page's dark navy, so the mark reads as clean reversed/negative space
+   rather than a flat icon-plus-text pairing. */
+.li-badge{flex-shrink:0;transition:opacity 0.2s;}
+.li-badge rect{fill:var(--gold);transition:fill 0.2s;}
+.tlink:hover .li-badge rect{fill:var(--hi);}
+.li-badge path{fill:var(--bg-0);}
+/* padding+negative margin enlarges the tap target toward 44px without shifting visual position/layout */
+.tmore{font-size:0.69rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);background:none;border:none;cursor:pointer;transition:color 0.2s;padding:16px 6px;margin:-16px -6px;}
+.tmore:hover{color:var(--hi);}
+
+/* RECOGNITION */
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);}
+.ritem{background:var(--bg-1);padding:2.2rem 1.6rem;display:flex;flex-direction:column;transition:background 0.2s;}
+.ritem:hover{background:rgba(202,168,75,0.04);}
+.ritem-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}
+.rorg{font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;}
+.raward{font-family:var(--fd);font-size:0.95rem;font-weight:600;color:var(--hi);margin-bottom:0.9rem;line-height:1.25;}
+.rbody{font-size:1rem;font-weight:300;line-height:1.75;color:var(--mid);flex:1;}
+.rcases{display:flex;flex-wrap:wrap;gap:0.28rem;margin-top:1.1rem;}
+.rcase{font-size:0.53rem;font-weight:600;letter-spacing:0.01em;text-transform:uppercase;color:#111d33;background:var(--gold);border:1px solid var(--gold);padding:4px 6px;border-radius:5px;line-height:1.3;white-space:nowrap;}
+.rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
+
+/* .ritem-link — same card, but reachable as a link (currently just the
+   Microsoft/SQL Server case study card, which now opens its own page). */
+.ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
+.ritem-link:hover{background:rgba(202,168,75,0.06);}
+/* Positioned absolutely (not left in normal flex flow) so this hidden
+   affordance text never occupies flex-layout height — previously, even
+   at opacity:0, it counted as a real flex item and stole vertical space
+   from .rbody{flex:1}, which is why the Microsoft card's pill row sat
+   noticeably higher than its siblings' (the only card using this class). */
+.ritem-link::after{
+  content:'View case study →';
+  position:absolute;left:1.6rem;bottom:1.3rem;pointer-events:none;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);opacity:0;transform:translateY(4px);transition:opacity 0.2s,transform 0.2s;
+}
+.ritem-link:hover::after{opacity:1;transform:none;}
+
+/* Inline mention of the case study within the founder-story paragraph */
+.inline-link{color:var(--gold);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
+.inline-link:hover{color:var(--hi);}
+
+/* PHILOSOPHY — two-column: editorial text left, interactive aperture right */
+.phil-grid{display:grid;grid-template-columns:minmax(0,48%) minmax(0,52%);gap:5vw;align-items:center;}
+.phil-col-text{max-width:640px;}
+.phil-intro{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.9;max-width:680px;margin-top:0;}
+.phil-intro p+p{margin-top:0.9rem;}
+.phil-col-aperture{display:flex;justify-content:center;align-items:center;}
+
+/* ── HORIZONTAL BAR DIAGRAM ────────────────────────────────────────────
+   Four horizontal bars, stacked, each misaligned (translateX) at rest.
+   Hovering/focusing/tapping any bar brings ALL bars into alignment
+   (translateX:0); the selected bar additionally scales up slightly, as
+   if stepping toward the viewer. Text lives centered inside each bar in
+   the body sans-serif — no separate label layer, no connector lines,
+   nothing to go visually "messy": the only moving parts are the bars
+   themselves and the text they contain. ── */
+.band-frame{position:relative;width:100%;max-width:480px;margin:0 auto;}
+.band-stage{display:flex;flex-direction:column;gap:18px;}
+
+.pband{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:100%;height:clamp(56px,7vw,72px);
+  padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  border:1px solid rgba(202,168,75,0.26);border-radius:2px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.12)),
+    var(--band-bg,#101c33);
+  box-shadow:0 8px 20px -16px rgba(0,0,0,0.55);
+  transform:translateX(var(--rest-x,0)) scale(1);
+  transition:transform 1s cubic-bezier(.22,.61,.36,1),border-color 0.8s ease,
+    box-shadow 0.8s ease,opacity 0.8s ease,filter 0.8s ease;
+}
+/* Each bar a hair tonally distinct + its own resting horizontal offset —
+   misaligned but balanced (offsets roughly cancel out). */
+.pband[data-band="1"]{--band-bg:#0f1c33;--rest-x:-22px;}
+.pband[data-band="2"]{--band-bg:#101d35;--rest-x:16px;}
+.pband[data-band="3"]{--band-bg:#0e1a30;--rest-x:-14px;}
+.pband[data-band="4"]{--band-bg:#111f39;--rest-x:24px;}
+
+.pband:focus-visible{outline:none;border-color:rgba(202,168,75,0.6);}
+
+/* Any bar active → every bar snaps into alignment (translateX:0); the
+   active one additionally scales up and lifts above its neighbors.
+   :not(.active) here is load-bearing — without it this rule's higher
+   specificity (three classes vs. two) would win over .pband.active below
+   and silently reset the active bar's scale back to 1. */
+.band-stage.has-active .pband:not(.active){transform:translateX(0) scale(1);}
+.pband.active{
+  transform:translateX(0) scale(1.09);
+  border-color:rgba(202,168,75,0.85);
+  box-shadow:0 20px 40px -16px rgba(0,0,0,0.65),0 0 0 1px rgba(202,168,75,0.12) inset;
+  z-index:2;
+}
+.band-stage.has-active .pband:not(.active){opacity:0.6;filter:saturate(0.85);}
+
+/* Primary word + contrast phrase sit in one centered flex group. The
+   contrast phrase starts at max-width:0 (invisible, no space taken), so
+   the group is exactly as wide as the primary word alone — dead center.
+   On activation the contrast phrase's max-width animates open; because
+   the group stays centered, the primary word visibly slides left to make
+   room while the phrase reveals left-to-right (a typing-in read) without
+   any per-character JS. */
+.pband-inner{display:flex;align-items:baseline;justify-content:center;gap:0;padding:0 8%;max-width:100%;}
+.band-primary{
+  font-family:var(--fb);font-size:clamp(0.92rem,1.5vw,1.05rem);font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--hi);white-space:nowrap;
+  transition:color 0.8s ease;
+}
+.pband.active .band-primary{color:var(--gold);}
+
+.band-contrast{
+  font-family:var(--fb);font-size:clamp(0.92rem,1.5vw,1.05rem);font-weight:300;
+  letter-spacing:0.02em;color:var(--gold-lt);white-space:nowrap;overflow:hidden;
+  max-width:0;opacity:0;margin-left:0;
+  transition:max-width 0.9s ease,opacity 0.6s ease 0.25s,margin-left 0.9s ease;
+}
+.pband.active .band-contrast{max-width:240px;opacity:1;margin-left:0.4em;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .founder-grid{grid-template-columns:1fr;gap:1.4rem;}
+  .rgrid{grid-template-columns:1fr;}
+  .tgrid{grid-template-columns:1fr;}
+  /* Tablet: keep the two-column philosophy layout but tighten the split
+     and shrink the bar diagram proportionally so nothing feels cramped. */
+  .phil-grid{grid-template-columns:minmax(0,46%) minmax(0,54%);gap:4vw;}
+  .band-frame{max-width:340px;}
+}
+@media(max-width:720px){
+  .sec{padding:44px 5vw;}
+  .pg-hero{padding:44px 5vw 36px;}
+  .founder-grid{grid-template-columns:1fr;}
+  /* Mobile: stack — text first, bar diagram second. */
+  .phil-grid{grid-template-columns:1fr;gap:2.6rem;}
+  .phil-col-text{max-width:none;}
+  .band-frame{max-width:100%;margin:0 auto;}
+  .pband{height:56px;}
+  .pband-inner{padding:0 6%;}
+  .band-primary,.band-contrast{font-size:0.82rem;}
+  .pband.active .band-contrast{max-width:220px;}
+}
+
+/* Touch input can trigger a :hover state on tap and leave it "stuck" until
+   something else is tapped (a well-documented Android/Samsung Internet
+   quirk) — reset these hover-only tints back to resting values on devices
+   without true hover support. */
+@media(hover:none){
+  .titem:hover{background:var(--bg-0);border-color:var(--gb);}
+  .ritem:hover{background:var(--bg-1);}
+  .ritem-link:hover{background:var(--bg-1);}
+  .ritem-link:hover::after{opacity:0;transform:translateY(4px);}
+  /* Band and label visuals are driven entirely by JS-toggled classes
+     (see js/who-we-are-v2.js), not :hover, specifically so touch's
+     "stuck hover" quirk can't affect them — nothing to override here. */
+}
+
+/* ── ANIMATED LINE ICONS — standard sitewide treatment (same system as the
+   homepage). Every drawable shape in an .ic-anim icon carries pathLength="100"
+   in the markup, so one fixed 0→100 stroke-dashoffset range works regardless
+   of the shape's real geometry. First scroll into view flips on "ic-drawn",
+   which starts the repeating draw/erase loop at a thin, deliberately light
+   stroke. Currently applied to the three Recognition icons on this page. ── */
+.ic-anim{overflow:visible;stroke-width:1;}
+.ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{
+  stroke-dasharray:100;stroke-dashoffset:100;
+}
+.ic-anim.ic-drawn path,.ic-anim.ic-drawn line,.ic-anim.ic-drawn circle,.ic-anim.ic-drawn ellipse,.ic-anim.ic-drawn polyline,.ic-anim.ic-drawn polygon,.ic-anim.ic-drawn rect{
+  animation-name:kpiRedraw;animation-duration:6.5s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+}
+@keyframes kpiRedraw{
+  0%{stroke-dashoffset:100;}
+  30%{stroke-dashoffset:0;}
+  78%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:100;}
+}
+@media(prefers-reduced-motion:reduce){
+  .ic-anim path,.ic-anim line,.ic-anim circle,.ic-anim ellipse,.ic-anim polyline,.ic-anim polygon,.ic-anim rect{stroke-dashoffset:0 !important;}
+  .ic-anim,.ic-anim *{animation:none !important;}
+}
+
+/* Bar diagram — no sliding/scaling; the reveal still works, it just
+   fades/dims and the contrast phrase fades in rather than typing open. */
+@media(prefers-reduced-motion:reduce){
+  .pband{transition:border-color 0.25s ease,box-shadow 0.25s ease,opacity 0.25s ease,filter 0.25s ease !important;transform:none !important;}
+  .band-stage.has-active .pband{transform:none !important;}
+  .band-primary{transition:color 0.25s ease !important;}
+  .band-contrast{transition:opacity 0.25s ease !important;}
+}

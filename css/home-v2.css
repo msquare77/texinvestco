@@ -168,12 +168,9 @@ nav{
 }
 .stit em{font-style:normal;color:var(--gold);font-weight:400;}
 
-/* ── WHO WE ARE ──
-   Text block on the left, the four core-metric tiles on the right in a
-   2×2 grid — replaces the earlier full-width text-then-stat-row layout. */
-.who-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:4.5rem;align-items:center;}
-.who-p{font-size:1.125rem;font-weight:300;line-height:1.85;color:var(--mid);max-width:520px;margin-bottom:0;}
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--gb);}
+/* ── WHO WE ARE ── */
+.who-p{font-size:1.125rem;font-weight:300;line-height:1.85;color:var(--mid);max-width:680px;margin-bottom:3rem;}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gb);}
 .kpi{background:var(--bg-1);padding:2.4rem 1.1rem;text-align:center;}
 .kpi-n{font-family:var(--fd);font-size:1.9rem;font-weight:400;color:var(--gold);line-height:1;margin-bottom:0.9rem;}
 .kpi-l{font-size:0.62rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--lo);line-height:1.5;}
@@ -376,12 +373,6 @@ nav{
    as clickable without disrupting the card grid's shared visual rhythm. */
 .ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
 .ritem-link:hover{background:rgba(202,168,75,0.06);}
-/* Extra bottom padding reserves room for the hover-revealed "View case
-   study →" affordance below, so it never overlaps .rcases. Because .rgrid
-   is a CSS Grid with the default align-items:stretch, this taller card
-   stretches the two sibling .ritem cards to match — all three stay the
-   same height and stay aligned, without touching the siblings directly. */
-.ritem-link{padding-bottom:3.1rem;}
 /* Positioned absolutely (not left in normal flex flow) so this hidden
    affordance text never occupies flex-layout height — previously, even
    at opacity:0, it counted as a real flex item and stole vertical space
@@ -510,8 +501,6 @@ nav{
   padding-bottom:4px;transition:color 0.2s,border-color 0.2s;
 }
 .proof-link:hover{color:var(--hi);border-color:var(--hi);}
-/* Our Model teaser (#model) — link through to the full standalone page. */
-.mfoot-link{margin-top:1.6rem;}
 
 /* ── RESPONSIVE ── */
 /* Who We Partner With — 5 columns only where there's room to breathe;
@@ -540,8 +529,7 @@ nav{
   .mjoin .mjarrow-h{display:none;}
   .mjoin .mjarrow-v{display:inline;}
   .mjoin{padding:8px 0;}
-  .who-grid{grid-template-columns:1fr;gap:2.4rem;}
-  .who-p{max-width:680px;}
+  .kpis{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:900px){
   .bwrap{flex-wrap:wrap;justify-content:center;gap:0 0.28em;}
