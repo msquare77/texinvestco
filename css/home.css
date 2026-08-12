@@ -360,6 +360,27 @@ nav{
 
 /* ── RECOGNITION ── */
 .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gb);margin:2rem 0 1.8rem;}
+/* Homepage Recognition — plain (uncarded) two-column body under a thin
+   gold separator. Both columns share the exact same structure — icon,
+   eyebrow label, sub-heading, body copy, link — so they read as equal
+   weight; the SQL side just adds a pill row the other doesn't need. Reuses
+   the global .ritem-icon/.rorg/.raward/.rbody/.rcases text styling
+   directly (no per-column overrides) so the two stay visually identical. */
+.rec-sep{width:100%;height:1px;background:linear-gradient(90deg,rgba(202,168,75,0.55),rgba(202,168,75,0.05));margin:1.8rem 0 2.6rem;}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.rec-text .rbody,.rec-sql .rbody{margin-bottom:1.2rem;}
+.rec-sql .rcases{margin-top:0;margin-bottom:1.6rem;}
+.proof-arrow{
+  display:inline-flex;align-items:center;gap:0.4rem;font-size:0.88rem;font-weight:600;letter-spacing:0.06em;
+  color:var(--gold);text-decoration:underline;text-decoration-color:rgba(202,168,75,0.4);text-underline-offset:4px;
+  transition:color 0.2s,text-decoration-color 0.2s;
+}
+.proof-arrow-ic{width:15px;height:15px;flex-shrink:0;transition:transform 0.2s;}
+.proof-arrow:hover{color:var(--hi);text-decoration-color:var(--hi);}
+.proof-arrow:hover .proof-arrow-ic{transform:translateX(3px);}
+@media(max-width:900px){
+  .rec-grid{grid-template-columns:1fr;gap:2.4rem;}
+}
 .ritem{background:var(--bg-1);padding:2.2rem 1.6rem;display:flex;flex-direction:column;transition:background 0.2s;}
 .ritem:hover{background:rgba(201,168,76,0.05);}
 .ritem-icon{width:24px;height:24px;color:var(--gold);margin-bottom:0.9rem;}

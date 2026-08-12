@@ -277,6 +277,31 @@ function initImageParticles(canvasSelector,opts){
   requestAnimationFrame(loop);
 }
 
+/* initHashOffset — corrects for the fixed nav bar when a page LOADS
+   already pointed at a hash (e.g. clicking "who-we-are.html#recognition"
+   from another page). Same-page anchor clicks are handled separately by
+   each page's own click-intercept + smooth-scroll code (which already
+   applies this offset) and never reload the page, so this only fires on
+   genuine cross-page/hard navigations — no double-handling. Without this,
+   the browser's native hash jump lands the target section right under
+   (partly hidden behind) the fixed nav, which reads as "the link just
+   opens the page" rather than scrolling to the right spot. */
+function initHashOffset(offset){
+  offset = offset || 68;
+  function go(){
+    const hash = window.location.hash;
+    if(!hash || hash.length < 2) return;
+    const el = document.getElementById(hash.slice(1));
+    if(!el) return;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({top: Math.max(0,y), behavior:'auto'});
+  }
+  // run after full load (images/layout settled) so the measured position
+  // is accurate, overriding the browser's own instant native jump.
+  if(document.readyState === 'complete'){ go(); } else { window.addEventListener('load', go); }
+}
+
+initHashOffset();
 initScrollProgress();
 initParallaxBG('.cta-strip',0.06);
 initParallaxBG('.beyond-sec',0.05);

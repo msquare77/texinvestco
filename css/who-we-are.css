@@ -50,6 +50,8 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .founder-aside{}
 .founder-name{font-family:var(--fd);font-size:1.2rem;font-weight:600;color:var(--hi);margin-bottom:0.3rem;}
 .founder-role{font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.founder-photo{width:100%;max-width:220px;aspect-ratio:4/5;overflow:hidden;background:var(--bg-0);border-top:2px solid var(--gold);}
+.founder-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .founder-link{font-size:0.71rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.2s;display:inline-block;border-bottom:1px solid rgba(202,168,75,0.3);padding-bottom:2px;}
 .founder-link:hover{color:var(--hi);border-color:var(--hi);}
 .founder-body p{font-size:1.125rem;font-weight:300;color:var(--mid);line-height:1.9;margin-bottom:1.1rem;}
@@ -105,21 +107,26 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .rcase-sec{color:var(--gold);background:transparent;border-color:rgba(202,168,75,0.4);}
 
 /* .ritem-link — same card, but reachable as a link (currently just the
-   Microsoft/SQL Server case study card, which now opens its own page). */
-.ritem-link{text-decoration:none;color:inherit;cursor:pointer;position:relative;}
+   Microsoft/SQL Server case study card, which now opens its own page).
+   The "View Case Study" affordance is a normal, always-visible line in
+   the card body (not a hover-only reveal) so it reads as a plain link
+   rather than a hidden interaction people might miss. Because the whole
+   card is already the <a>, it's a styled <div>, not a nested anchor. The
+   grid's default align-items:stretch equalizes all three card heights to
+   match this (now tallest) card, so the extra line doesn't unbalance the
+   row — the other two cards just gain a little breathing room instead. */
+.ritem-link{text-decoration:none;color:inherit;cursor:pointer;}
 .ritem-link:hover{background:rgba(202,168,75,0.06);}
-/* Positioned absolutely (not left in normal flex flow) so this hidden
-   affordance text never occupies flex-layout height — previously, even
-   at opacity:0, it counted as a real flex item and stole vertical space
-   from .rbody{flex:1}, which is why the Microsoft card's pill row sat
-   noticeably higher than its siblings' (the only card using this class). */
-.ritem-link::after{
-  content:'View case study →';
-  position:absolute;left:1.6rem;bottom:1.3rem;pointer-events:none;
-  font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
-  color:var(--gold);opacity:0;transform:translateY(4px);transition:opacity 0.2s,transform 0.2s;
+.ritem-cta{
+  margin-top:1.2rem;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);transition:color 0.2s;
 }
-.ritem-link:hover::after{opacity:1;transform:none;}
+.ritem-link:hover .ritem-cta{color:var(--hi);}
+/* The two non-link cards (HBJ, Landmark) carry the same .ritem-cta line,
+   invisible, purely to reserve identical vertical space — this is what
+   pins all three cards' .rcases pill rows to the same height instead of
+   only the Microsoft card's pills sitting higher than its siblings'. */
+.ritem:not(.ritem-link) .ritem-cta{visibility:hidden;}
 
 /* Inline mention of the case study within the founder-story paragraph */
 .inline-link{color:var(--gold);text-decoration:underline;text-underline-offset:2px;transition:color 0.2s;}
@@ -234,7 +241,6 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
   .titem:hover{background:var(--bg-0);border-color:var(--gb);}
   .ritem:hover{background:var(--bg-1);}
   .ritem-link:hover{background:var(--bg-1);}
-  .ritem-link:hover::after{opacity:0;transform:translateY(4px);}
   /* Band and label visuals are driven entirely by JS-toggled classes
      (see js/who-we-are-v2.js), not :hover, specifically so touch's
      "stuck hover" quirk can't affect them — nothing to override here. */
