@@ -16,6 +16,24 @@
 <link rel="stylesheet" href="css/shared.css">
 <link rel="stylesheet" href="css/home.css">
 <noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
+<!-- Arriving pre-pointed at #contact (every "Discuss an Operating
+     Partnership" CTA sitewide lands here)? Hide the page immediately,
+     before first paint, so the browser's own native hash-jump — and any
+     of the corrective scroll passes in js/shared.js and js/home.js — all
+     happen off-screen. Some browsers visibly glitch a fixed+blurred nav
+     for a frame or two during a large instant scroll jump; hiding the
+     page until landing is fully settled means that glitch, if it
+     happens, is never actually seen. js/home.js removes "hj-pending"
+     once it has confirmed the section is correctly in place. A hard
+     2.5s timeout below is a safety net in case JS fails for any reason
+     — the page should never stay hidden forever. -->
+<style>html.hj-pending{visibility:hidden;}</style>
+<script>
+  if(window.location.hash === '#contact'){
+    document.documentElement.classList.add('hj-pending');
+    setTimeout(function(){document.documentElement.classList.remove('hj-pending');}, 2500);
+  }
+</script>
 </head>
 <body>
 

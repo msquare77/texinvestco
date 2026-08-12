@@ -307,6 +307,11 @@ function initHashOffset(offset){
   function go(){
     const hash = window.location.hash;
     if(!hash || hash.length < 2) return;
+    // index.html's own js/home.js owns "#contact" landings end-to-end
+    // (hide → position → reveal, via its goToContact()) — defer to it
+    // entirely rather than also racing to scroll the (still-hidden) page
+    // here too. Every other page/hash still goes through this generic path.
+    if(hash === '#contact' && typeof window.goToContact === 'function') return;
     const el = document.getElementById(hash.slice(1));
     if(!el) return;
     const prevBehavior = document.documentElement.style.scrollBehavior;

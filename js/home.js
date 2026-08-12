@@ -27,22 +27,8 @@ const ro=new IntersectionObserver((entries)=>{
   entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*50);ro.unobserve(e.target);}});
 },{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
 rvs.forEach(e=>ro.observe(e));
-
-// If we're arriving already pointed at #contact (every "Discuss an
-// Operating Partnership" CTA elsewhere on the site lands here via
-// "index.html#contact"), reveal its content immediately instead of
-// waiting on the IntersectionObserver above to catch up. Without this,
-// the section IS scrolled correctly into place, but its heading/copy/
-// form stay invisible (opacity:0, mid fade-in) for up to a second —
-// which reads as "the page didn't move / previous section is still
-// showing" since an unrevealed section's bare background looks the same
-// as any other dark section on the site.
-if(window.location.hash === '#contact'){
-  document.querySelectorAll('#contact .rv').forEach(e=>{
-    e.classList.add('on');
-    ro.unobserve(e);
-  });
-}
+// (Contact-section-specific instant reveal on arrival lives in
+// goToContact() below, alongside the scroll positioning it pairs with.)
 
 // Enhancement: animated line icons, sitewide. Every drawable shape in every
 // icon on the page carries pathLength="100" in the markup (see index.html),
@@ -160,50 +146,72 @@ function toggleTeam(id,btn){
   }
 }
 
-// Focus name field on desktop when user clicks Discuss CTA (same-page,
-// e.g. the homepage's own header/hero/mobile-panel CTAs).
+// ── "Discuss an Operating Partnership" → Contact section ───────────────
+// Every CTA that points here — same-page (header/hero/mobile-panel, a
+// plain "#contact" click) or cross-page (every other page's CTA, which
+// hard-navigates to "index.html#contact") — is routed through ONE
+// routine so both paths get identical, reliable behavior: land with the
+// section filling the viewport under the fixed nav, and the Name field
+// focused (desktop only). No path is left depending on the browser's
+// own native anchor-scroll, which is what caused the bug this replaces:
+// a same-page click used to just let the browser smooth-scroll there on
+// its own, and on some browsers a fixed + backdrop-blurred nav visibly
+// glitches/detaches for a frame or two during that scroll, leaving a
+// sliver of the previous section showing above it.
+//
+// The fix is to hide the page (via the "hj-pending" class + inline
+// style/script in <head>, which also covers the load-with-hash case),
+// position everything while nothing is visible, then reveal only once
+// settled — so no intermediate glitched frame can ever be seen,
+// regardless of which browser quirk would have caused it.
+function goToContact(){
+  const html=document.documentElement;
+  const sec=document.getElementById('contact');
+  const fn=document.getElementById('fn');
+  if(!sec) return;
+  html.classList.add('hj-pending');
+  document.querySelectorAll('#contact .rv').forEach(e=>{
+    e.classList.add('on');
+    ro.unobserve(e);
+  });
+  function settle(){
+    const prevBehavior=html.style.scrollBehavior;
+    html.style.scrollBehavior='auto';
+    const y=sec.getBoundingClientRect().top + window.pageYOffset - 68;
+    window.scrollTo({top:Math.max(0,y),behavior:'auto'});
+    html.style.scrollBehavior=prevBehavior;
+  }
+  // Two passes a frame apart: the first gets it right in the vast
+  // majority of cases; the second catches any late layout shift from
+  // still-loading media, then reveals — the page stays hidden for both,
+  // so which pass "wins" is invisible to the user either way.
+  settle();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    settle();
+    html.classList.remove('hj-pending');
+    if(window.innerWidth>720 && fn) fn.focus({preventScroll:true});
+  }));
+}
+
 document.querySelectorAll('a[href="#contact"]').forEach(a=>{
-  a.addEventListener('click',()=>{
-    if(window.innerWidth>720){
-      setTimeout(()=>{
-        const fn=document.getElementById('fn');
-        if(fn)fn.focus();
-      },600);
-    }
+  a.addEventListener('click',(e)=>{
+    e.preventDefault();
+    if(window.location.hash!=='#contact') history.pushState(null,'','#contact');
+    goToContact();
   });
 });
 
-// Focus name field when arriving from another page already pointed at
-// "index.html#contact" (every "Discuss an Operating Partnership" CTA on
-// every other page navigates here). shared.js's initHashOffset() already
-// scrolls the section into place (instantly, with a couple of late
-// re-checks — see its comment for why). This does its OWN redundant
-// position check right before focusing rather than trusting that timing
-// alone, because focus() itself is a common trigger for browsers to
-// interrupt an in-flight scroll — by the time we focus, we want scroll
-// to already be finished and correct, not racing it.
-(function(){
-  if(window.location.hash !== '#contact') return;
-  if(window.innerWidth <= 720) return;
-  function settleAndFocus(){
-    const el=document.getElementById('contact');
-    const fn=document.getElementById('fn');
-    if(!el||!fn) return;
-    const prevBehavior=document.documentElement.style.scrollBehavior;
-    document.documentElement.style.scrollBehavior='auto';
-    const y=el.getBoundingClientRect().top + window.pageYOffset - 68;
-    window.scrollTo({top:Math.max(0,y),behavior:'auto'});
-    document.documentElement.style.scrollBehavior=prevBehavior;
-    fn.focus({preventScroll:true});
+// Arriving from another page already pointed at "index.html#contact"
+// (or a hard refresh on that URL). <head>'s inline script has already
+// added "hj-pending" before first paint; run once the DOM is ready
+// enough to measure positions and reveal.
+if(window.location.hash === '#contact'){
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', goToContact);
+  } else {
+    goToContact();
   }
-  function focusName(){
-    // Give initHashOffset's own passes (0ms/200ms/600ms after load) a
-    // moment to finish, then do a final settle + focus.
-    setTimeout(settleAndFocus, 700);
-  }
-  if(document.readyState === 'complete'){ focusName(); }
-  else { window.addEventListener('load', focusName); }
-})();
+}
 
 // Contact form
 const ct=document.getElementById('fthanks');
