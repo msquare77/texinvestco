@@ -144,7 +144,8 @@ function toggleTeam(id,btn){
   }
 }
 
-// Focus name field on desktop when user clicks Discuss CTA
+// Focus name field on desktop when user clicks Discuss CTA (same-page,
+// e.g. the homepage's own header/hero/mobile-panel CTAs).
 document.querySelectorAll('a[href="#contact"]').forEach(a=>{
   a.addEventListener('click',()=>{
     if(window.innerWidth>720){
@@ -155,6 +156,25 @@ document.querySelectorAll('a[href="#contact"]').forEach(a=>{
     }
   });
 });
+
+// Focus name field when arriving from another page already pointed at
+// "index.html#contact" (every "Discuss an Operating Partnership" CTA on
+// every other page navigates here). shared.js's initHashOffset() handles
+// scrolling the section into place on load; once that settles, put the
+// cursor straight into the first field so the form is ready to type into,
+// not just in view. preventScroll avoids fighting that scroll correction.
+(function(){
+  if(window.location.hash !== '#contact') return;
+  if(window.innerWidth <= 720) return;
+  function focusName(){
+    setTimeout(()=>{
+      const fn=document.getElementById('fn');
+      if(fn) fn.focus({preventScroll:true});
+    },650);
+  }
+  if(document.readyState === 'complete'){ focusName(); }
+  else { window.addEventListener('load', focusName); }
+})();
 
 // Contact form
 const ct=document.getElementById('fthanks');
