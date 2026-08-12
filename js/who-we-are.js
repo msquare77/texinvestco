@@ -26,11 +26,11 @@ initMobileNav();
   icons.forEach(svg=>io.observe(svg));
 })();
 
-// Philosophy — interactive four-bar diagram. Hover/focus brings all bars
-// into alignment and grows the selected one slightly while its contrast
-// phrase types open (pure CSS, see who-we-are-v2.css); click/tap locks a
-// bar open (needed for touch, where there's no hover to leave). Only one
-// bar is ever active.
+// Philosophy — interactive four-bar diagram. Bars are aligned at rest;
+// hover/focus grows the selected one slightly while its contrast phrase
+// types open (pure CSS, see who-we-are.css); click/tap locks a bar open
+// (needed for touch, where there's no hover to leave). Only one bar is
+// ever active.
 (function(){
   const stage=document.getElementById('bandStage');
   if(!stage) return;

@@ -140,13 +140,15 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
 .phil-col-aperture{display:flex;justify-content:center;align-items:center;}
 
 /* ── HORIZONTAL BAR DIAGRAM ────────────────────────────────────────────
-   Four horizontal bars, stacked, each misaligned (translateX) at rest.
-   Hovering/focusing/tapping any bar brings ALL bars into alignment
-   (translateX:0); the selected bar additionally scales up slightly, as
-   if stepping toward the viewer. Text lives centered inside each bar in
-   the body sans-serif — no separate label layer, no connector lines,
-   nothing to go visually "messy": the only moving parts are the bars
-   themselves and the text they contain. ── */
+   Four horizontal bars, stacked and aligned at rest (client asked for the
+   old misalignment-then-snap-into-place effect to be removed — bars now
+   stay in a clean stacked column at all times). Hovering/focusing/
+   tapping any bar reveals its contrast phrase and scales the bar up
+   slightly, as if stepping toward the viewer — no horizontal movement.
+   Text lives centered inside each bar in the body sans-serif — no
+   separate label layer, no connector lines, nothing to go visually
+   "messy": the only moving parts are the bar's scale and the text
+   reveal. ── */
 .band-frame{position:relative;width:100%;max-width:480px;margin:0 auto;}
 .band-stage{display:flex;flex-direction:column;gap:18px;}
 
@@ -159,27 +161,23 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;}
     linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.12)),
     var(--band-bg,#101c33);
   box-shadow:0 8px 20px -16px rgba(0,0,0,0.55);
-  transform:translateX(var(--rest-x,0)) scale(1);
+  transform:scale(1);
   transition:transform 1s cubic-bezier(.22,.61,.36,1),border-color 0.8s ease,
     box-shadow 0.8s ease,opacity 0.8s ease,filter 0.8s ease;
 }
-/* Each bar a hair tonally distinct + its own resting horizontal offset —
-   misaligned but balanced (offsets roughly cancel out). */
-.pband[data-band="1"]{--band-bg:#0f1c33;--rest-x:-22px;}
-.pband[data-band="2"]{--band-bg:#101d35;--rest-x:16px;}
-.pband[data-band="3"]{--band-bg:#0e1a30;--rest-x:-14px;}
-.pband[data-band="4"]{--band-bg:#111f39;--rest-x:24px;}
+/* Each bar kept a hair tonally distinct for depth — no resting offset. */
+.pband[data-band="1"]{--band-bg:#0f1c33;}
+.pband[data-band="2"]{--band-bg:#101d35;}
+.pband[data-band="3"]{--band-bg:#0e1a30;}
+.pband[data-band="4"]{--band-bg:#111f39;}
 
 .pband:focus-visible{outline:none;border-color:rgba(202,168,75,0.6);}
 
-/* Any bar active → every bar snaps into alignment (translateX:0); the
-   active one additionally scales up and lifts above its neighbors.
-   :not(.active) here is load-bearing — without it this rule's higher
-   specificity (three classes vs. two) would win over .pband.active below
-   and silently reset the active bar's scale back to 1. */
-.band-stage.has-active .pband:not(.active){transform:translateX(0) scale(1);}
+/* Any bar active → it scales up and lifts above its neighbors; the rest
+   dim slightly. Bars never move horizontally, so there's nothing to
+   "snap into place" — this is a pure text-reveal + scale interaction. */
 .pband.active{
-  transform:translateX(0) scale(1.09);
+  transform:scale(1.09);
   border-color:rgba(202,168,75,0.85);
   box-shadow:0 20px 40px -16px rgba(0,0,0,0.65),0 0 0 1px rgba(202,168,75,0.12) inset;
   z-index:2;
