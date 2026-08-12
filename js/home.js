@@ -28,6 +28,22 @@ const ro=new IntersectionObserver((entries)=>{
 },{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
 rvs.forEach(e=>ro.observe(e));
 
+// If we're arriving already pointed at #contact (every "Discuss an
+// Operating Partnership" CTA elsewhere on the site lands here via
+// "index.html#contact"), reveal its content immediately instead of
+// waiting on the IntersectionObserver above to catch up. Without this,
+// the section IS scrolled correctly into place, but its heading/copy/
+// form stay invisible (opacity:0, mid fade-in) for up to a second —
+// which reads as "the page didn't move / previous section is still
+// showing" since an unrevealed section's bare background looks the same
+// as any other dark section on the site.
+if(window.location.hash === '#contact'){
+  document.querySelectorAll('#contact .rv').forEach(e=>{
+    e.classList.add('on');
+    ro.unobserve(e);
+  });
+}
+
 // Enhancement: animated line icons, sitewide. Every drawable shape in every
 // icon on the page carries pathLength="100" in the markup (see index.html),
 // so a single fixed 0→100 stroke-dashoffset range works regardless of a
