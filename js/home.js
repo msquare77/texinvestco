@@ -159,18 +159,31 @@ document.querySelectorAll('a[href="#contact"]').forEach(a=>{
 
 // Focus name field when arriving from another page already pointed at
 // "index.html#contact" (every "Discuss an Operating Partnership" CTA on
-// every other page navigates here). shared.js's initHashOffset() handles
-// scrolling the section into place on load; once that settles, put the
-// cursor straight into the first field so the form is ready to type into,
-// not just in view. preventScroll avoids fighting that scroll correction.
+// every other page navigates here). shared.js's initHashOffset() already
+// scrolls the section into place (instantly, with a couple of late
+// re-checks — see its comment for why). This does its OWN redundant
+// position check right before focusing rather than trusting that timing
+// alone, because focus() itself is a common trigger for browsers to
+// interrupt an in-flight scroll — by the time we focus, we want scroll
+// to already be finished and correct, not racing it.
 (function(){
   if(window.location.hash !== '#contact') return;
   if(window.innerWidth <= 720) return;
+  function settleAndFocus(){
+    const el=document.getElementById('contact');
+    const fn=document.getElementById('fn');
+    if(!el||!fn) return;
+    const prevBehavior=document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior='auto';
+    const y=el.getBoundingClientRect().top + window.pageYOffset - 68;
+    window.scrollTo({top:Math.max(0,y),behavior:'auto'});
+    document.documentElement.style.scrollBehavior=prevBehavior;
+    fn.focus({preventScroll:true});
+  }
   function focusName(){
-    setTimeout(()=>{
-      const fn=document.getElementById('fn');
-      if(fn) fn.focus({preventScroll:true});
-    },650);
+    // Give initHashOffset's own passes (0ms/200ms/600ms after load) a
+    // moment to finish, then do a final settle + focus.
+    setTimeout(settleAndFocus, 700);
   }
   if(document.readyState === 'complete'){ focusName(); }
   else { window.addEventListener('load', focusName); }

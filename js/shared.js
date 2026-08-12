@@ -278,14 +278,30 @@ function initImageParticles(canvasSelector,opts){
 }
 
 /* initHashOffset — corrects for the fixed nav bar when a page LOADS
-   already pointed at a hash (e.g. clicking "who-we-are.html#recognition"
-   from another page). Same-page anchor clicks are handled separately by
-   each page's own click-intercept + smooth-scroll code (which already
-   applies this offset) and never reload the page, so this only fires on
-   genuine cross-page/hard navigations — no double-handling. Without this,
-   the browser's native hash jump lands the target section right under
+   already pointed at a hash (e.g. clicking "who-we-are.html#recognition",
+   or "Discuss an Operating Partnership" → "index.html#contact", from
+   another page). Same-page anchor clicks are handled separately by each
+   page's own click-intercept + smooth-scroll code (which already applies
+   this offset) and never reload the page, so this only fires on genuine
+   cross-page/hard navigations — no double-handling. Without this, the
+   browser's native hash jump lands the target section right under
    (partly hidden behind) the fixed nav, which reads as "the link just
-   opens the page" rather than scrolling to the right spot. */
+   opens the page" rather than scrolling to the right spot.
+
+   Two deliberate robustness fixes here (both were causing the section to
+   visibly land "halfway" instead of filling the viewport):
+   1. The jump is forced INSTANT (documentElement.style.scrollBehavior is
+      temporarily set to 'auto', which — as an inline style — overrides
+      the sitewide `html{scroll-behavior:smooth}` CSS rule). Without this,
+      a `scrollTo(..., {behavior:'auto'})` call still inherits the CSS
+      smooth behavior per spec, turns into a ~600-900ms animated scroll,
+      and that animation is liable to be cut short/interrupted by any
+      other scroll-adjusting script that runs mid-flight (e.g. a later
+      focus() call) — leaving the page stuck partway there.
+   2. It re-measures and re-corrects a few times after the initial jump
+      (not just once on window 'load') because unsized images/video on
+      the page can still shift layout height after 'load' fires, which
+      would silently invalidate a one-shot position calculation. */
 function initHashOffset(offset){
   offset = offset || 68;
   function go(){
@@ -293,12 +309,22 @@ function initHashOffset(offset){
     if(!hash || hash.length < 2) return;
     const el = document.getElementById(hash.slice(1));
     if(!el) return;
+    const prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
     const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({top: Math.max(0,y), behavior:'auto'});
+    document.documentElement.style.scrollBehavior = prevBehavior;
   }
-  // run after full load (images/layout settled) so the measured position
-  // is accurate, overriding the browser's own instant native jump.
-  if(document.readyState === 'complete'){ go(); } else { window.addEventListener('load', go); }
+  // Run once resources are loaded (images/layout mostly settled), then
+  // re-run a couple more times shortly after to catch any late layout
+  // shift (e.g. video metadata arriving) that would otherwise leave the
+  // section short of a full, viewport-filling landing.
+  function goRepeatedly(){
+    go();
+    setTimeout(go, 200);
+    setTimeout(go, 600);
+  }
+  if(document.readyState === 'complete'){ goRepeatedly(); } else { window.addEventListener('load', goRepeatedly); }
 }
 
 initHashOffset();
